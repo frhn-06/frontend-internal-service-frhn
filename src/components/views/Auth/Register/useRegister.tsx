@@ -68,6 +68,7 @@ const useRegister = () => {
             message: `Pendaftaran Berhasil. Selamat Datang ${user?.name}`
         })
         reset();
+        console.log("ok")
         router.push("/")
     }
 
