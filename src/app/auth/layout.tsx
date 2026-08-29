@@ -1,3 +1,4 @@
+import AuthShell from "@/components/layouts/Auth/AuthShell";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -18,8 +19,8 @@ export default function AuthLayout(props: TypeProps) {
 	} = props;
 
   return (
-		<div className="min-h-screen w-full ">
-			{children}
-		</div>
+		<AuthShell>
+      {children}
+    </AuthShell>
 	)
 }

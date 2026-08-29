@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import AuthLayout from "../layout";
 import Register from "@/components/views/Auth/Register/Register";
 
 export const metadata: Metadata = {
@@ -8,8 +7,6 @@ export const metadata: Metadata = {
 
 export default function RegisterPage() {
   return (
-    <AuthLayout>
-      <Register />
-    </AuthLayout>
+    <Register />
   )
 }

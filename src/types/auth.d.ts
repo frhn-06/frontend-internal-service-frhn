@@ -1,9 +1,11 @@
 import { Session, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
+type UserRole = "ADMIN" | "AGENT" | "EMPLOYEE";
+
 interface UserExtended extends User {
     accessToken?: string;
-    role?: string;
+    role?: UserRole;
     departmentId?: number | null
 }
 
