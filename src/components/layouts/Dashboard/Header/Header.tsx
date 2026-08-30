@@ -43,10 +43,10 @@ const Header = (props: TypeProps) => {
           />
           <div>
             <h1 className="text-xl lg:text-2xl text-foreground font-bold">
-              {header.title ?? "Internal Service"}
+              {header?.title ?? "Internal Service"}
             </h1>
             <p className="text-sm lg:text-base text-text-abu font-medium">
-              {header.description ?? "Internal service application"}
+              {header?.description ?? "Internal service application"}
             </p>
           </div>
         </div>

@@ -3,15 +3,15 @@ const headerDashboardConfig = {
         title: "Dashboard" ,
         description: "description admin dashboard"
     },
-    "/admin/agents" : {
+    "/admin/agent" : {
         title: "Agents" ,
         description: "description admin agents"
     },
-    "/admin/departments" : {
+    "/admin/department" : {
         title: "Departments" ,
         description: "description admin departments"
     },
-    "/admin/employees" : {
+    "/admin/employee" : {
         title: "Employees" ,
         description: "description admin employees"
     },

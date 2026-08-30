@@ -12,25 +12,25 @@ const listSidebar = {
             id: "tickets",
             label: "All Tickets",
             icon: <Tickets />,
-            href: "/admin/tickets"
+            href: "/admin/ticket"
         },
         {
             id: "departments",
             label: "Departments",
             icon: <Building2 />,
-            href: "/admin/departments"
+            href: "/admin/department"
         },
         {
             id: "agents",
             label: "Agent Management",
             icon: <Users />,
-            href: "/admin/agents"
+            href: "/admin/agent"
         },
         {
             id: "employees",
             label: "Employees",
             icon: <UserRound />,
-            href: "/admin/employees"
+            href: "/admin/employee"
         },
     ],
 

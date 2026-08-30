@@ -5,7 +5,7 @@ interface IDepartmentForm {
 interface IDepartment extends IDepartmentForm {
     id: number;
     name: string;
-    createdAt: string;
+    createdAt: string | Date;
 }
 
 export type {IDepartmentForm, IDepartment}

@@ -46,7 +46,9 @@ const DashboardShell = (props: TypeProps) => {
         />
 
         <div className="overflow-auto h-svh">
-          {children}
+          <div className="px-2 py-6 lg:px-6 lg:py-12 h-full">
+            {children}
+          </div>
 
           <div className="w-full p-4 bg-gray-200 min-h-12">
             <p className="text-foreground text-sm">
