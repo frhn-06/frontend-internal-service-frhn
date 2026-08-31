@@ -85,7 +85,7 @@ const TableUi = (props: TypeProps) => {
         </div>
       )
     }
-  }, [onSearch, onClearSearch]);
+  }, [onSearch, onClearSearch, isCreate, isSearch, textSearch, contentCreate]);
 
   
   const bottomContent = useMemo(() => {
@@ -109,14 +109,14 @@ const TableUi = (props: TypeProps) => {
         </div>
       )
     }
-  },[currentLimit, currentPage, totalPage])
+  },[currentLimit, currentPage, totalPage, handleLimit, handlePagination, isPagination, isLimit])
 
 
   return (
     <div>
       {topContent}
 
-      <Table className="min-h-40">
+      <Table className="min-h-10">
         <Table.ScrollContainer>
           <Table.Content aria-label="Team members" className="min-w-[600px]">
             <Table.Header>

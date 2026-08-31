@@ -7,6 +7,7 @@ import listColumns from "./listColumns";
 import Convert from "@/utils/convert.";
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 import AddDepartment from "./AddDepartment";
+import DeleteDepartment from "./DeleteDepartment";
 
 const Department = () => {
   const {
@@ -55,18 +56,26 @@ const Department = () => {
             >
               Detail
             </ButtonSolid>
-            <ButtonSolid 
-              size="sm" 
-              className="bg-red-500 hover:bg-red-400"
-            >
-              Delete
-            </ButtonSolid>
+        
+            <DeleteDepartment 
+              data={data}
+              refetch={refetchDepartments}
+              ButtonOpen={(
+                <ButtonSolid
+                  size="sm"
+                  className="bg-red-500 hover:bg-red-400 active:hover:bg-red-600"
+                >
+                  Delete
+                </ButtonSolid>
+              )}
+            />
+    
           </div>
         )
       default :
         return value as React.ReactNode
     }
-  }, [])
+  }, [refetchDepartments])
 
   return (
     <>
@@ -75,7 +84,7 @@ const Department = () => {
           {errorDepartments?.message}
         </div>
       ) : (
-        <div className="relative min-h-40">
+        <div className="relative min-h-10">
           <TableUi 
             renderCell={renderCell}
             data={dataDepartments?.data}
