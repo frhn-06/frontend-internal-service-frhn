@@ -85,7 +85,7 @@ const Department = () => {
 
             isCreate
             contentCreate={(
-              <AddDepartment />
+              <AddDepartment refetch={refetchDepartments} />
             )}
 
             isSearch
@@ -103,7 +103,7 @@ const Department = () => {
             totalPage={dataDepartments?.pagination?.totalPage}
           /> 
 
-          {isLoadingDepartments && (
+          {isLoadingDepartments || isRefetchingDepartments && (
             <div className="absolute top-0 right-0 left-0 bottom-0 bg-black/30 backdrop-blur-xs rounded-2xl" />
           )}
             

@@ -2,15 +2,50 @@
 
 import ButtonFlat from "@/components/ui/Button/ButtonFlat";
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
-import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
+import { Input, Form,Label, Modal, Surface, TextField, useOverlayState } from "@heroui/react";
+import useAddDepartment from "./useAddDepartment";
+import { Controller } from "react-hook-form";
+import { useEffect } from "react";
 
+interface TypeProps {
+  refetch: () => void;
+}
 
+const AddDepartment = (props: TypeProps) => {
+  const {
+    refetch
+  } = props;
 
-const AddDepartment = () => {
+  const {
+    control,
+    handleSubmit,
+    errors,
+    reset,
+
+    isPendingAddDepartment,
+    isSuccessAddDepartment,
+
+    onAddDepartment
+  } = useAddDepartment();
+
+  const state = useOverlayState();
+
+  useEffect(() => {
+    if (!state.isOpen) {
+      reset();
+    }
+  }, [state.isOpen, reset]);
+
+  useEffect(() => {
+    if(isSuccessAddDepartment && state.isOpen) {
+      refetch();
+      state.close();
+    }
+  }, [isSuccessAddDepartment, state])
   
 
   return (
-    <Modal>
+    <Modal state={state}>
       <ButtonSolid>
         Tambah Department
       </ButtonSolid>
@@ -28,40 +63,46 @@ const AddDepartment = () => {
                 description
               </p>
             </Modal.Header>
-            <Modal.Body className="p-6">
-              <Surface variant="default">
-                <form className="flex flex-col gap-4">
-                  <TextField className="w-full" name="name" type="text" variant="secondary">
-                    <Label>Name</Label>
-                    <Input placeholder="Enter your name" />
-                  </TextField>
-                  <TextField className="w-full" name="email" type="email" variant="secondary">
-                    <Label>Email</Label>
-                    <Input placeholder="Enter your email" />
-                  </TextField>
-                  <TextField className="w-full" name="phone" type="tel" variant="secondary">
-                    <Label>Phone</Label>
-                    <Input placeholder="Enter your phone number" />
-                  </TextField>
-                  <TextField className="w-full" name="company" variant="secondary">
-                    <Label>Company</Label>
-                    <Input placeholder="Enter your company name" />
-                  </TextField>
-                  <TextField className="w-full" name="message" variant="secondary">
-                    <Label>Message</Label>
-                    <Input placeholder="Enter your message" />
-                  </TextField>
-                </form>
-              </Surface>
-            </Modal.Body>
-            <Modal.Footer>
-              <ButtonFlat slot="close">
-                Kembali
-              </ButtonFlat>
-              <ButtonSolid>
-                Simpan
-              </ButtonSolid>
-            </Modal.Footer>
+            <Form className="mt-2" onSubmit={handleSubmit(onAddDepartment)}>
+              <Modal.Body>
+                <Surface variant="default">
+                  <div className="flex flex-col gap-4">
+                    {errors?.root && (
+                      <p className="text-red-500 text-sm">
+                        {errors?.root.message}
+                      </p>
+                    )}
+
+                    <TextField className="w-full" name="name" type="text" variant="secondary">
+                      <Label>
+                        Name
+                      </Label>
+                      <Controller control={control} name="name" render={({field}) => (
+                        <Input 
+                          {...field}
+                          placeholder="Contoh: Department Finance"
+                          className={errors?.name ? "ring-1 ring-red-500" : ""} 
+                        />
+                      )} />
+                      {errors?.name && (
+                        <p className="text-red-500 text-sm mt-1">
+                        {errors?.name.message}
+                      </p>
+                      )}
+                    </TextField>
+                  </div>
+                </Surface>
+              </Modal.Body>
+
+              <Modal.Footer>
+                <ButtonFlat slot="close" onPress={reset} isDisabled={isPendingAddDepartment}>
+                  Kembali
+                </ButtonFlat>
+                <ButtonSolid type="submit" isDisabled={isPendingAddDepartment}>
+                  {isPendingAddDepartment ? "Menyimpan..." : "Simpan"}
+                </ButtonSolid>
+              </Modal.Footer>
+            </Form>
           </Modal.Dialog>
         </Modal.Container>
       </Modal.Backdrop>
