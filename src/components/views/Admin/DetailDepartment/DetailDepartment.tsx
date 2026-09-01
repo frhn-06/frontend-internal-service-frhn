@@ -33,13 +33,13 @@ const DetailDepartment = () => {
         name: dataDepartment.name
       })
     }
-  },[dataDepartment, reset]);
+  },[dataDepartment]);
 
   useEffect(() => {
     if(isSuccessUpdateDepartment) {
       refetchDepartment();
     }
-  }, [isSuccessUpdateDepartment, refetchDepartment])
+  }, [isSuccessUpdateDepartment])
   
   return (
     <div>
