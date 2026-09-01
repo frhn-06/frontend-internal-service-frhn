@@ -4,6 +4,8 @@ import { ChangeEvent, useMemo } from "react";
 import InputSearch from "../InputSearch";
 import Limit from "../Limit";
 import PaginationUi from "../Pagination";
+import SelectUi from "../SelectUi";
+import { listStatus } from "@/configs/tableConfig";
 
 interface TypeProps {
   renderCell: (
@@ -22,6 +24,10 @@ interface TypeProps {
   textSearch?: string;
   onSearch?: (e: ChangeEvent<HTMLInputElement>) => void;
   onClearSearch?: () => void;
+
+  isStatus?: boolean;
+  onChangeStatus?: (value: string) => void;
+  currentStatus?: string;
 
   isLimit?: boolean;
   currentLimit?: string;
@@ -49,6 +55,10 @@ const TableUi = (props: TypeProps) => {
     onSearch,
     onClearSearch,
 
+    isStatus,
+    onChangeStatus,
+    currentStatus,
+
     isLimit,
     currentLimit,
     handleLimit,
@@ -70,22 +80,36 @@ const TableUi = (props: TypeProps) => {
   }
 
   const topContent = useMemo(() => {
-    if(isCreate || isSearch) {
+    if(isCreate || isSearch || isStatus) {
       return (
-        <div className="flex flex-col lg:flex-row justify-between mb-4 gap-4">
-          {isCreate && contentCreate}
+        <div>
+          <div className="mb-4 gap-4">
+            {isCreate && contentCreate}
 
-          {isSearch && (
-            <InputSearch 
-              onSearch={onSearch}
-              onClearSearch={onClearSearch}
-              textSearch={textSearch}
-      />
-          )}
+          </div>
+          
+          <div className="flex flex-col lg:flex-row justify-between items-start mb-4 gap-4">
+            {isSearch && (
+              <InputSearch 
+                onSearch={onSearch}
+                onClearSearch={onClearSearch}
+                textSearch={textSearch}
+              />
+            )}
+
+            {isStatus && (
+              <SelectUi
+                currentSelect={currentStatus}
+                handleSelect={onChangeStatus}
+                listSelect={listStatus}
+                label="Status"
+              />
+            )}  
+          </div>
         </div>
       )
     }
-  }, [onSearch, onClearSearch, isCreate, isSearch, textSearch, contentCreate]);
+  }, [onSearch, onClearSearch, isCreate, isSearch, textSearch, contentCreate, isStatus, onChangeStatus, currentStatus]);
 
   
   const bottomContent = useMemo(() => {
