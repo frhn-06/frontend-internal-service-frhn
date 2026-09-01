@@ -8,6 +8,7 @@ import useAgent from "./useAgent";
 import { Chip } from "@heroui/react";
 import AddAgent from "./AddAgent";
 import { IAgent } from "@/types/agent";
+import DeleteAgent from "./DeleteAgent";
 
 const Agent = () => {
   const {
@@ -70,9 +71,9 @@ const Agent = () => {
               Detail
             </ButtonSolid>
         
-            {/* <DeleteDepartment 
+            <DeleteAgent 
               data={data}
-              refetch={refetchDepartments}
+              refetch={refetchAgents}
               ButtonOpen={(
                 <ButtonSolid
                   size="sm"
@@ -81,7 +82,7 @@ const Agent = () => {
                   Delete
                 </ButtonSolid>
               )}
-            /> */}
+            />
     
           </div>
         )

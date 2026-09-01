@@ -109,7 +109,7 @@ const TableUi = (props: TypeProps) => {
         </div>
       )
     }
-  }, [onSearch, onClearSearch, textSearch, contentCreate, onChangeStatus, currentStatus]);
+  }, [onSearch, onClearSearch, onChangeStatus, currentStatus]);
 
   
   const bottomContent = useMemo(() => {

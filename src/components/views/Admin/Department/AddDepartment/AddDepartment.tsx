@@ -34,14 +34,14 @@ const AddDepartment = (props: TypeProps) => {
     if (!state.isOpen) {
       reset();
     }
-  }, [state.isOpen, reset]);
+  }, [state.isOpen]);
 
   useEffect(() => {
     if(isSuccessAddDepartment && state.isOpen) {
       refetch();
       state.close();
     }
-  }, [isSuccessAddDepartment, state])
+  }, [isSuccessAddDepartment, state.isOpen])
   
 
   return (

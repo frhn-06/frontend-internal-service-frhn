@@ -32,13 +32,13 @@ const DeleteDepartment = (props: TypeProps) => {
       refetch();
       state.close();
     }
-  }, [isSuccessDeleteDepartment, state, refetch]);
+  }, [isSuccessDeleteDepartment]);
 
   useEffect(() => {
     if(isErrorDeleteDepartment) {
       state.close();
     }
-  },[isErrorDeleteDepartment, state])
+  },[isErrorDeleteDepartment])
 
 
   return (
