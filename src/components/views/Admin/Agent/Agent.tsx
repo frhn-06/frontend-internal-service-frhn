@@ -9,6 +9,7 @@ import { Chip } from "@heroui/react";
 import AddAgent from "./AddAgent";
 import { IAgent } from "@/types/agent";
 import DeleteAgent from "./DeleteAgent";
+import ChangeStatus from "./ChangeStatus/ChangeStatus";
 
 const Agent = () => {
   const {
@@ -80,6 +81,19 @@ const Agent = () => {
                   className="bg-red-500 hover:bg-red-400 active:hover:bg-red-600"
                 >
                   Delete
+                </ButtonSolid>
+              )}
+            />
+
+            <ChangeStatus 
+              data={data}
+              refetch={refetchAgents}
+              ButtonOpen={(
+                <ButtonSolid
+                  size="sm"
+                  className="bg-green-500 hover:bg-green-400 active:hover:bg-green-600"
+                >
+                  Ubah Status ({data.isActive ? "NonActive" : "Active"})
                 </ButtonSolid>
               )}
             />

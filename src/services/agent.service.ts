@@ -11,7 +11,9 @@ const AgentService = {
 
     update: (id:string, data: IAgentForm) => instance.patch(`${endpoint.AGENT}/${id}`, data),
 
-    delete: (id: string) => instance.delete(`${endpoint.AGENT}/${id}`)
+    delete: (id: string) => instance.delete(`${endpoint.AGENT}/${id}`),
+
+    status: (id: string) => instance.patch(`${endpoint.AGENT}/${id}/status`),
 }
 
 export default AgentService;
