@@ -91,6 +91,7 @@ const Sidebar = (props: TypeProps) => {
                 route.startsWith(`${nav.href}`) && "bg-background-element text-white",
                 !route.startsWith(`${nav.href}`) && "active:bg-background-element active:text-white"
               )}
+              onClick={() => setToggleSidebar(false)}
             >
               {nav.label}
             </Link>

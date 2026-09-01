@@ -32,6 +32,7 @@ const Header = (props: TypeProps) => {
       <ToggleSidebarDekstop 
         onClick={() => setToggleSidebar(!toggleSidebarActive)} 
         sidebarActive={toggleSidebarActive}
+        className="z-10"
       />
 
       <div className="p-2 lg:px-8 lg:py-2 flex items-center min-h-20 justify-between gap-2">

@@ -12,7 +12,7 @@ const useAddAgent = () => {
     const { setToaster } = useToaster();
 
 
-    const [disabled, setDisabled] = useState(false);
+    const [disabled, setDisabled] = useState(true);
 
     const handleDisabled = () => {
         setDisabled(!disabled);
