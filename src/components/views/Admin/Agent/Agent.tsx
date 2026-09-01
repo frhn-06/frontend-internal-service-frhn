@@ -6,6 +6,8 @@ import listColumns from "./listColumns";
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 import useAgent from "./useAgent";
 import { Chip } from "@heroui/react";
+import AddAgent from "./AddAgent";
+import { IAgent } from "@/types/agent";
 
 const Agent = () => {
   const {
@@ -103,13 +105,13 @@ const Agent = () => {
 
             textEmpty="kosong"
 
-            // isCreate
-            // contentCreate={(
-            //   <AddDepartment refetch={refetchDepartments} />
-            // )}
+            isCreate
+            contentCreate={(
+              <AddAgent refetch={refetchAgents} />
+            )}
 
             isSearch
-            textSearch="Cari Department"
+            textSearch="Cari Agent"
             onSearch={handleSearch}
             onClearSearch={handleClearSearch}
 

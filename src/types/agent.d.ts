@@ -10,3 +10,11 @@ interface IAgent {
     createdAt?: string;
 
 }
+
+
+interface IAgentForm extends Omit<IAgent, "id" | "department" | "isActive" | "createdAt">   {
+    departmentId?:  number | string;
+    password?: string;
+}
+
+export type { IAgent, IAgentForm };
