@@ -63,7 +63,7 @@ const Agent = () => {
           <div className="flex gap-2">
             <ButtonSolid
               as="link"
-              href={`/admin/department/${data.id}`}
+              href={`/admin/agent/${data.id}`}
               size="sm" 
               className="bg-blue-500 hover:bg-blue-400"
             >
