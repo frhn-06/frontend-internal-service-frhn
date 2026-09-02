@@ -65,7 +65,7 @@ const Category = () => {
           <div className="flex gap-2">
             <ButtonSolid
               as="link"
-              href={`/admin/Category/${data.id}`}
+              href={`/admin/category/${data.id}`}
               size="sm" 
               className="bg-blue-500 hover:bg-blue-400"
             >

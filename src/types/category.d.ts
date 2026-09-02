@@ -1,7 +1,7 @@
 interface ICategory {
     id?: number;
     name?: string;
-    description?: string;
+    description?: string | null;
     isActive?: boolean;
     departmentId?: number;
     department?: {

@@ -130,7 +130,6 @@ const DetailAgent = () => {
                   {errors?.name && (
                     <p className="text-red-500 mt-1 text-sm">
                       {errors?.name.message}
-                      asu
                     </p>
                   )}
                 </TextField>
@@ -148,7 +147,6 @@ const DetailAgent = () => {
                   {errors?.email && (
                     <p className="text-red-500 mt-1 text-sm">
                       {errors?.email.message}
-                      asu
                     </p>
                   )}
                 </TextField>
