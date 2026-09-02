@@ -8,6 +8,8 @@ import { Chip } from "@heroui/react";
 import { ICategory } from "@/types/category";
 import listColumns from "./listColumns";
 import AddCategory from "./AddCategory";
+import ChangeStatus from "./ChangeStatus";
+import DeleteCategory from "./DeleteCategory";
 
 const Category = () => {
   const {
@@ -72,7 +74,7 @@ const Category = () => {
               Detail
             </ButtonSolid>
         
-            {/* <DeleteCategory 
+            <DeleteCategory 
               data={data}
               refetch={refetchCategories}
               ButtonOpen={(
@@ -83,9 +85,9 @@ const Category = () => {
                   Delete
                 </ButtonSolid>
               )}
-            /> */}
+            />
 
-            {/* <ChangeStatus 
+            <ChangeStatus 
               data={data}
               refetch={refetchCategories}
               ButtonOpen={(
@@ -96,7 +98,7 @@ const Category = () => {
                   Ubah Status ({data.isActive ? "NonActive" : "Active"})
                 </ButtonSolid>
               )}
-            /> */}
+            />
     
           </div>
         )
