@@ -7,6 +7,7 @@ import useCategory from "./useCategory";
 import { Chip } from "@heroui/react";
 import { ICategory } from "@/types/category";
 import listColumns from "./listColumns";
+import AddCategory from "./AddCategory";
 
 const Category = () => {
   const {
@@ -119,10 +120,10 @@ const Category = () => {
 
             textEmpty="kosong"
 
-            // isCreate
-            // contentCreate={(
-            //   <AddCategory refetch={refetchCategories} />
-            // )}
+            isCreate
+            contentCreate={(
+              <AddCategory refetch={refetchCategories} />
+            )}
 
             isSearch
             textSearch="Cari Category"

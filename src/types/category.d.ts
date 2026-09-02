@@ -13,7 +13,7 @@ interface ICategory {
 
 
 interface ICategoryForm extends Omit<ICategory, 'id' | 'createdAt' | 'department' | 'isActive' | 'departmentId'> {
-    departmentId?: number;
+    departmentId: number | string;
 }
 
 
