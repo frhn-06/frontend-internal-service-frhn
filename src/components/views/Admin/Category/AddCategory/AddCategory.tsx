@@ -40,11 +40,11 @@ const AddCategory = (props: TypeProps) => {
   }, [state.isOpen]);
 
   useEffect(() => {
-    if(isSuccessAddCategory && state.isOpen) {
-      refetch();
+    if(isSuccessAddCategory) {
       state.close();
+      refetch();
     }
-  }, [isSuccessAddCategory, state.isOpen])
+  }, [isSuccessAddCategory])
 
   
 

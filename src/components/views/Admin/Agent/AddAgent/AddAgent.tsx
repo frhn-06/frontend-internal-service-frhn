@@ -44,11 +44,11 @@ const AddAgent = (props: TypeProps) => {
   }, [state.isOpen]);
 
   useEffect(() => {
-    if(isSuccessAddAgent && state.isOpen) {
-      refetch();
+    if(isSuccessAddAgent) {
       state.close();
+      refetch();
     }
-  }, [isSuccessAddAgent, state.isOpen])
+  }, [isSuccessAddAgent])
 
   
 
