@@ -38,14 +38,14 @@ const DashboardShell = (props: TypeProps) => {
         setToggleSidebar={settoggleSidebarActive}
       />
 
-      <div className="flex-1 min-h-screen overflow-hidden flex flex-col">
+      <div className="flex-1 min-h-screen flex flex-col">
         <Header 
           user={user} 
           setToggleSidebar={settoggleSidebarActive}
           toggleSidebarActive={toggleSidebarActive}
         />
 
-        <div className="overflow-auto h-svh">
+        <div className="overflow-y-auto h-svh">
           <div className="px-2 py-6 lg:px-6 lg:py-12 min-h-screen">
             {children}
           </div>
