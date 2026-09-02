@@ -32,6 +32,12 @@ const listSidebar = {
             icon: <UserRound />,
             href: "/admin/employee"
         },
+        {
+            id: "category",
+            label: "Categories",
+            icon: <UserRound />,
+            href: "/admin/category"
+        }
     ],
 
     agent: [

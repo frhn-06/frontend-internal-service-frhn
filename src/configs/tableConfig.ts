@@ -1,6 +1,8 @@
 export const PAGE_DEFAULT = 1;
 export const LIMIT_DEFAULT = 8;
+export const LIMIT_CATEGORY_DEFAULT = 16;
 export const STATUS_AGENT_DEFAULT = "all";
+export const STATUS_CATEGORY_DEFAULT = "all";
 
 export const listLimit = [
     {

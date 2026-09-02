@@ -3,6 +3,7 @@ const endpoint = {
     DEPARTMENT: "/department",
     AGENT: "/agent",
     EMPLOYEE: "/employee",
+    CATEGORY: "/category",
 }
 
 export default endpoint;
