@@ -7,6 +7,7 @@ import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 import { Chip } from "@heroui/react";
 import useEmployee from "./useEmployee";
 import ChangeStatus from "./ChangeStatus";
+import { listStatus } from "@/configs/tableConfig";
 
 const Employee = () => {
   const {
@@ -101,7 +102,8 @@ const Employee = () => {
 
             isStatus
             onChangeStatus={handleStatus}
-            currentStatus={`${active}`}
+            currentStatus={`${active}` || "all"}
+            listStatus={listStatus}
 
             isPagination
             currentPage={Number(page)}

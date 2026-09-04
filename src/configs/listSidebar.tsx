@@ -1,11 +1,11 @@
-import { Building2, LayoutDashboard, Tickets, UserRound, Users } from "lucide-react";
+import { Building2, LayoutDashboard, Ticket, Tickets, User, UserRound, Users } from "lucide-react";
 
 const listSidebar = {
     admin: [
         {
             id: "dashboard",
             label: "Dashboard",
-            icon:   <LayoutDashboard />,
+            icon: <LayoutDashboard />,
             href: "/admin/dashboard"
         },
         {
@@ -62,17 +62,20 @@ const listSidebar = {
         {
             id: "dashboard",
             label: "Dashboard",
-            icon: "LayoutDashboard",
+            icon: <LayoutDashboard />,
+            href: "/employee/dashboard"
         },
         {
             id: "my-tickets",
             label: "My Tickets",
-            icon: "Ticket",
+            icon: <Ticket />,
+            href: "/employee/my-ticket"
         },
         {
-            id: "create-ticket",
-            label: "Create Ticket",
-            icon: "PlusCircle",
+            id: "user",
+            label: "Profile",
+            icon: <User />,
+            href: "/employee/user"
         },
     ]
 }

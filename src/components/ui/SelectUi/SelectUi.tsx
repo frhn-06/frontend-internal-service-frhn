@@ -21,7 +21,7 @@ const SelectUi = (props: TypeProps) => {
   return (
     <Select
       className="w-[256px]"
-      value={currentSelect || "all"}
+      value={currentSelect}
       onChange={(key) => {
         if (key) { 
           handleSelect?.(key.toString()); 
@@ -35,7 +35,11 @@ const SelectUi = (props: TypeProps) => {
                 
       <Select.Trigger>
         <Select.Value>
-          {listSelect.find((item) => item.id === currentSelect)?.label || "Semua"}
+          {listSelect.find((item) => {
+            console.log(item.id);
+            console.log(currentSelect)
+            return  item.id === currentSelect
+          })?.label}
         </Select.Value>
         <Select.Indicator />
       </Select.Trigger>

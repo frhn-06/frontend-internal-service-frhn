@@ -10,6 +10,7 @@ import listColumns from "./listColumns";
 import AddCategory from "./AddCategory";
 import ChangeStatus from "./ChangeStatus";
 import DeleteCategory from "./DeleteCategory";
+import { listStatus } from "@/configs/tableConfig";
 
 const Category = () => {
   const {
@@ -138,7 +139,8 @@ const Category = () => {
 
             isStatus
             onChangeStatus={handleStatus}
-            currentStatus={`${active}`}
+            currentStatus={`${active}` || "all"}
+            listStatus={listStatus}
 
             isPagination
             currentPage={Number(page)}

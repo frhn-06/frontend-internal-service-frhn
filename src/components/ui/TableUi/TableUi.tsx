@@ -5,7 +5,6 @@ import InputSearch from "../InputSearch";
 import Limit from "../Limit";
 import PaginationUi from "../Pagination";
 import SelectUi from "../SelectUi";
-import { listStatus } from "@/configs/tableConfig";
 
 interface TypeProps {
   renderCell: (
@@ -28,6 +27,12 @@ interface TypeProps {
   isStatus?: boolean;
   onChangeStatus?: (value: string) => void;
   currentStatus?: string;
+  listStatus?: {id: string; label: string}[]
+
+  isPriority?: boolean;
+  onChangePriority?: (value: string) => void;
+  currentPriority?: string;
+  listPriority?: {id: string; label: string}[];
 
   isLimit?: boolean;
   currentLimit?: string;
@@ -58,6 +63,12 @@ const TableUi = (props: TypeProps) => {
     isStatus,
     onChangeStatus,
     currentStatus,
+    listStatus,
+
+    isPriority,
+    onChangePriority,
+    currentPriority,
+    listPriority,
 
     isLimit,
     currentLimit,
@@ -80,7 +91,7 @@ const TableUi = (props: TypeProps) => {
   }
 
   const topContent = useMemo(() => {
-    if(isCreate || isSearch || isStatus) {
+    if(isCreate || isSearch || isStatus || isPriority) {
       return (
         <div>
           <div className="mb-4 gap-4">
@@ -104,12 +115,21 @@ const TableUi = (props: TypeProps) => {
                 listSelect={listStatus}
                 label="Status"
               />
-            )}  
+            )}
+
+            {isPriority && (
+              <SelectUi 
+                currentSelect={currentPriority}
+                handleSelect={onChangePriority}
+                listSelect={listPriority}
+                label="Prioritas"
+              />
+            )}
           </div>
         </div>
       )
     }
-  }, [onSearch, onClearSearch, onChangeStatus, currentStatus]);
+  }, [onSearch, onClearSearch, onChangeStatus, currentStatus, currentPriority]);
 
   
   const bottomContent = useMemo(() => {

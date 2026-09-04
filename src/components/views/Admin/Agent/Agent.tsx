@@ -10,6 +10,7 @@ import AddAgent from "./AddAgent";
 import { IAgent } from "@/types/agent";
 import DeleteAgent from "./DeleteAgent";
 import ChangeStatus from "./ChangeStatus/ChangeStatus";
+import { listStatus } from "@/configs/tableConfig";
 
 const Agent = () => {
   const {
@@ -136,7 +137,8 @@ const Agent = () => {
 
             isStatus
             onChangeStatus={handleStatus}
-            currentStatus={`${active}`}
+            currentStatus={`${active}` || "all"}
+            listStatus={listStatus}
 
             isPagination
             currentPage={Number(page)}
