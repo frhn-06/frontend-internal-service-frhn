@@ -1,14 +1,6 @@
-import { Metadata } from "next";
 import { auth } from "@/auth";
 import { IUser } from "@/types/user";
 import DashboardShell from "@/components/layouts/Dashboard/DashboardShell";
-
-export const metadata : Metadata = {
-  title: {
-    default : "Admin" ,
-    template: "%s | Admin"
-  }
-}
 
 
 interface TypeProps {
