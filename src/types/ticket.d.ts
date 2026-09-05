@@ -2,8 +2,8 @@ interface ITicketForm {
     title?: string;
     description?: string;
     priority?: string;
-    departmentId?: number;
-    categoryId?: number;  
+    departmentId?: number | string;
+    categoryId?: number | string;  
 }
 
 interface Relation {

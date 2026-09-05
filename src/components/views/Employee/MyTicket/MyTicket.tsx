@@ -9,6 +9,7 @@ import useTicket from "./useMyTicket";
 import { ITicket } from "@/types/ticket";
 import Convert from "@/utils/convert.";
 import { listPriorityTickets, listStatusTickets } from "@/configs/tableConfig";
+import AddMyTicket from "./AddMyTicket";
 
 const MyTicket = () => {
   const {
@@ -116,13 +117,13 @@ const MyTicket = () => {
 
             textEmpty="daftar ticket kosong"
 
-            // isCreate
-            // contentCreate={(
-            //   <AddAgent refetch={refetchTickets} />
-            // )}
+            isCreate
+            contentCreate={(
+              <AddMyTicket refetch={refetchTickets} />
+            )}
 
             isSearch
-            textSearch="Cari Agent"
+            textSearch="Cari Ticket"
             onSearch={handleSearch}
             onClearSearch={handleClearSearch}
 

@@ -36,8 +36,6 @@ const SelectUi = (props: TypeProps) => {
       <Select.Trigger>
         <Select.Value>
           {listSelect.find((item) => {
-            console.log(item.id);
-            console.log(currentSelect)
             return  item.id === currentSelect
           })?.label}
         </Select.Value>

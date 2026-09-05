@@ -7,6 +7,8 @@ const CategoryService = {
 
     findAll: (params: string) => instance.get(`${endpoint.CATEGORY}?${params}`),
 
+    findByDepartment: (id: string) => instance.get(`${endpoint.CATEGORY}/${id}/by-department`),
+
     findOne: (id: string) => instance.get(`${endpoint.CATEGORY}/${id}`),
 
     update: (id: string, payload: ICategoryForm) => instance.patch(`${endpoint.CATEGORY}/${id}`, payload),

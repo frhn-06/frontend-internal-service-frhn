@@ -129,7 +129,7 @@ const TableUi = (props: TypeProps) => {
         </div>
       )
     }
-  }, [onSearch, onClearSearch, onChangeStatus, currentStatus, currentPriority]);
+  }, [onSearch, onClearSearch, onChangeStatus]);
 
   
   const bottomContent = useMemo(() => {
@@ -153,7 +153,7 @@ const TableUi = (props: TypeProps) => {
         </div>
       )
     }
-  },[currentLimit, currentPage, totalPage, handleLimit, handlePagination])
+  },[handleLimit, handlePagination])
 
 
   return (
