@@ -47,11 +47,11 @@ const AddDepartment = (props: TypeProps) => {
   return (
     <Modal state={state}>
       <ButtonSolid>
-        Tambah Department
+        Add Department
       </ButtonSolid>
 
       <Modal.Backdrop>
-        <Modal.Container placement="auto">
+        <Modal.Container placement="center">
           <Modal.Dialog className="sm:max-w-md">
             <Modal.CloseTrigger />
             <Modal.Header>
@@ -96,10 +96,10 @@ const AddDepartment = (props: TypeProps) => {
 
               <Modal.Footer>
                 <ButtonFlat slot="close" onPress={reset} isDisabled={isPendingAddDepartment}>
-                  Kembali
+                  Cancel
                 </ButtonFlat>
                 <ButtonSolid type="submit" isDisabled={isPendingAddDepartment}>
-                  {isPendingAddDepartment ? "Menyimpan..." : "Simpan"}
+                  {isPendingAddDepartment ? "Saving..." : "Save"}
                 </ButtonSolid>
               </Modal.Footer>
             </Form>

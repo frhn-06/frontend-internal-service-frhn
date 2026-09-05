@@ -200,7 +200,7 @@ const DetailAgent = () => {
 
             <Card.Footer className="mt-4 flex justify-end gap-2">
               <ButtonSolid type="submit" isDisabled={isPendingUpdateAgent}>
-                {isPendingUpdateAgent ? "Menyimpan..." : "Simpan"}
+                {isPendingUpdateAgent ? "Saving..." : "Save"}
               </ButtonSolid>
             </Card.Footer>
           </Form>

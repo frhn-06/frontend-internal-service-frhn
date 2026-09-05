@@ -52,11 +52,11 @@ const AddCategory = (props: TypeProps) => {
   return (
     <Modal state={state}>
       <ButtonSolid>
-        Tambah Category
+        Add Category
       </ButtonSolid>
 
       <Modal.Backdrop>
-        <Modal.Container placement="auto">
+        <Modal.Container placement="center">
           <Modal.Dialog className="sm:max-w-md">
             <Modal.CloseTrigger />
             <Modal.Header>
@@ -165,10 +165,10 @@ const AddCategory = (props: TypeProps) => {
 
               <Modal.Footer>
                 <ButtonFlat slot="close" onPress={reset} isDisabled={isPendingAddCategory}>
-                  Kembali
+                  Cancel
                 </ButtonFlat>
                 <ButtonSolid type="submit" isDisabled={isPendingAddCategory}>
-                  {isPendingAddCategory ? "Menyimpan..." : "Simpan"}
+                  {isPendingAddCategory ? "Saving..." : "Save"}
                 </ButtonSolid>
               </Modal.Footer>
             </Form>

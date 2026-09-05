@@ -94,7 +94,7 @@ const Agent = () => {
                   size="sm"
                   className="bg-green-500 hover:bg-green-400 active:hover:bg-green-600"
                 >
-                  Ubah Status ({data.isActive ? "NonActive" : "Active"})
+                  Change Status ({data.isActive ? "NonActive" : "Active"})
                 </ButtonSolid>
               )}
             />

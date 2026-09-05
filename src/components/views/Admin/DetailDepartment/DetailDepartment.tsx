@@ -124,7 +124,7 @@ const DetailDepartment = () => {
 
             <Card.Footer className="mt-4 flex justify-end gap-2">
               <ButtonSolid type="submit" isDisabled={isPendingUpdateDepartment}>
-                {isPendingUpdateDepartment ? "Menyimpan..." : "Simpan"}
+                {isPendingUpdateDepartment ? "Saving..." : "Save"}
               </ButtonSolid>
             </Card.Footer>
           </Form>

@@ -202,7 +202,7 @@ const DetailCategory = () => {
 
             <Card.Footer className="mt-4 flex justify-end gap-2">
               <ButtonSolid type="submit" isDisabled={isPendingUpdateCategory}>
-                {isPendingUpdateCategory ? "Menyimpan..." : "Simpan"}
+                {isPendingUpdateCategory ? "Saving..." : "Save"}
               </ButtonSolid>
             </Card.Footer>
           </Form>

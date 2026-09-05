@@ -56,11 +56,11 @@ const AddAgent = (props: TypeProps) => {
   return (
     <Modal state={state}>
       <ButtonSolid>
-        Tambah Agent
+        Add Agent
       </ButtonSolid>
 
       <Modal.Backdrop>
-        <Modal.Container placement="auto">
+        <Modal.Container placement="center">
           <Modal.Dialog className="sm:max-w-md">
             <Modal.CloseTrigger />
             <Modal.Header>
@@ -201,10 +201,10 @@ const AddAgent = (props: TypeProps) => {
 
               <Modal.Footer>
                 <ButtonFlat slot="close" onPress={reset} isDisabled={isPendingAddAgent}>
-                  Kembali
+                  Cancel
                 </ButtonFlat>
                 <ButtonSolid type="submit" isDisabled={isPendingAddAgent}>
-                  {isPendingAddAgent ? "Menyimpan..." : "Simpan"}
+                  {isPendingAddAgent ? "Saving..." : "Save"}
                 </ButtonSolid>
               </Modal.Footer>
             </Form>

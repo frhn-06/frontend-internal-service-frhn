@@ -45,7 +45,7 @@ const DeleteCategory = (props: TypeProps) => {
     <Modal state={state}>
       {ButtonOpen}
       <Modal.Backdrop>
-        <Modal.Container>
+        <Modal.Container placement="center">
           <Modal.Dialog className="sm:max-w-[360px]">
             <Modal.CloseTrigger />
             <Modal.Header>

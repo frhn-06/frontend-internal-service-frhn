@@ -56,16 +56,16 @@ const AddMyTicket = (props: TypeProps) => {
   return (
     <Modal state={state}>
       <ButtonSolid>
-        Tambah Agent
+        Add Ticket
       </ButtonSolid>
 
       <Modal.Backdrop>
-        <Modal.Container placement="auto">
+        <Modal.Container placement="center">
           <Modal.Dialog className="sm:max-w-md">
             <Modal.CloseTrigger />
             <Modal.Header>
               <Modal.Heading>
-                Buat Agent
+                Buat Ticket
               </Modal.Heading>
 
               <p className="mt-1.5 text-sm leading-5 text-muted">
@@ -258,10 +258,10 @@ const AddMyTicket = (props: TypeProps) => {
 
               <Modal.Footer>
                 <ButtonFlat slot="close" onPress={reset} isDisabled={isPendingAddTicket}>
-                  Kembali
+                  Cancel
                 </ButtonFlat>
                 <ButtonSolid type="submit" isDisabled={isPendingAddTicket}>
-                  {isPendingAddTicket ? "Menyimpan..." : "Simpan"}
+                  {isPendingAddTicket ? "Saving..." : "Save"}
                 </ButtonSolid>
               </Modal.Footer>
             </Form>

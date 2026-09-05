@@ -45,11 +45,11 @@ const ChangeStatus = (props: TypeProps) => {
     <Modal state={state}>
       {ButtonOpen}
       <Modal.Backdrop>
-        <Modal.Container>
+        <Modal.Container placement="center">
           <Modal.Dialog className="sm:max-w-[360px]">
             <Modal.CloseTrigger />
             <Modal.Header>
-              <Modal.Heading>Ubah Status Agent</Modal.Heading>
+              <Modal.Heading>Change Agent Status</Modal.Heading>
             </Modal.Header>
             <Modal.Body>
               <p>
@@ -65,7 +65,7 @@ const ChangeStatus = (props: TypeProps) => {
                 isDisabled={isPendingChangeStatus}
                 onPress={onChangeStatus}
               >
-                {isPendingChangeStatus ? "Mengubah status..." : "Ubah Status"}
+                {isPendingChangeStatus ? "Loading..." : "Change"}
               </ButtonSolid>
             </Modal.Footer>
           </Modal.Dialog>
