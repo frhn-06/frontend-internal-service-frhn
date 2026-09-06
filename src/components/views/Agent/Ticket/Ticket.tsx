@@ -11,6 +11,7 @@ import listColumns from "./listColumn";
 import useTicket from "./useTicket";
 import { useSession } from "next-auth/react";
 import { IUser } from "@/types/user";
+import TakeTicket from "./TakeTicket";
 
 const Ticket = () => {
   const {
@@ -67,17 +68,23 @@ const Ticket = () => {
         return (
           <div className="flex gap-2">
             {!(data as unknown as ITicket).agent ? (
-              <ButtonSolid size="sm">
-                Take
-              </ButtonSolid>
-            ) : (data as unknown as ITicket).agent?.id !== Number(user?.id) ? (
+              <TakeTicket 
+                data={data}
+                refetch={refetchTickets}
+                Button={(
+                  <ButtonSolid size="sm">
+                    Take
+                  </ButtonSolid>
+                )}
+              />
+            ) : (data as unknown as ITicket).agent?.id != Number(user?.id) ? (
               <ButtonSolid size="sm" isDisabled>
                 Taked
               </ButtonSolid>
-            ) :  (data as unknown as ITicket).agent?.id === Number(user?.id) && (
+            ) : (data as unknown as ITicket).agent?.id == Number(user?.id) && (
               <ButtonSolid
                 as="link"
-                href={`/employee/my-ticket/${data.id}`}
+                href={`/agent/ticket/${data.id}`}
                 size="sm" 
                 className="bg-blue-500 hover:bg-blue-400"
               >
