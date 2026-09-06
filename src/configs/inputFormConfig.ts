@@ -16,3 +16,23 @@ export const selectPriorities =  [
         label: "Urgent"
     }
 ]
+
+
+export const selectStatusMyTicket =  [
+    {
+        id: "OPEN",
+        label: "Open"
+    },
+    {
+        id: "IN_PROGRESS",
+        label: "Re Open"
+    },
+    {
+        id: "CLOSED",
+        label: "Close"
+    },
+    {
+        id: "CANCELLED",
+        label: "Cancel"
+    },
+]

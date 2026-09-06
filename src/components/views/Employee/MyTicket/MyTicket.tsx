@@ -62,39 +62,13 @@ const MyTicket = () => {
           <div className="flex gap-2">
             <ButtonSolid
               as="link"
-              href={`/admin/agent/${data.id}`}
+              href={`/employee/my-ticket/${data.id}`}
               size="sm" 
               className="bg-blue-500 hover:bg-blue-400"
             >
               Detail
             </ButtonSolid>
         
-            {/* <DeleteAgent 
-              data={data}
-              refetch={refetchTickets}
-              ButtonOpen={(
-                <ButtonSolid
-                  size="sm"
-                  className="bg-red-500 hover:bg-red-400 active:hover:bg-red-600"
-                >
-                  Delete
-                </ButtonSolid>
-              )}
-            /> */}
-
-            {/* <ChangeStatus 
-              data={data}
-              refetch={refetchTickets}
-              ButtonOpen={(
-                <ButtonSolid
-                  size="sm"
-                  className="bg-green-500 hover:bg-green-400 active:hover:bg-green-600"
-                >
-                  Ubah Status ({data.isActive ? "NonActive" : "Active"})
-                </ButtonSolid>
-              )}
-            /> */}
-    
           </div>
         )
       default :

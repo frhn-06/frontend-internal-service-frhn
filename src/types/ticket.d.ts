@@ -14,6 +14,7 @@ interface Relation {
 
 interface ITicket extends ITicketForm {
     id?: number;
+    number?: string;
     agentId?: number | null;
     employeeId?: number;
     status?: string;

@@ -23,6 +23,10 @@ const headerDashboardConfig = {
         title: "Dashboard" ,
         description: "description employee dashboard"
     },
+    "/employee/my-ticket" : {
+        title: "My Tickets" ,
+        description: "description employee my tickets"
+    }
 }
 
 export default headerDashboardConfig;
