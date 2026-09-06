@@ -44,17 +44,20 @@ const listSidebar = {
         {
             id: "dashboard",
             label: "Dashboard",
-            icon: "LayoutDashboard",
+            icon:  <LayoutDashboard />,
+            href: "/agent/dashboard"
         },
         {
-            id: "my-tickets",
-            label: "My Tickets",
-            icon: "Ticket",
+            id: "tickets",
+            label: "Tickets",
+            icon: <Ticket />,
+            href: "/agent/ticket"
         },
         {
-            id: "unassigned-tickets",
-            label: "Unassigned",
-            icon: "Inbox",
+            id: "user",
+            label: "Profile",
+            icon: <User />,
+            href: "/agent/user"
         },
     ],
 

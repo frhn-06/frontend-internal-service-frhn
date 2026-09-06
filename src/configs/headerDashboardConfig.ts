@@ -19,6 +19,10 @@ const headerDashboardConfig = {
         title: "Dashboard" ,
         description: "description agent dashboard"
     },
+    "/agent/ticket" : {
+        title: "Tickets" ,
+        description: "tickets agent by department"
+    },
     "/employee/dashboard" : {
         title: "Dashboard" ,
         description: "description employee dashboard"
