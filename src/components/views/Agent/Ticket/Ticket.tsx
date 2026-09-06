@@ -44,6 +44,7 @@ const Ticket = () => {
   const session = useSession();
   const user = session?.data?.user as IUser;
 
+
   const renderCell = useCallback((
     data: Record<string, unknown>, 
     column: {
@@ -67,31 +68,32 @@ const Ticket = () => {
       case "actions" :
         return (
           <div className="flex gap-2">
-            {!(data as unknown as ITicket).agent ? (
-              <TakeTicket 
-                data={data}
-                refetch={refetchTickets}
-                Button={(
-                  <ButtonSolid size="sm">
-                    Take
-                  </ButtonSolid>
-                )}
-              />
-            ) : (data as unknown as ITicket).agent?.id != Number(user?.id) ? (
-              <ButtonSolid size="sm" isDisabled>
-                Taked
-              </ButtonSolid>
-            ) : (data as unknown as ITicket).agent?.id == Number(user?.id) && (
-              <ButtonSolid
-                as="link"
-                href={`/agent/ticket/${data.id}`}
-                size="sm" 
-                className="bg-blue-500 hover:bg-blue-400"
-              >
-                Detail
-              </ButtonSolid>
+            {user?.id && (
+              !(data as unknown as ITicket).agent ? (
+                <TakeTicket 
+                  data={data}
+                  refetch={refetchTickets}
+                  Button={(
+                    <ButtonSolid size="sm">
+                      Take
+                    </ButtonSolid>
+                  )}
+                />
+              ) : (data as unknown as ITicket).agent?.id != Number(user?.id) ? (
+                <ButtonSolid size="sm" isDisabled>
+                  Taked
+                </ButtonSolid>
+              ) : (data as unknown as ITicket).agent?.id == Number(user?.id) && (
+                <ButtonSolid
+                  as="link"
+                  href={`/agent/ticket/${data.id}`}
+                  size="sm" 
+                  className="bg-blue-500 hover:bg-blue-400"
+                >
+                  Detail
+                </ButtonSolid>
+              )
             )}
-        
           </div>
         )
       default :
