@@ -41,11 +41,11 @@ const Sidebar = (props: TypeProps) => {
 
         <div className="flex flex-col">
           {sidebar.map((nav) => (
-            <div key={`${nav.id}`} className={cn(route === nav.href && "text-white")}>
+            <div key={`${nav.id}`} className={cn(route.startsWith(`${nav.href}`) && "text-white")}>
               <Link href={`${nav.href}`} className={cn(
                 "flex items-center gap-2 px-2 py-2", 
-                route === nav.href && "bg-background-element",
-                route !== nav.href && "hover:bg-background-element-flat"
+                route.startsWith(`${nav.href}`) && "bg-background-element",
+                !route.startsWith(`${nav.href}`) && "hover:bg-background-element-flat"
               )}>
                 <span className="shrink-0">
                   {nav.icon}

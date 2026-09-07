@@ -106,7 +106,9 @@ const InfoTicket = (props: TypeProps) => {
                   return status.type !== "agent"
                 }).map(status => status.id)}
               >
-                <Label>Change Status</Label>
+                <Label>
+                  {isPending ? "Loading..." : "Change Status"}
+                </Label>
                 <Select.Trigger>
                   <Select.Value />
                   <Select.Indicator />
