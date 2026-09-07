@@ -36,3 +36,45 @@ export const selectStatusMyTicket =  [
         label: "Cancel"
     },
 ]
+
+
+
+
+
+export const selectStatusTicket =  [
+    {
+        id: "OPEN",
+        label: "Open",
+        type: "nothing"
+    },
+    {
+        id: "IN_PROGRESS",
+        label: "On Progress",
+        type: "agent"
+    },
+    {
+        id: "WAITING",
+        label: "Wait",
+        type: "agent"
+    },
+    {
+        id: "RESOLVED",
+        label: "Resolve",
+        type: "agent"
+    },
+    {
+        id: "RE_PROGRESS",
+        label: "Re Progress",
+        type: "employee"
+    },
+    {
+        id: "CLOSED",
+        label: "Closed",
+        type: "employee"
+    },
+    {
+        id: "CANCELLED",
+        label: "Cancelled",
+        type: "employee"
+    },
+]

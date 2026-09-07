@@ -99,7 +99,7 @@ const Ticket = () => {
       default :
         return value as React.ReactNode
     }
-  }, [refetchTickets])
+  }, [refetchTickets, user?.id])
 
   return (
     <>

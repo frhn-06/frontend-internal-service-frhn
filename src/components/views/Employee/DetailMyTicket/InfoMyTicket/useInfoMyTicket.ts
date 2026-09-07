@@ -5,8 +5,8 @@ import { useMutation } from "@tanstack/react-query";
 const useInfoMyTicket = (id: string) => {
     const {setToaster} = useToaster();
     
-    const ChangeStatusReOpen = async () => {
-       const {data} = await TicketService.reOpen(`${id}`);
+    const ChangeStatusReProgress = async () => {
+       const {data} = await TicketService.reProgress(`${id}`);
        return data.data
     }
 
@@ -22,12 +22,12 @@ const useInfoMyTicket = (id: string) => {
 
 
     const {
-        mutate: mutateChangeStatusReOpen,
-        isPending: isPendingChangeStatusReOpen,
-        isSuccess: isSuccessChangeStatusReOpen,
-        isError: isErrorChangeStatusReOpen
+        mutate: mutateChangeStatusReProgress,
+        isPending: isPendingChangeStatusReProgress,
+        isSuccess: isSuccessChangeStatusReProgress,
+        isError: isErrorChangeStatusReProgress
     } = useMutation({
-        mutationFn: ChangeStatusReOpen,
+        mutationFn: ChangeStatusReProgress,
         onError: (error) => {
             setToaster({
                 type: "error",
@@ -37,7 +37,7 @@ const useInfoMyTicket = (id: string) => {
         onSuccess: () => {
             setToaster({
                 type: "success",
-                message: "Berhasil mengubah status ticket menjadi in progres"
+                message: "Berhasil mengubah kembali status ticket menjadi in progres"
             });
         }
     })
@@ -79,14 +79,14 @@ const useInfoMyTicket = (id: string) => {
         onSuccess: () => {
             setToaster({
                 type: "success",
-                message: "Berhasil mengubah status ticket menjadi closed"
+                message: "Berhasil mengubah status ticket menjadi cancelled"
             });
         }
     })
 
 
-    const onReOpen = () => {
-        mutateChangeStatusReOpen()
+    const onReProgress = () => {
+        mutateChangeStatusReProgress()
     }
 
     const onClose = () => {
@@ -99,10 +99,10 @@ const useInfoMyTicket = (id: string) => {
 
 
     return {
-        mutateChangeStatusReOpen,
-        isPendingChangeStatusReOpen,
-        isSuccessChangeStatusReOpen,
-        isErrorChangeStatusReOpen,
+        mutateChangeStatusReProgress,
+        isPendingChangeStatusReProgress,
+        isSuccessChangeStatusReProgress,
+        isErrorChangeStatusReProgress,
 
         mutateChangeStatusClose,
         isPendingChangeStatusClose,
@@ -114,7 +114,7 @@ const useInfoMyTicket = (id: string) => {
         isSuccessChangeStatusCancel,
         isErrorChangeStatusCancel,
 
-        onReOpen,
+        onReProgress,
         onClose,
         onCancel
     }

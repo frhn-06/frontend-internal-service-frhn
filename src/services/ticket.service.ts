@@ -17,9 +17,9 @@ const TicketService = {
 
     resolve: (id: string) => instance.patch(`${endpoint.TICKET}/${id}/resolve`),
 
-    reProgress: (id: string) => instance.patch(`${endpoint.TICKET}/${id}/re_progress`),
+    nextProgress: (id: string) => instance.patch(`${endpoint.TICKET}/${id}/next_progress`),
 
-    reOpen: (id: string) => instance.patch(`${endpoint.TICKET}/${id}/re_open`),
+    reProgress: (id: string) => instance.patch(`${endpoint.TICKET}/${id}/re_progress`),
 
     close: (id: string) => instance.patch(`${endpoint.TICKET}/${id}/close`),
 
