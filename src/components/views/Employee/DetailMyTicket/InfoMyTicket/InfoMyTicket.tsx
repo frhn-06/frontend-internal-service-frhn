@@ -6,6 +6,7 @@ import Convert from "@/utils/convert.";
 import { Card, Chip, Label, ListBox, Select} from "@heroui/react";
 import useInfoMyTicket from "./useInfoMyTicket";
 import { useEffect } from "react";
+import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 
 interface TypeProps {
   data: ITicket;
@@ -77,46 +78,54 @@ const InfoMyTicket = (props: TypeProps) => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <Chip
-                size="lg"
-                className="bg-background-element text-white"
-              >
-                {data?.status}
-              </Chip>
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
+                <Chip
+                  size="lg"
+                  className="bg-background-element text-white"
+                >
+                  {data?.status}
+                </Chip>
 
-              <Select 
-                className="w-[256px]" 
-                placeholder="Select one"
-                value={data.status}
-                isDisabled={isPending}
-                onChange={(value) => {
-                  if(value) handleChangeStatus(`${value}`)}
-                }
-                disabledKeys={selectStatusTicket.filter((status) => {
-                  return status.type !== "employee"
-                }).map(status => status.id)}
-              >
-                <Label>
-                  {isPending ? "Loading..." : "Change Status"}
-                </Label>
-                <Select.Trigger>
-                  <Select.Value />
-                  <Select.Indicator />
-                </Select.Trigger>
-                <Select.Popover>
-                  <ListBox>
-                    {selectStatusTicket.map((status) => (
-                      <ListBox.Item key={status.id} id={status.id} textValue={status.label}>
-                        {status.label}
-                        <ListBox.ItemIndicator />
-                      </ListBox.Item>
-                    ))}
-                  </ListBox>
-                </Select.Popover>
-              </Select>
+                <Select 
+                  className="w-[256px]" 
+                  placeholder="Select one"
+                  value={data.status}
+                  isDisabled={isPending}
+                  onChange={(value) => {
+                    if(value) handleChangeStatus(`${value}`)}
+                  }
+                  disabledKeys={selectStatusTicket.filter((status) => {
+                    return status.type !== "employee"
+                  }).map(status => status.id)}
+                >
+                  <Label>
+                    {isPending ? "Loading..." : "Change Status"}
+                  </Label>
+                  <Select.Trigger>
+                    <Select.Value />
+                    <Select.Indicator />
+                  </Select.Trigger>
+                  <Select.Popover>
+                    <ListBox>
+                      {selectStatusTicket.map((status) => (
+                        <ListBox.Item key={status.id} id={status.id} textValue={status.label}>
+                          {status.label}
+                          <ListBox.ItemIndicator />
+                        </ListBox.Item>
+                      ))}
+                    </ListBox>
+                  </Select.Popover>
+                </Select>             
+              </div>
 
-             
+              <ButtonSolid 
+                as="link"
+                href={`/employee/my-ticket/${data?.id}/message`} 
+                className="ml-auto"
+              >
+                Message
+              </ButtonSolid>
             </div>
           </div>
         </Card.Content>

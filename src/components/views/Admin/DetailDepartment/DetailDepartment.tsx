@@ -42,7 +42,7 @@ const DetailDepartment = () => {
   }, [isSuccessUpdateDepartment])
   
   return (
-    <div>
+    <div className="px-2 py-6 lg:px-6 lg:py-12">
       <Breadcrumbs className="mb-6">
         <Breadcrumbs.Item href="/admin/dashboard">
           Dashboard

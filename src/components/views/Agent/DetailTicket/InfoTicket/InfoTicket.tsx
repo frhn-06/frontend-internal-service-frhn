@@ -1,11 +1,12 @@
 "use client";
 
-import { selectStatusMyTicket, selectStatusTicket } from "@/configs/inputFormConfig";
+import { selectStatusTicket } from "@/configs/inputFormConfig";
 import { ITicket } from "@/types/ticket";
 import Convert from "@/utils/convert.";
-import { Button, Card, Chip, Dropdown, Header, Label, ListBox, Select} from "@heroui/react";
-import { useEffect, useMemo } from "react";
+import { Card, Chip, Label, ListBox, Select} from "@heroui/react";
+import { useEffect } from "react";
 import useInfoTicket from "./useInfoTicket";
+import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 
 interface TypeProps {
   data: ITicket;
@@ -86,89 +87,58 @@ const InfoTicket = (props: TypeProps) => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <Chip
-                size="lg"
-                className="bg-background-element text-white"
-              >
-                {data?.status}
-              </Chip>
-
-              <Select 
-                className="w-[256px]" 
-                placeholder="Select one"
-                value={data.status}
-                isDisabled={isPending}
-                onChange={(value) => {
-                  if(value) handleChangeStatus(`${value}`)}
-                }
-                disabledKeys={selectStatusTicket.filter((status) => {
-                  return status.type !== "agent"
-                }).map(status => status.id)}
-              >
-                <Label>
-                  {isPending ? "Loading..." : "Change Status"}
-                </Label>
-                <Select.Trigger>
-                  <Select.Value />
-                  <Select.Indicator />
-                </Select.Trigger>
-                <Select.Popover>
-                  <ListBox>
-                    {selectStatusTicket.map((status) => (
-                      <ListBox.Item key={status.id} id={status.id} textValue={status.label}>
-                        {status.label}
-                        <ListBox.ItemIndicator />
-                      </ListBox.Item>
-                    ))}
-                  </ListBox>
-                </Select.Popover>
-              </Select>
-
-              {/* <Dropdown>
-                <Button
-                  aria-label="Status"
-                  className="w-40"
-                  size="sm"
-                  variant="secondary"
-                  isDisabled={isPending}
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
+                <Chip
+                  size="lg"
+                  className="bg-background-element text-white"
                 >
-                  { isPending ? "Loading..." : "Change Status"}
-                </Button>
-                <Dropdown.Popover className="min-w-[256px]">
-                  <Dropdown.Menu
-                    selectedKeys={
-                      new Set([`${data?.status}`])
-                    }
-                    selectionMode="single"
-                    disabledKeys={["OPEN"]}
-                    onSelectionChange={(key) => {
-                      const selectedKey =
-                        Array.from(key)[0];
-                      if (!selectedKey) return;
-                      handleChangeStatus(`${selectedKey}`);
-                    }}
-                  >
-                    <Dropdown.Section>
-                      <Header>
-                        Select a Status
-                      </Header>
-                      {selectStatusMyTicket.map((status) => (
-                        <Dropdown.Item
-                          key={status.id}
-                          id={status.id}
-                          textValue={status.label}
-                          isDisabled={isPending}
-                        >
-                          <Dropdown.ItemIndicator />
+                  {data?.status}
+                </Chip>
+
+                <Select 
+                  className="w-[256px]" 
+                  placeholder="Select one"
+                  value={data.status}
+                  isDisabled={isPending}
+                  onChange={(value) => {
+                    if(value) handleChangeStatus(`${value}`)}
+                  }
+                  disabledKeys={selectStatusTicket.filter((status) => {
+                    return status.type !== "agent"
+                  }).map(status => status.id)}
+                >
+                  <Label>
+                    {isPending ? "Loading..." : "Change Status"}
+                  </Label>
+                  <Select.Trigger>
+                    <Select.Value />
+                    <Select.Indicator />
+                  </Select.Trigger>
+                  <Select.Popover>
+                    <ListBox>
+                      {selectStatusTicket.map((status) => (
+                        <ListBox.Item key={status.id} id={status.id} textValue={status.label}>
                           {status.label}
-                        </Dropdown.Item>
+                          <ListBox.ItemIndicator />
+                        </ListBox.Item>
                       ))}
-                    </Dropdown.Section>
-                  </Dropdown.Menu>
-                </Dropdown.Popover>
-              </Dropdown> */}
+                    </ListBox>
+                  </Select.Popover>
+                </Select>
+              </div>
+
+              
+              <ButtonSolid 
+                as="link"
+                href={`/agent/ticket/${data?.id}/message`} 
+                className="ml-auto"
+              >
+                Message
+              </ButtonSolid>
+          
             </div>
+
           </div>
         </Card.Content>
       </Card>

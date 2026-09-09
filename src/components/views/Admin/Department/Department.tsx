@@ -78,7 +78,7 @@ const Department = () => {
   }, [refetchDepartments])
 
   return (
-    <>
+    <div className="px-2 py-6 lg:px-6 lg:py-12">
       {isErrorDepartments ? (
         <div>
           {errorDepartments?.message}
@@ -123,7 +123,7 @@ const Department = () => {
         </div>
 
       )}
-    </>
+    </div>
 
   
   )

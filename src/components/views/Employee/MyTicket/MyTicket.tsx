@@ -77,7 +77,7 @@ const MyTicket = () => {
   }, [refetchTickets])
 
   return (
-    <>
+    <div className="px-2 py-6 lg:px-6 lg:py-12">
       {isErrorTickets ? (
         <div>
           {errorTickets?.message}
@@ -132,7 +132,7 @@ const MyTicket = () => {
         </div>
 
       )}
-    </>
+    </div>
 
   
   )

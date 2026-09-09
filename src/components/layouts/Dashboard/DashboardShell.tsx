@@ -45,16 +45,16 @@ const DashboardShell = (props: TypeProps) => {
           toggleSidebarActive={toggleSidebarActive}
         />
 
-        <div className="overflow-y-auto h-svh">
-          <div className="px-2 py-6 lg:px-6 lg:py-12 min-h-screen">
+        <div className="overflow-hidden flex-1 flex flex-col">
+          <div className="flex-1 overflow-y-auto">
             {children}
           </div>
 
-          <div className="w-full p-4 bg-gray-200 min-h-12">
+          {/* <div className="w-full p-4 bg-gray-200 h-12">
             <p className="text-foreground text-sm">
               &copy; 2026 | Internal Service - farhan
             </p>
-          </div>
+          </div> */}
         </div>
 
       </div>

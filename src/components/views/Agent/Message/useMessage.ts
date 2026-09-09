@@ -1,0 +1,117 @@
+import MessageService from "@/services/message.service";
+import TicketService from "@/services/ticket.service";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { IMessageForm } from "@/types/message";
+import { useToaster } from "@/contexts/toasterContext";
+import { schemaMessageValidation } from "./validation";
+
+const useMessage = () => {    
+    const params = useParams();
+    const id = params.id;
+
+    const {setToaster} = useToaster();
+
+
+    const getMessages = async () => {
+        const {data} = await MessageService.findMany(`${id}`);
+        return data.data;
+    }
+    
+    const {
+        data: dataMessages,
+        isLoading: isLoadingMessages,
+        isError: isErrorMessages,
+        error: errorMessages,
+        refetch: refetchMessage
+    } = useQuery({
+        queryKey: ["MessagesAgent"],
+        queryFn: getMessages,
+        enabled: !!id
+    });
+
+
+    
+    const getTicket = async () => {
+        const {data} = await TicketService.findOne(`${id}`);
+        return data.data;
+    }
+    
+    const {
+        data: dataTicketMessage, 
+        isLoading: isLoadingTicketMessage,
+        isError: isErrorTicketMessage,
+    } = useQuery({
+        queryKey: ["TicketMessageAgent", params],
+        queryFn: getTicket,
+        enabled: !!params.id
+    });
+    
+    
+    const {
+        handleSubmit,
+        control,
+        formState: {errors},
+        reset
+    } = useForm({
+        resolver: yupResolver(schemaMessageValidation),
+        defaultValues: {
+            content: ""
+        }
+    });
+
+
+    const createMessage = async (payload: IMessageForm) => {
+        const {data} = await MessageService.create(`${id}`, payload);
+        return data.data;
+    }
+
+
+    const  {
+        mutate,
+        isPending,
+        isSuccess
+    } = useMutation({
+        mutationFn: (data: IMessageForm) => createMessage(data),
+        onError: (error) => {
+            setToaster({
+                type: "error",
+                message: error.message
+            })
+        },
+        onSuccess: () => {
+            reset();
+        }
+    });
+
+
+    const onMessage = (data: IMessageForm) => {
+        mutate(data);
+    }
+    
+    
+    return {
+        dataMessages,
+        isLoadingMessages,
+        isErrorMessages,
+        errorMessages,
+        refetchMessage,
+
+        dataTicketMessage,
+        isLoadingTicketMessage,
+        isErrorTicketMessage,
+
+        handleSubmit,
+        control,
+        errors,
+
+
+        onMessage,
+        isPending,
+        isSuccess
+    }
+}
+
+export default useMessage;

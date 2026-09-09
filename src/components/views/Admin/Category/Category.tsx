@@ -109,7 +109,7 @@ const Category = () => {
   }, [refetchCategories])
 
   return (
-    <>
+    <div className="px-2 py-6 lg:px-6 lg:py-12">
       {isErrorCategories ? (
         <div>
           {errorCategories?.message}
@@ -159,7 +159,7 @@ const Category = () => {
         </div>
 
       )}
-    </>
+    </div>
 
   
   )
