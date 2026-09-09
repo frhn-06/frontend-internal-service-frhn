@@ -1,4 +1,3 @@
-import MessageService from "@/services/message.service";
 import TicketService from "@/services/ticket.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -16,7 +15,7 @@ const useMessage = () => {
 
 
     const getMessages = async () => {
-        const {data} = await MessageService.findMany(`${id}`);
+        const {data} = await TicketService.findManyMessage(`${id}`);
         return data.data;
     }
     
@@ -64,7 +63,7 @@ const useMessage = () => {
 
 
     const createMessage = async (payload: IMessageForm) => {
-        const {data} = await MessageService.create(`${id}`, payload);
+        const {data} = await TicketService.sendMessage(`${id}`, payload);
         return data.data;
     }
 

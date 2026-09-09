@@ -1,6 +1,7 @@
 import instance from "@/libs/axios";
 import { ITicketForm } from "@/types/ticket";
 import endpoint from "./endpoint";
+import { IMessageForm } from "@/types/message";
 
 const TicketService = {
     create: (payload: ITicketForm) => instance.post(`${endpoint.TICKET}`, payload),
@@ -24,6 +25,13 @@ const TicketService = {
     close: (id: string) => instance.patch(`${endpoint.TICKET}/${id}/close`),
 
     cancel: (id: string) => instance.patch(`${endpoint.TICKET}/${id}/cancel`),
+
+
+
+
+    sendMessage: (id: string, data: IMessageForm) => instance.post(`${endpoint.TICKET}/${id}/message`, data),
+
+    findManyMessage: (id: string) => instance.get(`${endpoint.TICKET}/${id}/message`)
 }
 
 
