@@ -9,6 +9,7 @@ import { IUser } from "@/types/user"
 import { Controller } from "react-hook-form"
 import cn from "@/utils/cn"
 import BubbleChats from "./BubbleChats"
+import ModalGenerateAi from "./ModalGenerateAi"
 
 
 
@@ -30,15 +31,20 @@ const Message = () => {
 
 
     onMessage,
-    isSuccess
+    isSuccessCreateMessage,
+    isPendingCreateMessage,
+
+    onGenerate,
+    isPendingGenerateAi,
+    isSuccessGenerateAi
   } = useMessage();
 
 
   useEffect(() => {
-    if(isSuccess) {
+    if(isSuccessCreateMessage) {
       refetchMessage();
     }
-  }, [isSuccess])
+  }, [isSuccessCreateMessage])
 
   const user = useSession().data?.user as IUser;
 
@@ -59,7 +65,7 @@ const Message = () => {
         <div className="p-4">
           <Breadcrumbs>
             <Breadcrumbs.Item href={`/employee/my-ticket`}>
-              My Tickets
+              Tickets
             </Breadcrumbs.Item>
             <Breadcrumbs.Item href={`/employee/my-ticket/${dataTicketMessage?.id}`}>
               {dataTicketMessage?.number}
@@ -69,7 +75,6 @@ const Message = () => {
             </Breadcrumbs.Item>
           </Breadcrumbs>
         </div>
-
         
         <BubbleChats 
           data={dataMessages || []} 
@@ -78,7 +83,7 @@ const Message = () => {
         />
 
 
-        <div className="shrink-0 px-4 py-2 w-full  max-w-2xl mx-auto">
+        <div className="shrink-0 px-4 py-2 w-full max-w-2xl mx-auto">
           <Form onSubmit={handleSubmit(onMessage)}>
             <div className="flex items-end gap-2">   
               <Controller control={control} name="content" render={({field}) => (
@@ -89,11 +94,23 @@ const Message = () => {
                   className={cn(`focus:ring-text-element`, {"ring-1 ring-red-400" : !!errors?.content})}
                 />
               )} />     
-              <ButtonSolid type="submit">
+              <ButtonSolid type="submit" isDisabled={isPendingCreateMessage || isPendingGenerateAi}>
                 Send
               </ButtonSolid>
             </div>
           </Form>
+          
+          <ModalGenerateAi
+            ButtonModal={(
+              <ButtonSolid fullWidth className="mt-2" >
+                Generate AI
+              </ButtonSolid>
+            )}
+            data={dataTicketMessage}
+            onGenerate={onGenerate}
+            isPending={isPendingGenerateAi}
+            isSuccess={isSuccessGenerateAi}
+          />
         </div>
       </div>
     )

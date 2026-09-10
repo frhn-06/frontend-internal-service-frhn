@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { IMessageForm } from "@/types/message";
 import { useToaster } from "@/contexts/toasterContext";
 import { schemaMessageValidation } from "./validation";
+import AiService from "@/services/ai.service";
 
 const useMessage = () => {    
     const params = useParams();
@@ -53,7 +54,8 @@ const useMessage = () => {
         handleSubmit,
         control,
         formState: {errors},
-        reset
+        reset,
+        setValue
     } = useForm({
         resolver: yupResolver(schemaMessageValidation),
         defaultValues: {
@@ -69,9 +71,9 @@ const useMessage = () => {
 
 
     const  {
-        mutate,
-        isPending,
-        isSuccess
+        mutate: mutateCreateMessage,
+        isPending: isPendingCreateMessage,
+        isSuccess : isSuccessCreateMessage
     } = useMutation({
         mutationFn: (data: IMessageForm) => createMessage(data),
         onError: (error) => {
@@ -86,8 +88,42 @@ const useMessage = () => {
     });
 
 
+
+
+    const generateAi = async () => {
+        const {data} = await AiService.generate(`${dataTicketMessage.id}`);
+        return data.data
+    }
+
+    const {
+        mutate: mutateGenerateAi,
+        isPending: isPendingGenerateAi,
+        isSuccess: isSuccessGenerateAi
+    } = useMutation({
+        mutationFn: generateAi,
+        onError: (error) => {
+            setToaster({
+                type: "error",
+                message: error.message
+            })
+        },
+        onSuccess: (data) => {
+            setToaster({
+                type: "success",
+                message: "Generate AI berhasil"
+            })
+            setValue("content" , data.reply);
+        }
+    })
+
+
     const onMessage = (data: IMessageForm) => {
-        mutate(data);
+        mutateCreateMessage(data);
+    }
+
+
+    const onGenerate = () => {
+        mutateGenerateAi();
     }
     
     
@@ -108,8 +144,12 @@ const useMessage = () => {
 
 
         onMessage,
-        isPending,
-        isSuccess
+        isPendingCreateMessage,
+        isSuccessCreateMessage,
+
+        onGenerate,
+        isPendingGenerateAi,
+        isSuccessGenerateAi
     }
 }
 

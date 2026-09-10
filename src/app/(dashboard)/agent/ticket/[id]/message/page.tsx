@@ -1,4 +1,4 @@
-import Message from "@/components/views/Employee/Message";
+import Message from "@/components/views/Agent/Message";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
