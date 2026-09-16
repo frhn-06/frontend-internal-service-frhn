@@ -7,6 +7,7 @@ import { Card, Chip, Label, ListBox, Select} from "@heroui/react";
 import { useEffect } from "react";
 import useInfoTicket from "./useInfoTicket";
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
+import TakeTicket from "./TakeTicket";
 
 interface TypeProps {
   data: ITicket;
@@ -26,15 +27,12 @@ const InfoTicket = (props: TypeProps) => {
 
     isPendingChangeStatusNextProgress,
     isSuccessChangeStatusNextProgress,
-    isErrorChangeStatusNextProgress,
 
     isPendingChangeStatusAwait,
     isSuccessChangeStatusAwait,
-    isErrorChangeStatusAwait,
 
     isPendingChangeStatusResolve,
     isSuccessChangeStatusResolve,
-    isErrorChangeStatusResolve,
 
     onTake,
     onnextProgress,
@@ -57,11 +55,10 @@ const InfoTicket = (props: TypeProps) => {
     }
   }
 
-  const isPending = isPendingChangeStatusResolve || isPendingChangeStatusNextProgress || isPendingChangeStatusAwait
+  const isPending = isPendingChangeStatusResolve || isPendingChangeStatusNextProgress || isPendingChangeStatusAwait || isPendingChangeStatusTake
 
-  const isSuccess = isSuccessChangeStatusResolve || isSuccessChangeStatusNextProgress || isSuccessChangeStatusAwait
+  const isSuccess = isSuccessChangeStatusResolve || isSuccessChangeStatusNextProgress || isSuccessChangeStatusAwait || isSuccessChangeStatusTake
 
-  const isError = isErrorChangeStatusResolve || isErrorChangeStatusNextProgress || isErrorChangeStatusAwait
 
   useEffect(() => {
     if(isSuccess) {
@@ -87,57 +84,70 @@ const InfoTicket = (props: TypeProps) => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-2">
-                <Chip
-                  size="lg"
-                  className="bg-background-element text-white"
-                >
-                  {data?.status}
-                </Chip>
+            {data?.status === "OPEN" ? (
+              <TakeTicket
+                Button={(
+                  <ButtonSolid isDisabled={isPending}>
+                    {isPendingChangeStatusTake ? "Loading..." : "Take"}
+                  </ButtonSolid>
+                )}
+                data={data}
+                refetch={refetch}
+               />
+             
+            ) : (
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-2">
+                  <Chip
+                    size="lg"
+                    className="bg-background-element text-white"
+                  >
+                    {data?.status}
+                  </Chip>
 
-                <Select 
-                  className="w-[256px]" 
-                  placeholder="Select one"
-                  value={data.status}
-                  isDisabled={isPending}
-                  onChange={(value) => {
-                    if(value) handleChangeStatus(`${value}`)}
-                  }
-                  disabledKeys={selectStatusTicket.filter((status) => {
-                    return status.type !== "agent"
-                  }).map(status => status.id)}
+                  <Select 
+                    className="w-[256px]" 
+                    placeholder="Select one"
+                    value={data.status}
+                    isDisabled={isPending}
+                    onChange={(value) => {
+                      if(value) handleChangeStatus(`${value}`)}
+                    }
+                    disabledKeys={selectStatusTicket.filter((status) => {
+                      return status.type !== "agent"
+                    }).map(status => status.id)}
+                  >
+                    <Label>
+                      {isPending ? "Loading..." : "Change Status"}
+                    </Label>
+                    <Select.Trigger>
+                      <Select.Value />
+                      <Select.Indicator />
+                    </Select.Trigger>
+                    <Select.Popover>
+                      <ListBox>
+                        {selectStatusTicket.map((status) => (
+                          <ListBox.Item key={status.id} id={status.id} textValue={status.label}>
+                            {status.label}
+                            <ListBox.ItemIndicator />
+                          </ListBox.Item>
+                        ))}
+                      </ListBox>
+                    </Select.Popover>
+                  </Select>
+                </div>
+
+                
+                <ButtonSolid 
+                  as="link"
+                  href={`/agent/ticket/${data?.id}/message`} 
+                  className="ml-auto"
                 >
-                  <Label>
-                    {isPending ? "Loading..." : "Change Status"}
-                  </Label>
-                  <Select.Trigger>
-                    <Select.Value />
-                    <Select.Indicator />
-                  </Select.Trigger>
-                  <Select.Popover>
-                    <ListBox>
-                      {selectStatusTicket.map((status) => (
-                        <ListBox.Item key={status.id} id={status.id} textValue={status.label}>
-                          {status.label}
-                          <ListBox.ItemIndicator />
-                        </ListBox.Item>
-                      ))}
-                    </ListBox>
-                  </Select.Popover>
-                </Select>
+                  Message
+                </ButtonSolid>
+            
               </div>
-
-              
-              <ButtonSolid 
-                as="link"
-                href={`/agent/ticket/${data?.id}/message`} 
-                className="ml-auto"
-              >
-                Message
-              </ButtonSolid>
-          
-            </div>
+            )}
 
           </div>
         </Card.Content>

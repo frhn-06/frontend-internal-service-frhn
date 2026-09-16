@@ -2,10 +2,11 @@
 import { usePathname } from "next/navigation"
 import ToggleSidebarDekstop from "@/components/ui/ToggleSidebarDekstop";
 import { IUser } from "@/types/user";
-import { Avatar } from "@heroui/react";
-import { SquareMenu, User } from "lucide-react";
+import { SquareMenu } from "lucide-react";
 import headerDashboardConfig from "@/configs/headerDashboardConfig";
-import { SetStateAction } from "react";
+import { SetStateAction, useEffect } from "react";
+import useHeader from "./useHeader";
+import NotificationsUi from "@/components/ui/NotificationsUi";
 
 
 interface TypeProps {
@@ -13,18 +14,35 @@ interface TypeProps {
   setToggleSidebar: React.Dispatch<SetStateAction<boolean>>;
   toggleSidebarActive: boolean
 }
+
 const Header = (props: TypeProps) => {
   const {
     user,
     setToggleSidebar,
     toggleSidebarActive
   } = props;
+
+  const {
+    dataNotifications,
+    refetchDataNotifications,
+
+    dataCountNotifications,
+    refetchCountNotifications,
+
+    onReadNotification,
+    isSuccessReadNotification
+  } = useHeader();
   
   const route = usePathname();
 
   const header = headerDashboardConfig[route as keyof typeof headerDashboardConfig];
 
-
+  useEffect(() => {
+    if(isSuccessReadNotification) {
+      refetchDataNotifications();
+      refetchCountNotifications();
+    }
+  },[isSuccessReadNotification])
   
 
   return (
@@ -56,9 +74,12 @@ const Header = (props: TypeProps) => {
           <h1 className="font-bold text-foreground">
             {user.role}
           </h1>
-          <Avatar className="z-0">
-            <User />
-          </Avatar>
+          
+          <NotificationsUi 
+            dataCount={dataCountNotifications} 
+            data={dataNotifications} 
+            onRead={onReadNotification}  
+          />
         </div>
       </div>
     </div>

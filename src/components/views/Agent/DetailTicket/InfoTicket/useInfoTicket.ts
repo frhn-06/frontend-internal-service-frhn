@@ -42,7 +42,7 @@ const useInfoTicket = (id: string) => {
         onSuccess: () => {
             setToaster({
                 type: "success",
-                message: "Berhasil mengubah status ticket menjadi progress"
+                message: "Berhasil mengambil status ticket"
             });
         }
     })
