@@ -1,4 +1,4 @@
-import INotification from "@/types/notification";
+import { INotification } from "@/types/notification";
 import cn from "@/utils/cn";
 import setTimeMessage from "@/utils/timemessage";
 import { Badge, Popover } from "@heroui/react"
