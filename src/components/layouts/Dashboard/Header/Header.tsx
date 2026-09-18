@@ -2,11 +2,12 @@
 import { usePathname } from "next/navigation"
 import ToggleSidebarDekstop from "@/components/ui/ToggleSidebarDekstop";
 import { IUser } from "@/types/user";
-import { SquareMenu } from "lucide-react";
+import { MessageCircle, SquareMenu } from "lucide-react";
 import headerDashboardConfig from "@/configs/headerDashboardConfig";
 import { SetStateAction, useEffect } from "react";
 import useHeader from "./useHeader";
 import NotificationsUi from "@/components/ui/NotificationsUi";
+import { Badge } from "@heroui/react";
 
 
 interface TypeProps {
@@ -28,6 +29,9 @@ const Header = (props: TypeProps) => {
 
     dataCountNotifications,
     refetchCountNotifications,
+
+    dataCountNotifMessages,
+    refetchCountNotifMessages,
 
     onReadNotification,
     isSuccessReadNotification
@@ -80,6 +84,15 @@ const Header = (props: TypeProps) => {
             data={dataNotifications} 
             onRead={onReadNotification}  
           />
+
+          <Badge.Anchor>
+            <MessageCircle />
+            {dataCountNotifMessages > 0 && (
+              <Badge color="danger" size="sm">
+                {dataCountNotifMessages}
+              </Badge>
+            )}
+          </Badge.Anchor>
         </div>
       </div>
     </div>

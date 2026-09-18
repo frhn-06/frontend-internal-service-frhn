@@ -12,6 +12,8 @@ export default function AuthProvider(props: TypeProps) {
     children
   } = props;
 
+  console.log("AUTH PROVIDER RENDER");
+
   return (
     <SessionProvider>
       {children}

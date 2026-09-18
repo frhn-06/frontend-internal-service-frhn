@@ -8,6 +8,7 @@ import { IMessageForm } from "@/types/message";
 import { useToaster } from "@/contexts/toasterContext";
 
 const useMessage = () => {    
+    console.log("render message")
     const params = useParams();
     const id = params.id;
 
@@ -26,7 +27,7 @@ const useMessage = () => {
         error: errorMessages,
         refetch: refetchMessage
     } = useQuery({
-        queryKey: ["MessagesEmployee"],
+        queryKey: ["MessagesEmployee", id],
         queryFn: getMessages,
         enabled: !!id
     });
@@ -43,9 +44,9 @@ const useMessage = () => {
         isLoading: isLoadingTicketMessage,
         isError: isErrorTicketMessage,
     } = useQuery({
-        queryKey: ["TicketMessage", params],
+        queryKey: ["TicketMessage", id],
         queryFn: getTicket,
-        enabled: !!params.id
+        enabled: !!id
     });
     
     

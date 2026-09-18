@@ -1,11 +1,13 @@
 import { LIMIT_DEFAULT, listPriorityTickets, listStatusTickets, PAGE_DEFAULT, PRIORITY_TICKET_DEFAULT, STATUS_TICKET_DEFAULT } from "@/configs/tableConfig";
 import useDebaunce from "@/hooks/useDebaunce";
+import NotificationService from "@/services/notification.service";
 import TicketService from "@/services/ticket.service";
 import { useQuery } from "@tanstack/react-query";
 import {  useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent } from "react";
 
 const useTicket = () => {
+    console.log("render use ticket")
     const {debaunce} = useDebaunce();
 
     const useParams = useSearchParams();
@@ -52,10 +54,22 @@ const useTicket = () => {
         queryKey: ["TicketsAgent", page, limit, status, priority, search],
         queryFn: getTickets,
         enabled: !!page && !!limit,
-        retry: false,
     });
 
-
+    
+    const getCountNotifMessagesByTicket = async() => {
+        const {data} = await NotificationService.countAllMessageByTicket();
+        return data.data;
+    }
+    
+    const {
+        data: dataCountNotifMessagesByTicket,
+        refetch: refetchCountNotifMessagesByTicket,
+        isSuccess: isSuccessCountNotifMessagesByTicket
+    } = useQuery({
+        queryKey: ["count-notification-messages-by-ticket"],
+        queryFn: getCountNotifMessagesByTicket
+    })
 
 
 
@@ -137,6 +151,10 @@ const useTicket = () => {
         refetchTickets,
         isErrorTickets,
         errorTickets,
+
+        dataCountNotifMessagesByTicket,
+        refetchCountNotifMessagesByTicket,
+        isSuccessCountNotifMessagesByTicket,
 
         handlePage,
         handleLimit,

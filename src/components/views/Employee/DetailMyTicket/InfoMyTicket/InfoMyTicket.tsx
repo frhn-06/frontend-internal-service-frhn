@@ -3,10 +3,11 @@
 import { selectStatusTicket } from "@/configs/inputFormConfig";
 import { ITicket } from "@/types/ticket";
 import Convert from "@/utils/convert.";
-import { Card, Chip, Label, ListBox, Select} from "@heroui/react";
+import { Badge, Card, Chip, Label, ListBox, Select} from "@heroui/react";
 import useInfoMyTicket from "./useInfoMyTicket";
 import { useEffect } from "react";
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
+import { INotifMessagesByTicket } from "@/types/notification";
 
 interface TypeProps {
   data: ITicket;
@@ -33,6 +34,8 @@ const InfoMyTicket = (props: TypeProps) => {
     onReProgress,
     onClose,
     onCancel,
+
+    dataCountNotifMessagesByTicket,
   } = useInfoMyTicket(`${data?.id}`);
 
 
@@ -53,6 +56,9 @@ const InfoMyTicket = (props: TypeProps) => {
   const isPending = isPendingChangeStatusCancel || isPendingChangeStatusClose || isPendingChangeStatusReProgress
 
   const isSuccess = isSuccessChangeStatusCancel || isSuccessChangeStatusClose || isSuccessChangeStatusReProgress
+
+  const notifMessages = dataCountNotifMessagesByTicket?.find((notif: INotifMessagesByTicket) => notif.ticketId === Number(data.id));
+
 
 
   useEffect(() => {
@@ -119,13 +125,20 @@ const InfoMyTicket = (props: TypeProps) => {
                 </Select>             
               </div>
 
-              <ButtonSolid 
-                as="link"
-                href={`/employee/my-ticket/${data?.id}/message`} 
-                className="ml-auto"
-              >
-                Message
-              </ButtonSolid>
+              <Badge.Anchor className="w-fit">
+                <ButtonSolid 
+                  as="link"
+                  href={`/employee/my-ticket/${data?.id}/message`} 
+                  className="ml-auto"
+                >
+                  Message
+                </ButtonSolid>
+                {notifMessages && (
+                  <Badge color="danger" size="sm">
+                    {notifMessages?._count._all}
+                  </Badge>
+                )}
+              </Badge.Anchor>
             </div>
           </div>
         </Card.Content>

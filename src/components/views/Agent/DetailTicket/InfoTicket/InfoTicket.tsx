@@ -3,11 +3,12 @@
 import { selectStatusTicket } from "@/configs/inputFormConfig";
 import { ITicket } from "@/types/ticket";
 import Convert from "@/utils/convert.";
-import { Card, Chip, Label, ListBox, Select} from "@heroui/react";
+import { Badge, Card, Chip, Label, ListBox, Select} from "@heroui/react";
 import { useEffect } from "react";
 import useInfoTicket from "./useInfoTicket";
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 import TakeTicket from "./TakeTicket";
+import { INotifMessagesByTicket } from "@/types/notification";
 
 interface TypeProps {
   data: ITicket;
@@ -22,8 +23,6 @@ const InfoTicket = (props: TypeProps) => {
   } = props;
 
   const {
-    isPendingChangeStatusTake,
-    isSuccessChangeStatusTake,
 
     isPendingChangeStatusNextProgress,
     isSuccessChangeStatusNextProgress,
@@ -34,10 +33,12 @@ const InfoTicket = (props: TypeProps) => {
     isPendingChangeStatusResolve,
     isSuccessChangeStatusResolve,
 
-    onTake,
     onnextProgress,
     onAwait,
     onResolve,
+
+    dataCountNotifMessagesByTicket,
+    refetchCountNotifMessagesByTicket
   } = useInfoTicket(`${data?.id}`);
 
 
@@ -55,9 +56,9 @@ const InfoTicket = (props: TypeProps) => {
     }
   }
 
-  const isPending = isPendingChangeStatusResolve || isPendingChangeStatusNextProgress || isPendingChangeStatusAwait || isPendingChangeStatusTake
+  const isPending = isPendingChangeStatusResolve || isPendingChangeStatusNextProgress || isPendingChangeStatusAwait
 
-  const isSuccess = isSuccessChangeStatusResolve || isSuccessChangeStatusNextProgress || isSuccessChangeStatusAwait || isSuccessChangeStatusTake
+  const isSuccess = isSuccessChangeStatusResolve || isSuccessChangeStatusNextProgress || isSuccessChangeStatusAwait
 
 
   useEffect(() => {
@@ -65,6 +66,10 @@ const InfoTicket = (props: TypeProps) => {
       refetch();
     }
   },[isSuccess])
+
+  const notifMessages = dataCountNotifMessagesByTicket?.find((notif: INotifMessagesByTicket) => notif.ticketId === Number(data.id));
+
+
 
 
 
@@ -86,11 +91,6 @@ const InfoTicket = (props: TypeProps) => {
 
             {data?.status === "OPEN" ? (
               <TakeTicket
-                Button={(
-                  <ButtonSolid isDisabled={isPending}>
-                    {isPendingChangeStatusTake ? "Loading..." : "Take"}
-                  </ButtonSolid>
-                )}
                 data={data}
                 refetch={refetch}
                />
@@ -138,13 +138,20 @@ const InfoTicket = (props: TypeProps) => {
                 </div>
 
                 
-                <ButtonSolid 
-                  as="link"
-                  href={`/agent/ticket/${data?.id}/message`} 
-                  className="ml-auto"
-                >
-                  Message
-                </ButtonSolid>
+                <Badge.Anchor className="w-fit">
+                  <ButtonSolid 
+                    as="link"
+                    href={`/agent/ticket/${data?.id}/message`} 
+                    className="ml-auto"
+                  >
+                    Message
+                  </ButtonSolid>
+                  {notifMessages && (
+                    <Badge color="danger" size="sm">
+                      {notifMessages?._count._all}
+                    </Badge>
+                  )}
+                </Badge.Anchor>
             
               </div>
             )}

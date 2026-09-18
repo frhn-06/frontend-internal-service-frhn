@@ -10,6 +10,8 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
 
 
   useEffect(() => {
+    if(!toaster?.type) return;
+
     const timeOut = setTimeout(() => {
       setToaster({
         type: "",

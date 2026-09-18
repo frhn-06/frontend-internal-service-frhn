@@ -9,6 +9,7 @@ import { schemaMessageValidation } from "./validation";
 import AiService from "@/services/ai.service";
 
 const useMessage = () => {    
+    console.log("render messages")
     const params = useParams();
     const id = params.id;
 
@@ -27,7 +28,7 @@ const useMessage = () => {
         error: errorMessages,
         refetch: refetchMessage
     } = useQuery({
-        queryKey: ["MessagesAgent"],
+        queryKey: ["MessagesAgent", id],
         queryFn: getMessages,
         enabled: !!id
     });
@@ -44,11 +45,10 @@ const useMessage = () => {
         isLoading: isLoadingTicketMessage,
         isError: isErrorTicketMessage,
     } = useQuery({
-        queryKey: ["TicketMessageAgent", params],
+        queryKey: ["TicketMessageAgent", id],
         queryFn: getTicket,
-        enabled: !!params.id
+        enabled: !!id
     });
-    
     
     const {
         handleSubmit,

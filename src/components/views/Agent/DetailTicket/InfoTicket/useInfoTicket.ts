@@ -1,14 +1,11 @@
 import { useToaster } from "@/contexts/toasterContext";
+import NotificationService from "@/services/notification.service";
 import TicketService from "@/services/ticket.service";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useInfoTicket = (id: string) => {
     const {setToaster} = useToaster();
     
-    const ChangeStatusTake = async () => {
-       const {data} = await TicketService.take(`${id}`);
-       return data.data
-    }
 
     const ChangeStatusNextProgress = async () => {
        const {data} = await TicketService.nextProgress(`${id}`);
@@ -26,27 +23,6 @@ const useInfoTicket = (id: string) => {
     }
 
 
-    const {
-        mutate: mutateChangeStatusTake,
-        isPending: isPendingChangeStatusTake,
-        isSuccess: isSuccessChangeStatusTake,
-        isError: isErrorChangeStatusTake
-    } = useMutation({
-        mutationFn: ChangeStatusTake,
-        onError: (error) => {
-            setToaster({
-                type: "error",
-                message: error.message
-            })
-        },
-        onSuccess: () => {
-            setToaster({
-                type: "success",
-                message: "Berhasil mengambil status ticket"
-            });
-        }
-    })
-    
     const {
         mutate: mutateChangeStatusNextProgress,
         isPending: isPendingChangeStatusNextProgress,
@@ -111,10 +87,6 @@ const useInfoTicket = (id: string) => {
     })
 
 
-    const onTake = () => {
-        mutateChangeStatusTake()
-    }
-
     const onnextProgress = () => {
         mutateChangeStatusNextProgress()
     }
@@ -128,11 +100,25 @@ const useInfoTicket = (id: string) => {
     }
 
 
+
+    const getCountNotifMessagesByTicket = async() => {
+        const {data} = await NotificationService.countAllMessageByTicket();
+        return data.data;
+    }
+    
+    const {
+        data: dataCountNotifMessagesByTicket,
+        refetch: refetchCountNotifMessagesByTicket
+    } = useQuery({
+        queryKey: ["count-notification-messages-by-ticket-in-detail"],
+        queryFn: getCountNotifMessagesByTicket
+    })
+
+
+
+
+
     return {
-        mutateChangeStatusTake,
-        isPendingChangeStatusTake,
-        isSuccessChangeStatusTake,
-        isErrorChangeStatusTake,
 
         mutateChangeStatusNextProgress,
         isPendingChangeStatusNextProgress,
@@ -149,10 +135,12 @@ const useInfoTicket = (id: string) => {
         isSuccessChangeStatusResolve,
         isErrorChangeStatusResolve,
 
-        onTake,
         onnextProgress,
         onAwait,
-        onResolve
+        onResolve,
+
+        dataCountNotifMessagesByTicket,
+        refetchCountNotifMessagesByTicket
     }
 }
 

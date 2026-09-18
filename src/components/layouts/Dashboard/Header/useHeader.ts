@@ -29,22 +29,35 @@ const useHeader = () => {
         queryFn: getCountNotifications
     })
 
+    const getCountNotifMessages = async() => {
+        const {data} = await NotificationService.countAllMessage();
+        return data.data;
+    }
+
+    const {
+        data: dataCountNotifMessages,
+        refetch: refetchCountNotifMessages
+    } = useQuery({
+        queryKey: ["count-notification-messages"],
+        queryFn: getCountNotifMessages
+    })
+
 
     const readNotification = async (id: string) => {
-            const {data} = await NotificationService.readNotifications(id);
-            return data.data
-        }
+        const {data} = await NotificationService.readNotifications(id);
+        return data.data
+    }
     
-        const {
-            mutate: mutateReadNotification,
-            isSuccess: isSuccessReadNotification,
-        } = useMutation({
-            mutationFn: (id: string) => readNotification(id),
-        })
+    const {
+        mutate: mutateReadNotification,
+        isSuccess: isSuccessReadNotification,
+    } = useMutation({
+        mutationFn: (id: string) => readNotification(id),
+    })
     
-        const onReadNotification = (id: string) => {
-            mutateReadNotification(id);
-        }
+    const onReadNotification = (id: string) => {
+        mutateReadNotification(id);
+    }
     
     
 
@@ -55,6 +68,9 @@ const useHeader = () => {
         
         dataCountNotifications,
         refetchCountNotifications,
+
+        dataCountNotifMessages,
+        refetchCountNotifMessages,
 
         onReadNotification,
         isSuccessReadNotification

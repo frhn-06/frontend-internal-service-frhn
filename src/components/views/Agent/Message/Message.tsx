@@ -67,7 +67,7 @@ const Message = () => {
             <Breadcrumbs.Item href={`/employee/my-ticket`}>
               Tickets
             </Breadcrumbs.Item>
-            <Breadcrumbs.Item href={`/employee/my-ticket/${dataTicketMessage?.id}`}>
+            <Breadcrumbs.Item href={`/agent/ticket/${dataTicketMessage?.id}`}>
               {dataTicketMessage?.number}
             </Breadcrumbs.Item>
             <Breadcrumbs.Item>

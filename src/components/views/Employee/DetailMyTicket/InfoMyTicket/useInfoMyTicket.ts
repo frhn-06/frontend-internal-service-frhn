@@ -1,6 +1,7 @@
 import { useToaster } from "@/contexts/toasterContext";
+import NotificationService from "@/services/notification.service";
 import TicketService from "@/services/ticket.service";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useInfoMyTicket = (id: string) => {
     const {setToaster} = useToaster();
@@ -98,6 +99,27 @@ const useInfoMyTicket = (id: string) => {
     }
 
 
+
+
+
+
+
+
+
+    const getCountNotifMessagesByTicket = async() => {
+        const {data} = await NotificationService.countAllMessageByTicket();
+        return data.data;
+    }
+    
+    const {
+        data: dataCountNotifMessagesByTicket,
+        refetch: refetchCountNotifMessagesByTicket
+    } = useQuery({
+        queryKey: ["count-notification-messages-by-ticket-employee-in-detail"],
+        queryFn: getCountNotifMessagesByTicket
+    })
+
+
     return {
         mutateChangeStatusReProgress,
         isPendingChangeStatusReProgress,
@@ -116,7 +138,10 @@ const useInfoMyTicket = (id: string) => {
 
         onReProgress,
         onClose,
-        onCancel
+        onCancel,
+
+        dataCountNotifMessagesByTicket,
+        refetchCountNotifMessagesByTicket
     }
 }
 

@@ -4,12 +4,15 @@ import { useCallback, useEffect } from "react";
 import TableUi from "@/components/ui/TableUi";
 import listColumns from "./listColumns";
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
-import { Chip } from "@heroui/react";
+import { Badge, Chip } from "@heroui/react";
 import useTicket from "./useMyTicket";
 import { ITicket } from "@/types/ticket";
 import Convert from "@/utils/convert.";
 import { listPriorityTickets, listStatusTickets } from "@/configs/tableConfig";
 import AddMyTicket from "./AddMyTicket";
+import { useSession } from "next-auth/react";
+import { IUser } from "@/types/user";
+import { INotifMessagesByTicket } from "@/types/notification";
 
 const MyTicket = () => {
   const {
@@ -27,6 +30,9 @@ const MyTicket = () => {
     isErrorTickets,
     errorTickets,
 
+    dataCountNotifMessagesByTicket,
+    isSuccessCountNotifMessagesByTicket,
+
     handlePage,
     handleLimit,
     handleSearch,
@@ -39,6 +45,9 @@ const MyTicket = () => {
     setUrl();
   }, []);
 
+  const session = useSession();
+  const user = session?.data?.user as IUser;
+
   const renderCell = useCallback((
     data: Record<string, unknown>, 
     column: {
@@ -47,6 +56,13 @@ const MyTicket = () => {
     }) => {
 
     const value = data[column.id as keyof typeof data];
+
+    const notifMessage = dataCountNotifMessagesByTicket?.find(
+      (d: INotifMessagesByTicket) =>
+        d.ticketId === Number(data.id)
+    );
+    
+    console.log(user?.id)
 
     switch(column.id) {
       case "departmentId" :
@@ -60,21 +76,29 @@ const MyTicket = () => {
       case "actions" :
         return (
           <div className="flex gap-2">
-            <ButtonSolid
-              as="link"
-              href={`/employee/my-ticket/${data.id}`}
-              size="sm" 
-              className="bg-blue-500 hover:bg-blue-400"
-            >
-              Detail
-            </ButtonSolid>
+            <Badge.Anchor>
+              <ButtonSolid
+                as="link"
+                href={`/employee/my-ticket/${data.id}`}
+                size="sm" 
+                className="bg-blue-500 hover:bg-blue-400"
+              >
+                Detail
+              </ButtonSolid>
+            
+              {notifMessage && (
+                <Badge color="danger" size="sm">
+                  {notifMessage._count._all}
+                </Badge>
+              )} 
+            </Badge.Anchor>
         
           </div>
         )
       default :
         return value as React.ReactNode
     }
-  }, [refetchTickets])
+  }, [refetchTickets, user?.id, isSuccessCountNotifMessagesByTicket])
 
   return (
     <div className="px-2 py-6 lg:px-6 lg:py-12">

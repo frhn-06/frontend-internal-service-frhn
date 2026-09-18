@@ -26,4 +26,12 @@ interface INotification {
 }
 
 
-export default INotification;
+interface INotifMessagesByTicket {
+    ticketId: number;
+    _count: {
+        _all: number;
+    }
+}
+
+
+export type {INotification, INotifMessagesByTicket};

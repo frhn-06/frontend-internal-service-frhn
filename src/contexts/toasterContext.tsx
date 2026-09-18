@@ -33,6 +33,7 @@ export const ToasterProvider = (props: TypeProps) => {
   const {
     children
   } = props;
+  console.log("TOASTER PROVIDER RENDER");
 
   const [toaster, setToasterState] = useState<Toaster | null>(null);
 

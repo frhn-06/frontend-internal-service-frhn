@@ -7,14 +7,12 @@ import useTakeTicket from "./useTakeTicket";
 interface TypeProps {
   refetch: () => void;
   data: ITicket;
-  Button: React.ReactNode;
 }
 
 const TakeTicket = (props: TypeProps) => {
   const {
     refetch,
     data,
-    Button
   } = props;
 
   const {
@@ -35,7 +33,9 @@ const TakeTicket = (props: TypeProps) => {
 
   return (
     <Modal>
-      {Button}
+      <ButtonSolid isDisabled={isPendingTakeTicket}>
+        {isPendingTakeTicket ? "Loading..." : "Take"}
+      </ButtonSolid>
       <Modal.Backdrop>
         <Modal.Container>
           <Modal.Dialog className="sm:max-w-[360px]">

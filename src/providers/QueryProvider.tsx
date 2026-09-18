@@ -19,6 +19,8 @@ export default function QueryProvider(props: TypeProps) {
     children
   } = props;
 
+  console.log("QUERY PROVIDER RENDER");
+
   return (
     <QueryClientProvider client={queryClient}>
       {children}

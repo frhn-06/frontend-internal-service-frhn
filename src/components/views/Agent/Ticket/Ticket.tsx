@@ -3,7 +3,7 @@
 import { useCallback, useEffect } from "react";
 import TableUi from "@/components/ui/TableUi";
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
-import { Chip } from "@heroui/react";
+import { Badge, Chip } from "@heroui/react";
 import { ITicket } from "@/types/ticket";
 import Convert from "@/utils/convert.";
 import { listPriorityTickets, listStatusTickets } from "@/configs/tableConfig";
@@ -12,6 +12,7 @@ import useTicket from "./useTicket";
 import { useSession } from "next-auth/react";
 import { IUser } from "@/types/user";
 import TakeTicket from "./TakeTicket";
+import { INotifMessagesByTicket } from "@/types/notification";
 
 const Ticket = () => {
   const {
@@ -28,6 +29,9 @@ const Ticket = () => {
     refetchTickets,
     isErrorTickets,
     errorTickets,
+
+    dataCountNotifMessagesByTicket,
+    isSuccessCountNotifMessagesByTicket,
 
     handlePage,
     handleLimit,
@@ -50,56 +54,71 @@ const Ticket = () => {
     column: {
       label: string;
       id: string;
-    }) => {
-
-    const value = data[column.id as keyof typeof data];
-
-    switch(column.id) {
-      case "employeeId" :
-        return (data as unknown as ITicket).employee?.name;
-      case "agentId" :
-        return (data as unknown as ITicket).agent?.name ?? "-";
-      case "createdAt" :
-        return Convert.dateToLocal(`${data?.createdAt}`)
-      case "status" :
-        return <Chip>
-          {data?.status as string}
-        </Chip>
-      case "actions" :
-        return (
-          <div className="flex gap-2">
-            {user?.id && (
-              !(data as unknown as ITicket).agent ? (
-                <TakeTicket 
-                  data={data}
-                  refetch={refetchTickets}
-                  Button={(
-                    <ButtonSolid size="sm">
-                      Take
-                    </ButtonSolid>
-                  )}
-                />
-              ) : (data as unknown as ITicket).agent?.id != Number(user?.id) ? (
-                <ButtonSolid size="sm" isDisabled>
-                  Taked
-                </ButtonSolid>
-              ) : (data as unknown as ITicket).agent?.id == Number(user?.id) && (
-                <ButtonSolid
-                  as="link"
-                  href={`/agent/ticket/${data.id}`}
-                  size="sm" 
-                  className="bg-blue-500 hover:bg-blue-400"
-                >
-                  Detail
-                </ButtonSolid>
-              )
-            )}
-          </div>
-        )
-      default :
-        return value as React.ReactNode
     }
-  }, [refetchTickets, user?.id])
+  ) => {
+      const value = data[column.id as keyof typeof data];
+
+      const notifMessage = dataCountNotifMessagesByTicket?.find(
+        (d: INotifMessagesByTicket) =>
+          d.ticketId === Number(data.id)
+      );
+
+      console.log(user.id)
+      
+      switch(column.id) {
+        case "employeeId" :
+          return (data as unknown as ITicket).employee?.name;
+        case "agentId" :
+          return (data as unknown as ITicket).agent?.name ?? "-";
+        case "createdAt" :
+          return Convert.dateToLocal(`${data?.createdAt}`)
+        case "status" :
+          return <Chip>
+            {data?.status as string}
+          </Chip>
+        case "actions" :
+          return (
+            <div className="flex gap-2">
+              {user?.id && (
+                !(data as unknown as ITicket).agent ? (
+                  <TakeTicket 
+                    data={data}
+                    refetch={refetchTickets}
+                    Button={(
+                      <ButtonSolid size="sm">
+                        Take
+                      </ButtonSolid>
+                    )}
+                  />
+                ) : (data as unknown as ITicket).agent?.id != Number(user?.id) ? (
+                  <ButtonSolid size="sm" isDisabled>
+                    Taked
+                  </ButtonSolid>
+                ) : (data as unknown as ITicket).agent?.id == Number(user?.id) && (
+                  <Badge.Anchor>
+                    <ButtonSolid
+                      as="link"
+                      href={`/agent/ticket/${data.id}`}
+                      size="sm" 
+                      className="bg-blue-500 hover:bg-blue-400"
+                    >
+                      Detail
+                    </ButtonSolid>
+
+                    {notifMessage && (
+                      <Badge color="danger" size="sm">
+                        {notifMessage._count._all}
+                      </Badge>
+                    )} 
+                  </Badge.Anchor>
+                )
+              )}
+            </div>
+          )
+        default :
+          return value as React.ReactNode
+    }
+  }, [refetchTickets, user?.id, isSuccessCountNotifMessagesByTicket])
 
   return (
     <div className="px-2 py-6 lg:px-6 lg:py-12">
