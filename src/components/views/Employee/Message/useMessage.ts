@@ -1,11 +1,12 @@
 import TicketService from "@/services/ticket.service";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { schemaMessageValidation } from "./validation";
 import { IMessageForm } from "@/types/message";
 import { useToaster } from "@/contexts/toasterContext";
+import NotificationService from "@/services/notification.service";
 
 const useMessage = () => {    
     console.log("render message")
@@ -13,6 +14,8 @@ const useMessage = () => {
     const id = params.id;
 
     const {setToaster} = useToaster();
+
+    const queryClient = useQueryClient();
 
 
     const getMessages = async () => {
@@ -25,7 +28,8 @@ const useMessage = () => {
         isLoading: isLoadingMessages,
         isError: isErrorMessages,
         error: errorMessages,
-        refetch: refetchMessage
+        refetch: refetchMessage,
+        isSuccess: isSuccessMessages
     } = useQuery({
         queryKey: ["MessagesEmployee", id],
         queryFn: getMessages,
@@ -70,9 +74,9 @@ const useMessage = () => {
 
 
     const  {
-        mutate,
-        isPending,
-        isSuccess
+        mutate: mutateCreateMessage,
+        isPending: isPendingCreateMessage,
+        isSuccess: isSuccessCreateMessage
     } = useMutation({
         mutationFn: (data: IMessageForm) => createMessage(data),
         onError: (error) => {
@@ -87,8 +91,37 @@ const useMessage = () => {
     });
 
 
+
+    const readNotifMessage = async () => {
+        const {data} = await NotificationService.readNotificationMessages(`${dataTicketMessage.id}`);
+        return data.data
+    }
+
+    const {
+        mutate: mutateReadNotifMessage,
+        isSuccess: isSuccessReadNotifMessage
+    } = useMutation({
+        mutationFn: () => readNotifMessage().then(() => {
+            queryClient.invalidateQueries({
+                queryKey: ["count-notification-messages"]
+            })
+        }),
+        onError: (error) => {
+            setToaster({
+                type: "error",
+                message: error.message
+            })
+        },
+    })
+
+
     const onMessage = (data: IMessageForm) => {
-        mutate(data);
+        mutateCreateMessage(data);
+    }
+
+
+    const onReadMessage = () => {
+        mutateReadNotifMessage();
     }
     
     
@@ -98,6 +131,7 @@ const useMessage = () => {
         isErrorMessages,
         errorMessages,
         refetchMessage,
+        isSuccessMessages,
 
         dataTicketMessage,
         isLoadingTicketMessage,
@@ -109,8 +143,11 @@ const useMessage = () => {
 
 
         onMessage,
-        isPending,
-        isSuccess
+        isPendingCreateMessage,
+        isSuccessCreateMessage,
+
+        onReadMessage,
+        isSuccessReadNotifMessage
     }
 }
 

@@ -3,6 +3,7 @@
 import { Breadcrumbs, Skeleton } from "@heroui/react";
 import useDetailMyTicket from "../../Employee/DetailMyTicket/useDetailMyTicket";
 import InfoTicket from "./InfoTicket";
+import Link from "next/link";
 
 const DetailTicket = () => {
   const {
@@ -38,8 +39,10 @@ const DetailTicket = () => {
       ) : (
         <div className="p-4">
           <Breadcrumbs className="mb-6">
-            <Breadcrumbs.Item href="/agent/ticket">
-              Tickets
+            <Breadcrumbs.Item>
+              <Link href="/agent/ticket">
+                Tickets
+              </Link>
             </Breadcrumbs.Item>
             <Breadcrumbs.Item>
               {dataDetailTicket?.number}

@@ -10,7 +10,9 @@ const NotificationService = {
 
     countAllMessageByTicket : () => instance.get(`${endpoint.NOTIFICATION}/count-message-by-ticket`),
 
-    readNotifications: (id: string) => instance.patch(`${endpoint.NOTIFICATION}/${id}`)
+    readNotifications: (id: string) => instance.patch(`${endpoint.NOTIFICATION}/${id}`),
+
+    readNotificationMessages: (ticketId: string) => instance.patch(`${endpoint.NOTIFICATION}/${ticketId}/message`)
 }
 
 export default NotificationService

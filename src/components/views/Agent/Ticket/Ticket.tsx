@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react";
 import { IUser } from "@/types/user";
 import TakeTicket from "./TakeTicket";
 import { INotifMessagesByTicket } from "@/types/notification";
+import Link from "next/link";
 
 const Ticket = () => {
   const {
@@ -96,14 +97,12 @@ const Ticket = () => {
                   </ButtonSolid>
                 ) : (data as unknown as ITicket).agent?.id == Number(user?.id) && (
                   <Badge.Anchor>
-                    <ButtonSolid
-                      as="link"
+                    <Link 
                       href={`/agent/ticket/${data.id}`}
-                      size="sm" 
-                      className="bg-blue-500 hover:bg-blue-400"
+                      className="bg-blue-500 hover:bg-blue-400 px-4 py-1 rounded-2xl text-white"
                     >
                       Detail
-                    </ButtonSolid>
+                    </Link>
 
                     {notifMessage && (
                       <Badge color="danger" size="sm">

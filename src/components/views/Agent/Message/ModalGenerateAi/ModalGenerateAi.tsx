@@ -4,7 +4,6 @@ import ButtonSolid from '@/components/ui/Button/ButtonSolid'
 import { useEffect } from "react";
 
 interface TypeProps {
-  ButtonModal: React.ReactNode;
   data: ITicket;
   onGenerate: () => void;
   isPending: boolean;
@@ -12,7 +11,6 @@ interface TypeProps {
 }
 const ModalGenerateAi = (props: TypeProps) => {
   const {
-    ButtonModal,
     data,
     onGenerate,
     isPending,
@@ -29,7 +27,9 @@ const ModalGenerateAi = (props: TypeProps) => {
 
   return (
     <Modal state={state}>
-      {ButtonModal}
+      <ButtonSolid fullWidth className="mt-2" >
+        Generate AI
+      </ButtonSolid>
       <Modal.Backdrop>
         <Modal.Container>
           <Modal.Dialog className="sm:max-w-[360px]">

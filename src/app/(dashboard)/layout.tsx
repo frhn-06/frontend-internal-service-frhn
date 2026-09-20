@@ -14,7 +14,7 @@ export default async function DashboardLayout(props: TypeProps) {
 
   const user = session?.user as unknown as IUser;
 
-
+console.log("DASHBOARD LAYOUT");
 
   return (
     <>

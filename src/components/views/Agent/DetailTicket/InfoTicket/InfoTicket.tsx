@@ -6,9 +6,9 @@ import Convert from "@/utils/convert.";
 import { Badge, Card, Chip, Label, ListBox, Select} from "@heroui/react";
 import { useEffect } from "react";
 import useInfoTicket from "./useInfoTicket";
-import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 import TakeTicket from "./TakeTicket";
 import { INotifMessagesByTicket } from "@/types/notification";
+import Link from "next/link";
 
 interface TypeProps {
   data: ITicket;
@@ -38,7 +38,6 @@ const InfoTicket = (props: TypeProps) => {
     onResolve,
 
     dataCountNotifMessagesByTicket,
-    refetchCountNotifMessagesByTicket
   } = useInfoTicket(`${data?.id}`);
 
 
@@ -139,13 +138,12 @@ const InfoTicket = (props: TypeProps) => {
 
                 
                 <Badge.Anchor className="w-fit">
-                  <ButtonSolid 
-                    as="link"
-                    href={`/agent/ticket/${data?.id}/message`} 
-                    className="ml-auto"
+                  <Link 
+                    href={`/agent/ticket/${data.id}/message`}
+                    className="bg-background-element hover:bg-background-element-hover px-4 py-1 rounded-2xl text-white"
                   >
                     Message
-                  </ButtonSolid>
+                  </Link>
                   {notifMessages && (
                     <Badge color="danger" size="sm">
                       {notifMessages?._count._all}

@@ -9,6 +9,7 @@ import { IUser } from "@/types/user"
 import BubbleChats from "./BubbleChats"
 import { Controller } from "react-hook-form"
 import cn from "@/utils/cn"
+import Link from "next/link"
 
 
 
@@ -19,6 +20,7 @@ const Message = () => {
     isErrorMessages,
     errorMessages,
     refetchMessage,
+    isSuccessMessages,
 
     dataTicketMessage,
     isLoadingTicketMessage,
@@ -28,17 +30,24 @@ const Message = () => {
     control,
     errors,
 
-
     onMessage,
-    isSuccess
+    isSuccessCreateMessage,
+
+    onReadMessage,
   } = useMessage();
 
 
   useEffect(() => {
-    if(isSuccess) {
+    if(isSuccessCreateMessage) {
       refetchMessage();
     }
-  }, [isSuccess])
+  }, [isSuccessCreateMessage])
+
+  useEffect(() => {
+    if(!isSuccessMessages || !dataTicketMessage?.id) return;
+
+    onReadMessage();
+  }, [isSuccessMessages, dataTicketMessage?.id])
 
   const user = useSession().data?.user as IUser;
 
@@ -58,11 +67,15 @@ const Message = () => {
       <div className="h-full overflow-hidden flex flex-col">
         <div className="p-4">
           <Breadcrumbs>
-            <Breadcrumbs.Item href={`/agent/ticket`}>
-              My Tickets
+            <Breadcrumbs.Item>
+              <Link href={`/employee/my-ticket`}>
+                My Tickets
+              </Link>
             </Breadcrumbs.Item>
-            <Breadcrumbs.Item href={`/agent/ticket/${dataTicketMessage?.id}`}>
-              {dataTicketMessage?.number}
+            <Breadcrumbs.Item>
+              <Link href={`/employee/my-ticket/${dataTicketMessage?.id}`}>
+                {dataTicketMessage?.number}
+              </Link>
             </Breadcrumbs.Item>
             <Breadcrumbs.Item>
               Message

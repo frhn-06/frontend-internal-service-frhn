@@ -2,6 +2,7 @@ import NotificationService from "@/services/notification.service"
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useHeader = () => {
+    
     const getNotifications = async() => {
         const {data} = await NotificationService.findAll();
         return data.data;
@@ -23,10 +24,12 @@ const useHeader = () => {
 
     const {
         data: dataCountNotifications,
-        refetch: refetchCountNotifications
+        refetch: refetchCountNotifications,
+
     } = useQuery({
         queryKey: ["count-notifications"],
-        queryFn: getCountNotifications
+        queryFn: getCountNotifications,
+        placeholderData: (previousData) => previousData
     })
 
     const getCountNotifMessages = async() => {
@@ -36,10 +39,11 @@ const useHeader = () => {
 
     const {
         data: dataCountNotifMessages,
-        refetch: refetchCountNotifMessages
+        refetch: refetchCountNotifMessages,
     } = useQuery({
         queryKey: ["count-notification-messages"],
-        queryFn: getCountNotifMessages
+        queryFn: getCountNotifMessages,
+        placeholderData: (previousData) => previousData
     })
 
 

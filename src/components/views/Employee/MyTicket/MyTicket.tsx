@@ -3,7 +3,6 @@
 import { useCallback, useEffect } from "react";
 import TableUi from "@/components/ui/TableUi";
 import listColumns from "./listColumns";
-import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 import { Badge, Chip } from "@heroui/react";
 import useTicket from "./useMyTicket";
 import { ITicket } from "@/types/ticket";
@@ -13,6 +12,7 @@ import AddMyTicket from "./AddMyTicket";
 import { useSession } from "next-auth/react";
 import { IUser } from "@/types/user";
 import { INotifMessagesByTicket } from "@/types/notification";
+import Link from "next/link";
 
 const MyTicket = () => {
   const {
@@ -31,7 +31,6 @@ const MyTicket = () => {
     errorTickets,
 
     dataCountNotifMessagesByTicket,
-    isSuccessCountNotifMessagesByTicket,
 
     handlePage,
     handleLimit,
@@ -77,14 +76,12 @@ const MyTicket = () => {
         return (
           <div className="flex gap-2">
             <Badge.Anchor>
-              <ButtonSolid
-                as="link"
+              <Link 
                 href={`/employee/my-ticket/${data.id}`}
-                size="sm" 
-                className="bg-blue-500 hover:bg-blue-400"
+                className="bg-blue-500 hover:bg-blue-400 px-4 py-1 rounded-2xl text-white"
               >
                 Detail
-              </ButtonSolid>
+              </Link>
             
               {notifMessage && (
                 <Badge color="danger" size="sm">
@@ -98,7 +95,7 @@ const MyTicket = () => {
       default :
         return value as React.ReactNode
     }
-  }, [refetchTickets, user?.id, isSuccessCountNotifMessagesByTicket])
+  }, [refetchTickets, user?.id, dataCountNotifMessagesByTicket])
 
   return (
     <div className="px-2 py-6 lg:px-6 lg:py-12">

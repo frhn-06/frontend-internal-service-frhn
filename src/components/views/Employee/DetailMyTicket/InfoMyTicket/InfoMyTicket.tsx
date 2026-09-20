@@ -6,8 +6,8 @@ import Convert from "@/utils/convert.";
 import { Badge, Card, Chip, Label, ListBox, Select} from "@heroui/react";
 import useInfoMyTicket from "./useInfoMyTicket";
 import { useEffect } from "react";
-import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 import { INotifMessagesByTicket } from "@/types/notification";
+import Link from "next/link";
 
 interface TypeProps {
   data: ITicket;
@@ -126,13 +126,12 @@ const InfoMyTicket = (props: TypeProps) => {
               </div>
 
               <Badge.Anchor className="w-fit">
-                <ButtonSolid 
-                  as="link"
-                  href={`/employee/my-ticket/${data?.id}/message`} 
-                  className="ml-auto"
+                <Link 
+                  href={`/employee/my-ticket/${data.id}/message`}
+                  className="bg-background-element hover:bg-background-element-hover px-4 py-1 rounded-2xl text-white"
                 >
                   Message
-                </ButtonSolid>
+                </Link>
                 {notifMessages && (
                   <Badge color="danger" size="sm">
                     {notifMessages?._count._all}
