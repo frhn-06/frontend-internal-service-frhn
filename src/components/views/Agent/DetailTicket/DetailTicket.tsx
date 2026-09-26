@@ -1,18 +1,19 @@
 "use client"
 
 import { Breadcrumbs, Skeleton } from "@heroui/react";
-import useDetailMyTicket from "../../Employee/DetailMyTicket/useDetailMyTicket";
 import InfoTicket from "./InfoTicket";
 import Link from "next/link";
+import useDetailTicket from "./useDetailTicket";
 
 const DetailTicket = () => {
   const {
     dataDetailTicket,
     isLoadingDetailTicket,
-    refetchDetailTicket,
     isErrorDetailTicket,
     errorDetailTicket,
-  } = useDetailMyTicket();
+  } = useDetailTicket();
+
+  
 
   return (
     <div className="px-2 py-6 lg:px-6 lg:py-12">
@@ -50,7 +51,7 @@ const DetailTicket = () => {
           </Breadcrumbs>
                 
           
-          <InfoTicket data={dataDetailTicket} refetch={refetchDetailTicket} />
+          <InfoTicket data={dataDetailTicket} />
         </div>
   
       )}

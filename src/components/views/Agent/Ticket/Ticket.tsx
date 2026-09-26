@@ -9,11 +9,15 @@ import Convert from "@/utils/convert.";
 import { listPriorityTickets, listStatusTickets } from "@/configs/tableConfig";
 import listColumns from "./listColumn";
 import useTicket from "./useTicket";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { IUser } from "@/types/user";
 import TakeTicket from "./TakeTicket";
 import { INotifMessagesByTicket } from "@/types/notification";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
+import { CustomSession } from "@/libs/axios";
+import socket from "@/libs/socket";
 
 const Ticket = () => {
   const {
@@ -49,6 +53,42 @@ const Ticket = () => {
   const session = useSession();
   const user = session?.data?.user as IUser;
 
+  const params = useParams();
+  const id = params.id;
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const connectSocket = async () => {
+      const session: CustomSession | null = await getSession();
+      if(!session || !session.accessToken) return;
+
+      socket.auth = {
+        token: session.accessToken
+      }
+
+      socket.on("connect", () => {
+        console.log("socket connect to id:", socket.id);
+      })
+
+      socket.on("all-messages:new", () => {
+        queryClient.invalidateQueries({
+          queryKey: ["count-notification-messages-by-ticket"]
+        })
+      })
+
+      socket.connect();
+    }
+
+    connectSocket();
+
+    return () => {
+      socket.off("connect");
+      socket.off("all-messages:new");
+      socket.disconnect();
+    }
+  },[queryClient, id])
+
 
   const renderCell = useCallback((
     data: Record<string, unknown>, 
@@ -63,8 +103,6 @@ const Ticket = () => {
         (d: INotifMessagesByTicket) =>
           d.ticketId === Number(data.id)
       );
-
-      console.log(user.id)
       
       switch(column.id) {
         case "employeeId" :
@@ -117,7 +155,7 @@ const Ticket = () => {
         default :
           return value as React.ReactNode
     }
-  }, [refetchTickets, user?.id, isSuccessCountNotifMessagesByTicket])
+  }, [refetchTickets, user?.id, dataCountNotifMessagesByTicket])
 
   return (
     <div className="px-2 py-6 lg:px-6 lg:py-12">

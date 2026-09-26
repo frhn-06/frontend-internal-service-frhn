@@ -1,34 +1,22 @@
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 import { ITicket } from "@/types/ticket";
 import { Modal } from "@heroui/react";
-import React, { useEffect } from "react";
 import useTakeTicket from "./useTakeTicket";
 
 interface TypeProps {
-  refetch: () => void;
   data: ITicket;
 }
 
 const TakeTicket = (props: TypeProps) => {
   const {
-    refetch,
     data,
   } = props;
 
   const {
     isPendingTakeTicket,
-    isSuccessTakeTicket,
 
     onTake
   } = useTakeTicket(`${data.id}`)
-
-
-  useEffect(() => {
-    if(isSuccessTakeTicket) {
-      refetch();
-    }
-  }, [isSuccessTakeTicket])
-
 
 
   return (

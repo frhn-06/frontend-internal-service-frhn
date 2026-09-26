@@ -2,12 +2,15 @@
 import { usePathname } from "next/navigation"
 import ToggleSidebarDekstop from "@/components/ui/ToggleSidebarDekstop";
 import { IUser } from "@/types/user";
-import { MessageCircle, SquareMenu } from "lucide-react";
+import { SquareMenu } from "lucide-react";
 import headerDashboardConfig from "@/configs/headerDashboardConfig";
 import { SetStateAction, useEffect } from "react";
 import useHeader from "./useHeader";
 import NotificationsUi from "@/components/ui/NotificationsUi";
-import { Badge } from "@heroui/react";
+import { CustomSession } from "@/libs/axios";
+import { getSession } from "next-auth/react";
+import socket from "@/libs/socket";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 interface TypeProps {
@@ -29,10 +32,7 @@ const Header = (props: TypeProps) => {
 
     dataCountNotifications,
     refetchCountNotifications,
-
-    dataCountNotifMessages,
-    refetchCountNotifMessages,
-
+    
     onReadNotification,
     isSuccessReadNotification
   } = useHeader();
@@ -41,6 +41,43 @@ const Header = (props: TypeProps) => {
 
   const header = headerDashboardConfig[route as keyof typeof headerDashboardConfig];
 
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const connectSocket = async () => {
+      const session : CustomSession | null = await getSession();
+
+      if(!session || !session.accessToken) return;
+
+      socket.auth = {
+        token: session.accessToken
+      }
+
+      socket.on("connect", () => console.log("socket connect on:", socket.id));
+
+      socket.on("notification:new", () => {
+        queryClient.invalidateQueries({
+          queryKey: ["list-notifications"]
+        })
+        queryClient.invalidateQueries({
+          queryKey: ["count-notifications"]
+        })
+      });
+
+      socket.connect();
+
+    }
+    
+    connectSocket();
+
+    return () => {
+      socket.off("connect");
+      socket.off("notification:new");
+      socket.disconnect();
+    }
+  }, [queryClient]);
+
+  
   useEffect(() => {
     if(isSuccessReadNotification) {
       refetchDataNotifications();
@@ -84,15 +121,6 @@ const Header = (props: TypeProps) => {
             data={dataNotifications} 
             onRead={onReadNotification}  
           />
-
-          <Badge.Anchor>
-            <MessageCircle />
-            {dataCountNotifMessages > 0 && (
-              <Badge color="danger" size="sm">
-                {dataCountNotifMessages}
-              </Badge>
-            )}
-          </Badge.Anchor>
         </div>
       </div>
     </div>

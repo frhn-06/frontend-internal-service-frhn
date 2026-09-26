@@ -100,12 +100,6 @@ const useInfoMyTicket = (id: string) => {
 
 
 
-
-
-
-
-
-
     const getCountNotifMessagesByTicket = async() => {
         const {data} = await NotificationService.countAllMessageByTicket();
         return data.data;

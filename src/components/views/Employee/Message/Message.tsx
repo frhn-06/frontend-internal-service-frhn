@@ -4,12 +4,16 @@ import ButtonSolid from "@/components/ui/Button/ButtonSolid"
 import { Breadcrumbs, Form, TextArea } from "@heroui/react"
 import useMessage from "./useMessage"
 import { useEffect } from "react"
-import { useSession } from "next-auth/react"
+import { getSession, useSession } from "next-auth/react"
 import { IUser } from "@/types/user"
 import BubbleChats from "./BubbleChats"
 import { Controller } from "react-hook-form"
 import cn from "@/utils/cn"
 import Link from "next/link"
+import { useParams } from "next/navigation"
+import { useQueryClient } from "@tanstack/react-query"
+import { CustomSession } from "@/libs/axios"
+import socket from "@/libs/socket"
 
 
 
@@ -19,7 +23,6 @@ const Message = () => {
     isLoadingMessages,
     isErrorMessages,
     errorMessages,
-    refetchMessage,
     isSuccessMessages,
 
     dataTicketMessage,
@@ -31,21 +34,62 @@ const Message = () => {
     errors,
 
     onMessage,
-    isSuccessCreateMessage,
 
     onReadMessage,
   } = useMessage();
 
 
+  const queryClient = useQueryClient();
+
+  const params = useParams();
+  const id = params.id;
+            
   useEffect(() => {
-    if(isSuccessCreateMessage) {
-      refetchMessage();
+    if(!dataTicketMessage) return;
+    
+    const conncetSocket = async () => {
+      const session  : CustomSession | null = await getSession();
+      if(!session || !session.accessToken) return;
+            
+      const joinTicket = () => {
+        socket.emit(`ticket:join`, dataTicketMessage.id)
+        console.log("socket join to ticket:", dataTicketMessage.id)
+      }
+
+      socket.auth = {
+        token: session.accessToken
+      }
+            
+      socket.on("connect", () => {
+        console.log("socket connnected:", socket.id);
+
+        joinTicket();
+      })
+
+      socket.on("message:new", () => {
+        queryClient.invalidateQueries({
+          queryKey: ["MessagesEmployee", id]
+        })
+      });
+
+      if(socket.connected) {
+        joinTicket();
+      }
+
+      socket.connect();
     }
-  }, [isSuccessCreateMessage])
+
+    conncetSocket();
+
+    return () => {
+      socket.off("connect");
+      socket.off("message:new");
+      socket.disconnect();
+    }
+  },[dataTicketMessage, id, queryClient])
 
   useEffect(() => {
     if(!isSuccessMessages || !dataTicketMessage?.id) return;
-
     onReadMessage();
   }, [isSuccessMessages, dataTicketMessage?.id])
 

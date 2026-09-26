@@ -10,9 +10,6 @@ const useDetailTicket = () => {
 
 
 
-
-
-
     const getTicket = async () => {
         const {data} = await TicketService.findOne(`${id}`);
         return data.data;
@@ -26,9 +23,9 @@ const useDetailTicket = () => {
         isError: isErrorDetailTicket,
         error: errorDetailTicket
     } = useQuery({
-        queryKey: ["DetailDetailTicketAgent", params],
+        queryKey: ["DetailTicketAgent", id],
         queryFn: getTicket,
-        enabled: !!params.id
+        enabled: !!id
     });
 
 

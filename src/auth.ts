@@ -26,6 +26,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+          // `${process.env.NEXT_PUBLIC_API_URL_LOCAL}/auth/login`,
           {
             method: "POST",
             headers: {
@@ -46,6 +47,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const accessToken = result.data;
           
+        // const responseMe = await fetch(`${process.env.NEXT_PUBLIC_API_URL_LOCAL}/auth/me`, {
         const responseMe = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
           method: "GET",
           headers: {

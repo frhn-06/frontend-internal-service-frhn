@@ -9,10 +9,11 @@ const DetailMyTicket = () => {
 	const {
 		dataDetailTicket,
     isLoadingDetailTicket,
-    refetchDetailTicket,
     isErrorDetailTicket,
     errorDetailTicket,
 	} = useDetailMyTicket();
+
+ 
 
 	return (
     <div className="px-2 py-6 lg:px-6 lg:py-12">
@@ -50,7 +51,7 @@ const DetailMyTicket = () => {
           </Breadcrumbs>
                 
           
-          <InfoMyTicket data={dataDetailTicket} refetch={refetchDetailTicket} />
+          <InfoMyTicket data={dataDetailTicket} />
         </div>
   
       )}

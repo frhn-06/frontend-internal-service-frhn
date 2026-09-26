@@ -5,6 +5,7 @@ import { getSession } from "next-auth/react";
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
+// baseURL: process.env.NEXT_PUBLIC_API_URL_LOCAL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -45,4 +46,5 @@ instance.interceptors.response.use((response) => {
     return Promise.reject(error);
 });
 
+export type {CustomSession}
 export default instance;

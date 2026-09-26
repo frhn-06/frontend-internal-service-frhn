@@ -5,31 +5,31 @@ import { ITicket } from "@/types/ticket";
 import Convert from "@/utils/convert.";
 import { Badge, Card, Chip, Label, ListBox, Select} from "@heroui/react";
 import useInfoMyTicket from "./useInfoMyTicket";
-import { useEffect } from "react";
 import { INotifMessagesByTicket } from "@/types/notification";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
+import { CustomSession } from "@/libs/axios";
+import { useQueryClient } from "@tanstack/react-query";
+import { getSession } from "next-auth/react";
+import socket from "@/libs/socket";
 
 interface TypeProps {
   data: ITicket;
-  refetch: () => void;
 }
 
 
 const InfoMyTicket = (props: TypeProps) => {
   const {
     data,
-    refetch,
   } = props;
 
   const {
     isPendingChangeStatusReProgress,
-    isSuccessChangeStatusReProgress,
 
     isPendingChangeStatusClose,
-    isSuccessChangeStatusClose,
 
     isPendingChangeStatusCancel,
-    isSuccessChangeStatusCancel,
 
     onReProgress,
     onClose,
@@ -55,17 +55,66 @@ const InfoMyTicket = (props: TypeProps) => {
 
   const isPending = isPendingChangeStatusCancel || isPendingChangeStatusClose || isPendingChangeStatusReProgress
 
-  const isSuccess = isSuccessChangeStatusCancel || isSuccessChangeStatusClose || isSuccessChangeStatusReProgress
-
   const notifMessages = dataCountNotifMessagesByTicket?.find((notif: INotifMessagesByTicket) => notif.ticketId === Number(data.id));
 
 
 
+  const params = useParams();
+  const id = params.id;
+  const queryClient = useQueryClient();
+              
   useEffect(() => {
-    if(isSuccess) {
-      refetch();
+    if(!data?.id) return;
+
+    const conncetSocket = async () => {
+      const session: CustomSession | null = await getSession();
+
+      if(!session || !session.accessToken) return;
+            
+      socket.auth = {
+        token: session.accessToken
+      }
+
+      const joinTicket = () => {
+        socket.emit(`ticket:join`, data.id);
+
+        console.log("socket join to ticket:", data.id)
+      }
+            
+      socket.on("connect", () => {
+        console.log("socket connnected:", socket.id);
+
+        joinTicket()
+      })
+
+      socket.on("ticket-status:change", () => {
+        queryClient.invalidateQueries({
+          queryKey: ["DetailTicketEmployee", id]
+        })
+      });
+
+      socket.on("message:new", () => {
+        queryClient.invalidateQueries({
+          queryKey: ["count-notification-messages-by-ticket-employee-in-detail"]
+        })
+      })
+          
+      if(socket.connected) {
+        joinTicket();
+      }
+
+      socket.connect();
     }
-  },[isSuccess])
+          
+    conncetSocket();
+          
+    return () => {
+      socket.off("connect");
+      socket.off("ticket-status:change");
+      socket.off("message:new");
+      socket.disconnect();
+    }
+  },[data?.id, id, queryClient])
 
 
   return (

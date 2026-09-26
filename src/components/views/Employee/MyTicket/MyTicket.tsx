@@ -9,10 +9,14 @@ import { ITicket } from "@/types/ticket";
 import Convert from "@/utils/convert.";
 import { listPriorityTickets, listStatusTickets } from "@/configs/tableConfig";
 import AddMyTicket from "./AddMyTicket";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { IUser } from "@/types/user";
 import { INotifMessagesByTicket } from "@/types/notification";
 import Link from "next/link";
+import { CustomSession } from "@/libs/axios";
+import socket from "@/libs/socket";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 
 const MyTicket = () => {
   const {
@@ -46,6 +50,42 @@ const MyTicket = () => {
 
   const session = useSession();
   const user = session?.data?.user as IUser;
+
+  const params = useParams();
+  const id = params.id;
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const connectSocket = async () => {
+      const session: CustomSession | null = await getSession();
+      if(!session || !session.accessToken) return;
+
+      socket.auth = {
+        token: session.accessToken
+      }
+
+      socket.on("connect", () => {
+        console.log("socket connect to id:", socket.id);
+      })
+
+      socket.on("all-messages:new", () => {
+        queryClient.invalidateQueries({
+          queryKey: ["count-notification-messages-by-ticket-employee"]
+        })
+      })
+
+      socket.connect();
+    }
+
+    connectSocket();
+
+    return () => {
+      socket.off("connect");
+      socket.off("all-messages:new");
+      socket.disconnect();
+    }
+  },[queryClient, id])
 
   const renderCell = useCallback((
     data: Record<string, unknown>, 
