@@ -119,7 +119,9 @@ const Header = (props: TypeProps) => {
           <NotificationsUi 
             dataCount={dataCountNotifications} 
             data={dataNotifications} 
-            onRead={onReadNotification}  
+            onRead={onReadNotification}
+            refetch={refetchDataNotifications}
+            refetchCount={refetchCountNotifications}
           />
         </div>
       </div>

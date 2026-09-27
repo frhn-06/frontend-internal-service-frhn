@@ -1,16 +1,21 @@
 import { INotification } from "@/types/notification";
 import cn from "@/utils/cn";
 import setTimeMessage from "@/utils/timemessage";
-import { Badge, Popover } from "@heroui/react"
-import { Bell, CircleCheck, CircleCheckBig, CircleX, Clock3, Hand, LoaderCircle, MessageCircle, RotateCcw, TicketPlus } from "lucide-react"
+import { Badge, Button, Dropdown, Label, Popover } from "@heroui/react"
+import { Bell, CircleCheck, CircleCheckBig, CircleX, Clock3, EllipsisVertical, Hand, LoaderCircle, MessageCircle, RotateCcw, TicketPlus, Trash } from "lucide-react"
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useNotificationsUi from "./useNotificationsUi";
 
 interface TypeProps {
   dataCount: number;
   data: INotification[];
 
   onRead: (id: string) => void;
+
+  refetch: () => void;
+
+  refetchCount: () => void;
 }
 const NotificationsUi = (props: TypeProps) => {
   const {
@@ -18,8 +23,36 @@ const NotificationsUi = (props: TypeProps) => {
     data,
 
     onRead,
+
+    refetch,
+
+    refetchCount
   } = props;
 
+
+  const {
+    onDeleteNotification,
+    isSuccessDeleteNotification,
+    isPendingDeleteNotification,
+
+    onClearNotifications,
+    isSuccessClearNotifications,
+    isPendingClearNotifications,
+
+    onMarkAllNotifications,
+    isSuccessMarkAllNotifications,
+    isPendingMarkAllNotifications
+  } = useNotificationsUi();
+
+
+  useEffect(() => {
+    if(isSuccessDeleteNotification || isSuccessMarkAllNotifications || isSuccessClearNotifications) {
+      if(isSuccessClearNotifications || isSuccessDeleteNotification) {
+        refetchCount();
+      }
+      refetch();
+    }
+  }, [isSuccessDeleteNotification, isSuccessClearNotifications, isSuccessMarkAllNotifications])
 
 
   const [isOpen, setOpen] = useState(false)
@@ -29,7 +62,6 @@ const NotificationsUi = (props: TypeProps) => {
     onRead(id);
   }
 
-  
 
   const renderIcon= (type: string) => {
     switch(type) {
@@ -78,36 +110,83 @@ const NotificationsUi = (props: TypeProps) => {
       </Popover.Trigger>
 
 
-      <Popover.Content className="max-w-64  overflow-y-hidden">
+      <Popover.Content className="w-full max-w-84 overflow-y-hidden ">
         <Popover.Dialog>
           <div className="max-h-120 flex flex-col gap-2 overflow-y-scroll">
-            {data?.map((d : INotification) => (
-              <Link 
-                href={`${handleHrefTarget(`${d.target?.role}`)}/${d.ticketId}`} 
-                className={cn("flex gap-1 p-2 rounded-xl active:bg-default-100", {
-                  "bg-green-100 active:bg-green-200" : !d.isRead
-                  }
-                )} 
-                key={d.id}
-                onClick={() => handleClickNotif(`${d.id}`)}
-              >
-                <div className="w-8">
-                  {renderIcon(`${d.type}`)}
-                </div>
+            <div className="flex justify-between items-center">
+              <h3 className="font-semibold text-foreground text-xl">
+                Notifications
+              </h3>
+              <Dropdown>
+                <Button aria-label="Menu" variant="secondary">
+                  <EllipsisVertical />                  
+                </Button>
+                <Dropdown.Popover>
+                  <Dropdown.Menu>
+                    <Dropdown.Item 
+                      id="new-file" 
+                      textValue="Tandai Semua"
+                      onClick={onMarkAllNotifications}
+                      isDisabled={isPendingMarkAllNotifications}
+                    >
+                      <Label>
+                        {isPendingMarkAllNotifications ? "loading..." : "Tandai semua"}
+                      </Label>
+                    </Dropdown.Item>
+                    <Dropdown.Item 
+                      id="delete-file" 
+                      textValue="Clear Notification" 
+                      variant="danger"
+                      onClick={onClearNotifications}
+                      isDisabled={isPendingClearNotifications}
+                    >
+                      <Label>
+                        {isPendingClearNotifications ? "loading..." : "Clear Notifications"}
+                      </Label>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown.Popover>
+              </Dropdown>
+            </div>
 
-                <div>
-                  <h1 className="text-foreground font-semibold">
-                    {d.title}
-                  </h1>
-                  <p>
-                    {d.message}
-                  </p>
-                  <p className="text-text-abu text-xs">
-                    {setTimeMessage(`${d.createdAt}`)}
-                  </p>
-                </div>
-              </Link>
+            {data?.map((d : INotification) => (
+              <div key={d.id} className="flex gap-2">
+                <Link 
+                  href={`${handleHrefTarget(`${d.target?.role}`)}/${d.ticketId}`} 
+                  className={cn("flex flex-1 gap-1 p-2 rounded-xl active:bg-default-100", {
+                    "bg-green-100 active:bg-green-200" : !d.isRead
+                    }
+                  )} 
+                  onClick={() => handleClickNotif(`${d.id}`)}
+                >
+                  <div className="w-8">
+                    {renderIcon(`${d.type}`)}
+                  </div>
+
+                  <div>
+                    <h1 className="text-foreground font-semibold">
+                      {d.title}
+                    </h1>
+                    <p>
+                      {d.message}
+                    </p>
+                    <p className="text-text-abu text-xs">
+                      {setTimeMessage(`${d.createdAt}`)}
+                    </p>
+                  </div>
+                </Link>
+
+                <Trash 
+                  className="p-1 w-6 h-6 rounded-full hover:cursor-pointer active:bg-gray-200" 
+                  onClick={() => {
+                    if(isPendingDeleteNotification) return;
+                    onDeleteNotification(`${d.id}`)
+                  }}
+                />
+
+              </div>
             ))}
+            
           </div>
         </Popover.Dialog>
       </Popover.Content>

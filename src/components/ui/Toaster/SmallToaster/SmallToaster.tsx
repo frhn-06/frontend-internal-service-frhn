@@ -10,7 +10,7 @@ const SmallToaster = (props: TypeProps) => {
 
 
   return (
-    <div className="fixed top-0 right-0 m-4">
+    <div className="fixed top-0 right-0 m-4 z-50">
       <div className={cn("shadow-lg rounded-xl p-4 border-2 max-w-xs", {
         "bg-green-100 border-green-600" : type === "success",
         "bg-red-100 border-red-600" : type === "error"
