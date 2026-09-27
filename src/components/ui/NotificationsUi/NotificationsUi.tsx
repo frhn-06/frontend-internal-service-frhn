@@ -78,36 +78,37 @@ const NotificationsUi = (props: TypeProps) => {
       </Popover.Trigger>
 
 
-      <Popover.Content className="max-w-64">
-        <Popover.Dialog className="p-2 flex flex-col gap-2">
-          {data?.map((d : INotification) => (
-            <Link 
-              href={`${handleHrefTarget(`${d.target?.role}`)}/${d.ticketId}`} 
-              className={cn("flex gap-1 p-2 rounded-xl active:bg-default-100", {
-                "bg-green-100 active:bg-green-200" : !d.isRead
-                }
-              )} 
-              key={d.id}
-              onClick={() => handleClickNotif(`${d.id}`)}
-            >
-              <div className="w-8">
-                {renderIcon(`${d.type}`)}
-              </div>
+      <Popover.Content className="max-w-64  overflow-y-hidden">
+        <Popover.Dialog>
+          <div className="max-h-120 flex flex-col gap-2 overflow-y-scroll">
+            {data?.map((d : INotification) => (
+              <Link 
+                href={`${handleHrefTarget(`${d.target?.role}`)}/${d.ticketId}`} 
+                className={cn("flex gap-1 p-2 rounded-xl active:bg-default-100", {
+                  "bg-green-100 active:bg-green-200" : !d.isRead
+                  }
+                )} 
+                key={d.id}
+                onClick={() => handleClickNotif(`${d.id}`)}
+              >
+                <div className="w-8">
+                  {renderIcon(`${d.type}`)}
+                </div>
 
-              <div>
-                <h1 className="text-foreground font-semibold">
-                  {d.title}
-                </h1>
-                <p>
-                  {d.message}
-                </p>
-                <p className="text-text-abu text-xs">
-                  {setTimeMessage(`${d.createdAt}`)}
-                </p>
-              </div>
-            </Link>
-          ))}
-          
+                <div>
+                  <h1 className="text-foreground font-semibold">
+                    {d.title}
+                  </h1>
+                  <p>
+                    {d.message}
+                  </p>
+                  <p className="text-text-abu text-xs">
+                    {setTimeMessage(`${d.createdAt}`)}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </Popover.Dialog>
       </Popover.Content>
     </Popover>
