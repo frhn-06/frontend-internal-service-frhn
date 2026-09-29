@@ -6,7 +6,8 @@ const endpoint = {
     CATEGORY: "/category",
     TICKET: "/ticket",
     MESSAGE: "/message",
-    NOTIFICATION: "/notification"
+    NOTIFICATION: "/notification",
+    DASHBOARD: "/dashboard"
 }
 
 export default endpoint;

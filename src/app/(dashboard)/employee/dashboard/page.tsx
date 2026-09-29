@@ -1,3 +1,4 @@
+import Dashboard from "@/components/views/Employee/Dashboard";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,8 +10,6 @@ export const metadata: Metadata = {
 
 export default function EmployeeDashboardPage() {
   return (
-    <div>
-        dashboard employ
-    </div>
+    <Dashboard />
   )
 }
