@@ -1,5 +1,6 @@
 import { IStatisticsAgent } from "@/types/dashboard";
 import { BriefcaseBusiness, CircleCheck, Clock3, Inbox, RotateCcw, Tickets } from "lucide-react";
+import CountUp from "react-countup";
 
 interface TypeProps {
   statistics: IStatisticsAgent;
@@ -22,7 +23,10 @@ const CardStatistics = (props: TypeProps) => {
         </div>
 
         <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight"> 
-          {statistics.totalTickets}
+          <CountUp
+            end={statistics.totalTickets}
+            duration={0.8}
+          />
         </p>
 
         <p className="text-sm lg:text-base font-semibold text-foreground">
@@ -42,7 +46,10 @@ const CardStatistics = (props: TypeProps) => {
         </div>
 
         <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight"> 
-          {statistics.ticketsOpen}
+          <CountUp
+            end={statistics.ticketsOpen}
+            duration={0.8}
+          />
         </p>
 
         <p className="text-sm lg:text-base font-semibold text-foreground">
@@ -62,7 +69,10 @@ const CardStatistics = (props: TypeProps) => {
         </div>
 
         <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight"> 
-          {statistics.myTickets}
+          <CountUp
+            end={statistics.myTickets}
+            duration={0.8}
+          />
         </p>
 
         <p className="text-sm lg:text-base font-semibold text-foreground">
@@ -82,7 +92,10 @@ const CardStatistics = (props: TypeProps) => {
         </div>
 
         <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight"> 
-          {statistics.ticketsWaiting}
+          <CountUp
+            end={statistics.ticketsWaiting}
+            duration={0.8}
+          />
         </p>
 
         <p className="text-sm lg:text-base font-semibold text-foreground">
@@ -102,7 +115,10 @@ const CardStatistics = (props: TypeProps) => {
         </div>
 
         <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight"> 
-          {statistics.ticketsReprogress}
+          <CountUp
+            end={statistics.ticketsReprogress}
+            duration={0.8}
+          />
         </p>
 
         <p className="text-sm lg:text-base font-semibold text-foreground">
@@ -118,7 +134,10 @@ const CardStatistics = (props: TypeProps) => {
         </div>
 
         <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight"> 
-          {statistics.ticketsResolved}
+          <CountUp
+            end={statistics.ticketsResolved}
+            duration={0.8}
+          />
         </p>
 
         <p className="text-sm lg:text-base font-semibold text-foreground">

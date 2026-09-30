@@ -1,5 +1,6 @@
 import { IStatisticsEmployee } from "@/types/dashboard";
 import { CircleCheck, Clock3, LoaderCircle, Ticket, TicketPlus } from "lucide-react";
+import CountUp from "react-countup";
 
 interface TypeProps {
   statistics: IStatisticsEmployee;
@@ -21,8 +22,11 @@ const CardStatistics = (props: TypeProps) => {
           </span>
         </div>
 
-        <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight"> 
-          {statistics.totalTickets}
+        <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight">
+          <CountUp
+            end={statistics.totalTickets}
+            duration={0.8}
+          />
         </p>
 
         <p className="text-sm lg:text-base font-semibold text-foreground">
@@ -41,8 +45,11 @@ const CardStatistics = (props: TypeProps) => {
           </span>
         </div>
 
-        <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight"> 
-          {statistics.ticketsOpen}
+        <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight">
+          <CountUp
+            end={statistics.ticketsOpen}
+            duration={0.8}
+          />
         </p>
 
         <p className="text-sm lg:text-base font-semibold text-foreground">
@@ -62,7 +69,10 @@ const CardStatistics = (props: TypeProps) => {
         </div>
 
         <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight"> 
-          {statistics.ticketsInprogress}
+          <CountUp
+            end={statistics.ticketsInprogress}
+            duration={0.8}
+          />
         </p>
 
         <p className="text-sm lg:text-base font-semibold text-foreground">
@@ -82,7 +92,10 @@ const CardStatistics = (props: TypeProps) => {
         </div>
 
         <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight"> 
-          {statistics.ticketsInprogress}
+          <CountUp
+            end={statistics.ticketsWaiting}
+            duration={0.8}
+          />
         </p>
 
         <p className="text-sm lg:text-base font-semibold text-foreground">
@@ -98,7 +111,10 @@ const CardStatistics = (props: TypeProps) => {
         </div>
 
         <p className="mt-5 text-xl lg:text-2xl font-bold tracking-tight"> 
-          {statistics.ticketsInprogress}
+          <CountUp
+            end={statistics.ticketsResolved}
+            duration={0.8}
+          />
         </p>
 
         <p className="text-sm lg:text-base font-semibold text-foreground">

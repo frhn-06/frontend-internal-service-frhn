@@ -19,6 +19,7 @@
     "next": "16.3.2",
     "next-auth": "^5.0.0-beta.32",
     "react": "19.2.8",
+    "react-countup": "^6.5.3",
     "react-dom": "19.2.8",
     "react-hook-form": "^7.86.0",
     "socket.io-client": "^4.8.3",
