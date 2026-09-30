@@ -1,3 +1,4 @@
+import Dashboard from "@/components/views/Agent/Dashboard";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,8 +10,6 @@ export const metadata: Metadata = {
 
 export default function AgentDashboardPage() {
   return (
-    <div>
-        sss
-    </div>
+    <Dashboard />
   )
 }

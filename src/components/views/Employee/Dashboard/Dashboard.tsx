@@ -2,13 +2,9 @@
 
 import openingSay from "@/utils/openingsay";
 import useDashboard from "./useDashboard";
-import { Clock, MoveRight, Ticket } from "lucide-react";
 import CardStatistics from "./CardStatistics";
-import Link from "next/link";
-import { ITicket } from "@/types/ticket";
-import Convert from "@/utils/convert.";
-import { Chip } from "@heroui/react";
-import DataTickets from "./DataTickets";
+import RecentTickets from "./RecentTickets";
+import WaitingTickets from "./WaitingTickets";
 
 const Dashboard = () => {
   const {
@@ -61,11 +57,16 @@ const Dashboard = () => {
             statistics={dataDashboard.statistics} 
           />
 
-          <DataTickets
-            recentTickets={dataDashboard.recentTickets}
-            waitingTickets={dataDashboard.waitingTickets}
-          />
-          
+
+          <div className="grid gap-5 lg:grid-cols-3">
+            <div className="lg:col-span-2">
+              <RecentTickets data={dataDashboard.recentTickets} />
+            </div>
+
+            
+            <WaitingTickets data={dataDashboard.waitingTickets} />
+          </div>
+
         </div>
       )}
     </div>

@@ -16,7 +16,7 @@ const CardStatistics = (props: TypeProps) => {
         <div className="flex justify-between">
           <Ticket className="h-6 w-6 text-foreground" />
 
-          <span className="text-xs lg:text-sm font-medium text-text-element">
+          <span className="text-xs font-medium text-white px-2 py-[3px] rounded-lg bg-green-500">
             Total
           </span>
         </div>
@@ -36,7 +36,7 @@ const CardStatistics = (props: TypeProps) => {
         <div className="flex justify-between">
           <TicketPlus className="h-6 w-6 text-foreground" />
 
-          <span className="text-xs lg:text-sm font-medium text-text-element">
+          <span className="text-xs font-medium text-white px-2 py-[3px] rounded-lg bg-amber-500">
             Open
           </span>
         </div>
@@ -56,7 +56,7 @@ const CardStatistics = (props: TypeProps) => {
         <div className="flex justify-between">
           <LoaderCircle className="h-6 w-6 text-foreground" />
 
-          <span className="text-xs lg:text-sm font-medium text-text-element">
+          <span className="text-xs font-medium text-white px-2 py-[3px] rounded-lg bg-blue-500">
             Progress
           </span>
         </div>
@@ -76,7 +76,7 @@ const CardStatistics = (props: TypeProps) => {
         <div className="flex justify-between">
           <Clock3 className="h-6 w-6 text-foreground" />
 
-          <span className="text-xs lg:text-sm font-medium text-text-element">
+          <span className="text-xs font-medium text-white px-2 py-[3px] rounded-lg bg-orange-500">
             Waiting
           </span>
         </div>
@@ -105,31 +105,6 @@ const CardStatistics = (props: TypeProps) => {
           Ticket selesai
         </p>
       </div>
-
-
-      {/* <div className="group relative overflow-hidden rounded-2xl border border-default-200 bg-background p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-        <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/10 transition-transform duration-300 group-hover:scale-150" />
-
-        <div className="relative">
-          <div className="flex items-center justify-between">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <Ticket className="h-5 w-5" />
-            </div>
-
-            <span className="text-xs font-medium text-default-400">
-              Total
-            </span>
-          </div>
-
-          <p className="mt-5 text-3xl font-bold tracking-tight">
-            24
-          </p>
-
-          <p className="mt-1 text-sm text-default-500">
-            Semua ticket kamu
-          </p>
-        </div>
-      </div> */}
 
     </div>
   )

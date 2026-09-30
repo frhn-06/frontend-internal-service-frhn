@@ -20,16 +20,16 @@ interface IStatisticsAgent {
 
 interface IDashboardEmployee {
     statistics: IStatisticsEmployee;
-    recentTickets: ITicket;
-    waitingTickets: ITicket;
+    recentTickets: ITicket[];
+    waitingTickets: ITicket[];
 }
 
 
 interface IDashboardAgent {
     statistics: IStatisticsAgent;
-    recentTickets: ITicket;
-    waitingTickets: ITicket;
-    reProgressTickets: ITicket;
+    recentTickets: ITicket[];
+    waitingTickets: ITicket[];
+    reProgressTickets: ITicket[];
 }
 
 
