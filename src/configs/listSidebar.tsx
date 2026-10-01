@@ -54,10 +54,10 @@ const listSidebar = {
             href: "/agent/ticket"
         },
         {
-            id: "user",
+            id: "profile",
             label: "Profile",
             icon: <User />,
-            href: "/agent/user"
+            href: "/agent/profile"
         },
     ],
 
@@ -75,10 +75,10 @@ const listSidebar = {
             href: "/employee/my-ticket"
         },
         {
-            id: "user",
+            id: "profile",
             label: "Profile",
             icon: <User />,
-            href: "/employee/user"
+            href: "/employee/profile"
         },
     ]
 }

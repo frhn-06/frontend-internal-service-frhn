@@ -4,7 +4,7 @@ import ButtonSolid from "@/components/ui/Button/ButtonSolid"
 import { Breadcrumbs, Form, TextArea } from "@heroui/react"
 import useMessage from "./useMessage"
 import { useEffect } from "react"
-import { getSession, useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import { IUser } from "@/types/user"
 import { Controller } from "react-hook-form"
 import cn from "@/utils/cn"
@@ -12,7 +12,6 @@ import BubbleChats from "./BubbleChats"
 import ModalGenerateAi from "./ModalGenerateAi"
 import Link from "next/link"
 import { useQueryClient } from "@tanstack/react-query"
-import { CustomSession } from "@/libs/axios"
 import socket from "@/libs/socket"
 import { useParams } from "next/navigation"
 
@@ -50,28 +49,11 @@ const Message = () => {
     const params = useParams();
     const id = params.id;
   
+
     useEffect(() => {
       if(!dataTicketMessage) return;
       
-      const conncetSocket = async () => {
-        const session  : CustomSession | null = await getSession();
-        if(!session || !session.accessToken) return;
-
-        const joinTicket = () => {
-          socket.emit(`ticket:join`, dataTicketMessage.id)
-          console.log("socket join to ticket:", dataTicketMessage.id)
-        }
-  
-        socket.auth = {
-          token: session.accessToken
-        }
-  
-        socket.on("connect", () => {
-          console.log("socket connnected:", socket.id);
-
-          joinTicket();
-        })
-
+      const conncetSocket = () => {
         socket.on("message:new", () => {
           queryClient.invalidateQueries({
             queryKey: ["MessagesAgent", id]
@@ -79,18 +61,15 @@ const Message = () => {
         });
 
         if(socket.connected) {
-          joinTicket();
+          socket.emit(`ticket:join`, dataTicketMessage.id)
+          console.log("socket join to ticket:", dataTicketMessage.id)
         }
-
-        socket.connect();
       }
 
       conncetSocket();
 
       return () => {
-        socket.off("connect");
         socket.off("message:new");
-        socket.disconnect();
       }
     },[dataTicketMessage, id, queryClient])
 

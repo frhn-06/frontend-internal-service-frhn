@@ -9,14 +9,13 @@ import Convert from "@/utils/convert.";
 import { listPriorityTickets, listStatusTickets } from "@/configs/tableConfig";
 import listColumns from "./listColumn";
 import useTicket from "./useTicket";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { IUser } from "@/types/user";
 import TakeTicket from "./TakeTicket";
 import { INotifMessagesByTicket } from "@/types/notification";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { CustomSession } from "@/libs/axios";
 import socket from "@/libs/socket";
 
 const Ticket = () => {
@@ -36,7 +35,6 @@ const Ticket = () => {
     errorTickets,
 
     dataCountNotifMessagesByTicket,
-    isSuccessCountNotifMessagesByTicket,
 
     handlePage,
     handleLimit,
@@ -59,33 +57,23 @@ const Ticket = () => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    const connectSocket = async () => {
-      const session: CustomSession | null = await getSession();
-      if(!session || !session.accessToken) return;
-
-      socket.auth = {
-        token: session.accessToken
-      }
-
-      socket.on("connect", () => {
-        console.log("socket connect to id:", socket.id);
-      })
-
+    const connectSocket = () => {
       socket.on("all-messages:new", () => {
         queryClient.invalidateQueries({
           queryKey: ["count-notification-messages-by-ticket"]
         })
       })
-
-      socket.connect();
+      socket.on("notification:new", () => {
+        queryClient.invalidateQueries({
+          queryKey: ["TicketsAgent"]
+        })
+      })
     }
 
     connectSocket();
 
     return () => {
-      socket.off("connect");
       socket.off("all-messages:new");
-      socket.disconnect();
     }
   },[queryClient, id])
 
@@ -198,10 +186,6 @@ const Ticket = () => {
           /> 
 
           {isLoadingTickets && (
-            <div className="absolute top-0 right-0 left-0 bottom-0 bg-black/30 backdrop-blur-xs rounded-2xl" />
-          )}
-
-          {isRefetchingTickets && (
             <div className="absolute top-0 right-0 left-0 bottom-0 bg-black/30 backdrop-blur-xs rounded-2xl" />
           )}
             

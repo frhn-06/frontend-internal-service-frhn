@@ -5,6 +5,9 @@ import useDashboard from "./useDashboard";
 import CardStatistics from "./CardStatistics";
 import RecentTickets from "./RecentTickets";
 import WaitingTickets from "./WaitingTickets";
+import socket from "@/libs/socket";
+import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Dashboard = () => {
   const {
@@ -25,6 +28,19 @@ const Dashboard = () => {
   const isLoadingFetch = isLoadingUser || isLoadingDashboard;
   const isSuccessFetch = isSuccessUser || isSuccessDashboard;
 
+  const queryClient = useQueryClient();
+  
+    useEffect(() => {
+      const connectSocket = () => {
+        socket.on("notification:new", () => {
+          queryClient.invalidateQueries({
+            queryKey: ["Dashboard-Employee"]
+          })
+        })
+      }
+  
+      connectSocket();
+    },[queryClient])
 
   return (
     <div className="px-2 py-6 lg:px-6 lg:py-12">

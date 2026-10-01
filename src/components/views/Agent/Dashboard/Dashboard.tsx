@@ -6,6 +6,9 @@ import CardStatistics from "./CardStatistics";
 import WaitingTickets from "./WaitingTickets";
 import ReProgressTickets from "./ReProgressTickets";
 import RecentTickets from "./RecentTickets";
+import { useEffect } from "react";
+import socket from "@/libs/socket";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Dashboard = () => {
   const {
@@ -25,6 +28,20 @@ const Dashboard = () => {
 
   const isLoadingFetch = isLoadingUser || isLoadingDashboard;
   const isSuccessFetch = isSuccessUser || isSuccessDashboard;
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const connectSocket = () => {
+      socket.on("notification:new", () => {
+        queryClient.invalidateQueries({
+          queryKey: ["Dashboard-Agent"]
+        })
+      })
+    }
+
+    connectSocket();
+  },[queryClient])
 
 
   return (

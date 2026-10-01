@@ -5,37 +5,53 @@ import { IUser } from "@/types/user";
 import { SquareMenu } from "lucide-react";
 import headerDashboardConfig from "@/configs/headerDashboardConfig";
 import { SetStateAction, useEffect } from "react";
-import useHeader from "./useHeader";
 import NotificationsUi from "@/components/ui/NotificationsUi";
-import { CustomSession } from "@/libs/axios";
-import { getSession } from "next-auth/react";
 import socket from "@/libs/socket";
 import { useQueryClient } from "@tanstack/react-query";
+import { INotification } from "@/types/notification";
 
 
 interface TypeProps {
   user: IUser;
   setToggleSidebar: React.Dispatch<SetStateAction<boolean>>;
-  toggleSidebarActive: boolean
+  toggleSidebarActive: boolean;
+
+  notifications: INotification[];
+  refetchNotifications: () => void;
+
+  countNotifications: number;
+  refetchCountNotifications: () => void;
+
+  onReadNotification: (id: string) => void;
+  isSuccessReadNotification: boolean;
 }
 
 const Header = (props: TypeProps) => {
   const {
     user,
     setToggleSidebar,
-    toggleSidebarActive
-  } = props;
+    toggleSidebarActive,
 
-  const {
-    dataNotifications,
-    refetchDataNotifications,
+    notifications,
+    refetchNotifications,
 
-    dataCountNotifications,
+    countNotifications,
     refetchCountNotifications,
-    
+
     onReadNotification,
     isSuccessReadNotification
-  } = useHeader();
+  } = props;
+
+  // const {
+  //   dataNotifications,
+  //   refetchDataNotifications,
+
+  //   dataCountNotifications,
+  //   refetchCountNotifications,
+    
+  //   onReadNotification,
+  //   isSuccessReadNotification
+  // } = useHeader();
   
   const route = usePathname();
 
@@ -43,44 +59,31 @@ const Header = (props: TypeProps) => {
 
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const connectSocket = async () => {
-      const session : CustomSession | null = await getSession();
 
-      if(!session || !session.accessToken) return;
 
-      socket.auth = {
-        token: session.accessToken
-      }
-
-      socket.on("connect", () => console.log("socket connect on:", socket.id));
-
-      socket.on("notification:new", () => {
-        queryClient.invalidateQueries({
-          queryKey: ["list-notifications"]
-        })
-        queryClient.invalidateQueries({
-          queryKey: ["count-notifications"]
-        })
-      });
-
-      socket.connect();
-
-    }
+  // useEffect(() => {
+  //   const connectSocket = () => {
+  //     socket.on("notification:new", () => {
+  //       queryClient.invalidateQueries({
+  //         queryKey: ["list-notifications"]
+  //       })
+  //       queryClient.invalidateQueries({
+  //         queryKey: ["count-notifications"]
+  //       })
+  //     });
+  //   }
     
-    connectSocket();
+  //   connectSocket();
 
-    return () => {
-      socket.off("connect");
-      socket.off("notification:new");
-      socket.disconnect();
-    }
-  }, [queryClient]);
+  //   return () => {
+  //     socket.off("notification:new");
+  //   }
+  // }, [queryClient]);
 
   
   useEffect(() => {
     if(isSuccessReadNotification) {
-      refetchDataNotifications();
+      refetchNotifications();
       refetchCountNotifications();
     }
   },[isSuccessReadNotification])
@@ -117,10 +120,10 @@ const Header = (props: TypeProps) => {
           </h1>
           
           <NotificationsUi 
-            dataCount={dataCountNotifications} 
-            data={dataNotifications} 
+            dataCount={countNotifications} 
+            data={notifications} 
             onRead={onReadNotification}
-            refetch={refetchDataNotifications}
+            refetch={refetchNotifications}
             refetchCount={refetchCountNotifications}
           />
         </div>

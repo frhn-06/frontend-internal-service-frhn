@@ -11,8 +11,6 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { CustomSession } from "@/libs/axios";
-import { getSession } from "next-auth/react";
 import socket from "@/libs/socket";
 
 interface TypeProps {
@@ -65,27 +63,7 @@ const InfoTicket = (props: TypeProps) => {
   useEffect(() => {
     if(!data?.id) return;
 
-    const conncetSocket = async () => {
-      const session: CustomSession | null = await getSession();
-
-      if(!session || !session.accessToken) return;
-            
-      socket.auth = {
-        token: session.accessToken
-      }
-        
-      const joinTicket = () => {
-        socket.emit(`ticket:join`, data.id)
-        
-        console.log("socket join to ticket:", data.id)          
-      }
-
-      socket.on("connect", () => {
-        console.log("socket connnected:", socket.id);
-
-        joinTicket();
-      })
-
+    const conncetSocket = () => {
       socket.on("ticket-status:change", () => {
         queryClient.invalidateQueries({
           queryKey: ["DetailTicketAgent", id]
@@ -99,19 +77,16 @@ const InfoTicket = (props: TypeProps) => {
       })
 
       if(socket.connected) {
-        joinTicket();
+        socket.emit(`ticket:join`, data.id)
+        console.log("socket join to ticket:", data.id)          
       }
-          
-      socket.connect();
     }
           
     conncetSocket();
           
     return () => {
-      socket.off("connect");
       socket.off("ticket-status:change");
       socket.off("message:new");
-      socket.disconnect();
     }
   },[data?.id, id, queryClient])
 

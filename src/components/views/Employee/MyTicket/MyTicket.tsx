@@ -9,11 +9,10 @@ import { ITicket } from "@/types/ticket";
 import Convert from "@/utils/convert.";
 import { listPriorityTickets, listStatusTickets } from "@/configs/tableConfig";
 import AddMyTicket from "./AddMyTicket";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { IUser } from "@/types/user";
 import { INotifMessagesByTicket } from "@/types/notification";
 import Link from "next/link";
-import { CustomSession } from "@/libs/axios";
 import socket from "@/libs/socket";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
@@ -57,33 +56,23 @@ const MyTicket = () => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    const connectSocket = async () => {
-      const session: CustomSession | null = await getSession();
-      if(!session || !session.accessToken) return;
-
-      socket.auth = {
-        token: session.accessToken
-      }
-
-      socket.on("connect", () => {
-        console.log("socket connect to id:", socket.id);
-      })
-
+    const connectSocket = () => {
       socket.on("all-messages:new", () => {
         queryClient.invalidateQueries({
           queryKey: ["count-notification-messages-by-ticket-employee"]
         })
       })
-
-      socket.connect();
+      socket.on("notification:new", () => {
+        queryClient.invalidateQueries({
+          queryKey: ["MyTicketsEmployee"]
+        })
+      })
     }
 
     connectSocket();
 
     return () => {
-      socket.off("connect");
       socket.off("all-messages:new");
-      socket.disconnect();
     }
   },[queryClient, id])
 
@@ -183,10 +172,6 @@ const MyTicket = () => {
           /> 
 
           {isLoadingTickets && (
-            <div className="absolute top-0 right-0 left-0 bottom-0 bg-black/30 backdrop-blur-xs rounded-2xl" />
-          )}
-
-          {isRefetchingTickets && (
             <div className="absolute top-0 right-0 left-0 bottom-0 bg-black/30 backdrop-blur-xs rounded-2xl" />
           )}
             
