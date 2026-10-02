@@ -1,15 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
-import { JWTExtended } from "./types/auth";
-import { getToken } from "next-auth/jwt";
 
-export async function proxy(req: NextRequest) {
-    const token : JWTExtended | null = await getToken({
-        req,
-        secret: process.env.AUTH_SECRET
-    });
+import { NextResponse } from "next/server";
+import { auth } from "./auth";
+import { CustomSession } from "./libs/axios";
+import { IUser } from "./types/user";
 
-    const accessToken = token?.user?.accessToken;
-    const role = token?.user?.role;
+
+
+export const proxy = auth((req) => {
+    const session : CustomSession | null = req.auth;
+
+    const accessToken = session?.accessToken;
+    const role = (session?.user as IUser)?.role;
+    
     const pathName = req.nextUrl.pathname;
 
 
@@ -110,19 +112,18 @@ export async function proxy(req: NextRequest) {
 
 
     return NextResponse.next();
-}
+})
+
+
 
 export const config = {
-    matcher: [
-        "/admin/:path*",
-        "/agent/:path*",
-        "/employee/:path*",
-        "/auth/login",
-        "/auth/register",
-        "/login",
-        "/register",
-        "/admin",
-        "/agent",
-        "/employee"
-    ]
-}
+  matcher: [
+    "/admin/:path*",
+    "/agent/:path*",
+    "/employee/:path*",
+    "/auth/login",
+    "/auth/register",
+    "/login",
+    "/register",
+  ],
+};

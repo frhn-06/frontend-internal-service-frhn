@@ -6,7 +6,6 @@ import { Controller } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
 
 const Login = () => {
   const {
