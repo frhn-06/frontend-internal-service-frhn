@@ -6,8 +6,6 @@ import { SquareMenu } from "lucide-react";
 import headerDashboardConfig from "@/configs/headerDashboardConfig";
 import { SetStateAction, useEffect } from "react";
 import NotificationsUi from "@/components/ui/NotificationsUi";
-import socket from "@/libs/socket";
-import { useQueryClient } from "@tanstack/react-query";
 import { INotification } from "@/types/notification";
 
 
@@ -41,44 +39,11 @@ const Header = (props: TypeProps) => {
     onReadNotification,
     isSuccessReadNotification
   } = props;
-
-  // const {
-  //   dataNotifications,
-  //   refetchDataNotifications,
-
-  //   dataCountNotifications,
-  //   refetchCountNotifications,
-    
-  //   onReadNotification,
-  //   isSuccessReadNotification
-  // } = useHeader();
   
   const route = usePathname();
 
   const header = headerDashboardConfig[route as keyof typeof headerDashboardConfig];
 
-  const queryClient = useQueryClient();
-
-
-
-  // useEffect(() => {
-  //   const connectSocket = () => {
-  //     socket.on("notification:new", () => {
-  //       queryClient.invalidateQueries({
-  //         queryKey: ["list-notifications"]
-  //       })
-  //       queryClient.invalidateQueries({
-  //         queryKey: ["count-notifications"]
-  //       })
-  //     });
-  //   }
-    
-  //   connectSocket();
-
-  //   return () => {
-  //     socket.off("notification:new");
-  //   }
-  // }, [queryClient]);
 
   
   useEffect(() => {
@@ -116,7 +81,7 @@ const Header = (props: TypeProps) => {
 
         <div className="text-sm lg:text-base flex gap-2 items-center">
           <h1 className="font-bold text-foreground">
-            {user.role}
+            {user?.role}
           </h1>
           
           <NotificationsUi 

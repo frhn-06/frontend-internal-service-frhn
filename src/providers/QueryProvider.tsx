@@ -1,11 +1,18 @@
 "use client"
 import {QueryClient, QueryClientProvider,} from "@tanstack/react-query";
+import { signOut } from "next-auth/react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: false,
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      staleTime: 60 * 1000,
+      gcTime: 10 * 60 * 1000,
+    },
+    mutations: {
+      retry: false,
     }
   }
 });

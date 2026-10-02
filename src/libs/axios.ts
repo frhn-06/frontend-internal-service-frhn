@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Session } from "next-auth";
-import { getSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 
 
 const instance = axios.create({
@@ -29,16 +29,25 @@ instance.interceptors.request.use(async (request) => {
     return Promise.reject(error);
 });
 
+let isSignOutInProgress = false;
 
 instance.interceptors.response.use((response) => {
     return response;
-}, (error) => {
+}, async (error) => {
     const errorResponse = error.response;
+    
     if(errorResponse?.data) {
         const customError = {
             message: errorResponse?.data?.meta?.message,
             data: errorResponse?.data?.data,
             status: errorResponse?.data?.meta?.status
+        }
+
+        if(!isSignOutInProgress && (customError.message === "jwt expired" || customError.message === "Unauthorized")) {
+            isSignOutInProgress = true;
+            await signOut({
+                callbackUrl: "/auth/login",
+            });
         }
     
         return Promise.reject(customError);

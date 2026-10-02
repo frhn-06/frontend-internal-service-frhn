@@ -83,8 +83,8 @@ const DashboardShell = (props: TypeProps) => {
 
       <Sidebar 
         sidebar={
-          user.role === "ADMIN" ? listSidebar.admin :
-          user.role === "AGENT" ? listSidebar.agent :
+          user?.role === "ADMIN" ? listSidebar.admin :
+          user?.role === "AGENT" ? listSidebar.agent :
           listSidebar.employee
         }
         toggleSidebarActive={toggleSidebarActive}
@@ -111,12 +111,6 @@ const DashboardShell = (props: TypeProps) => {
           <div className="flex-1 overflow-y-auto">
             {children}
           </div>
-
-          {/* <div className="w-full p-4 bg-gray-200 h-12">
-            <p className="text-foreground text-sm">
-              &copy; 2026 | Internal Service - farhan
-            </p>
-          </div> */}
         </div>
 
       </div>
