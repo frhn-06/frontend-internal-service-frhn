@@ -4,6 +4,8 @@ import cn from "@/utils/cn";
 import setTimeMessage from "@/utils/timemessage";
 import { Avatar, Skeleton } from "@heroui/react";
 import { User } from "lucide-react";
+import React from "react";
+import { useEffect } from "react";
 
 interface TypeProps {
   data: IMessage[];
@@ -17,6 +19,14 @@ const BubbleChats = (props: TypeProps) => {
     user,
     isLoading,
   } = props;
+
+  const endRef = React.useRef<HTMLDivElement>(null);
+    
+  useEffect(() => {
+    if(endRef.current) {
+      endRef.current.scrollIntoView({behavior: "smooth"});
+    }
+  }, [data]);
 
 
   const loadingUi = () => {
@@ -74,6 +84,8 @@ const BubbleChats = (props: TypeProps) => {
             )
           })
         )}
+
+        <div ref={endRef} />
       </div>
     </div>
   )

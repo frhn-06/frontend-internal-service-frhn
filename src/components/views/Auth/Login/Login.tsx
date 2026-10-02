@@ -126,13 +126,7 @@ const Login = () => {
                   </p>
                 </Card.Footer>
               </Form>
-    
-              
             </Card>
-
-            <button onClick={() => signOut()}>
-              logout
-            </button>
           </div>
         </div>
   )

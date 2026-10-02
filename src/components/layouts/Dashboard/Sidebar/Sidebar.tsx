@@ -3,8 +3,9 @@
 import Link from "next/link";
 import cn from "@/utils/cn";
 import { usePathname } from "next/navigation";
-import { X } from "lucide-react";
+import { LogOut, X } from "lucide-react";
 import { SetStateAction } from "react";
+import { signOut } from "next-auth/react";
 
 interface TypeProps {
   sidebar: Record<string, string | React.ReactNode>[];
@@ -56,6 +57,19 @@ const Sidebar = (props: TypeProps) => {
               </Link>
             </div>
           ))}
+          <div>
+            <div 
+              className="flex items-center gap-2 px-2 py-2 hover:bg-background-element-flat cursor-pointer"
+              onClick={() => signOut()}
+            >
+              <span className="shrink-0">
+                <LogOut />
+              </span>
+              <span className={cn("transition-all duration-300 whitespace-nowrap" ,toggleSidebarActive && "-translate-x-4 opacity-0")}>
+                LogOut
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -96,6 +110,12 @@ const Sidebar = (props: TypeProps) => {
               {nav.label}
             </Link>
           ))}
+          <div 
+            className="text-lg text-text-element px-2 py-1 active:bg-background-element active:text-white"
+            onClick={() => signOut()}
+          >
+            LogOut
+          </div>
         </div>
       </div>
     </div>
