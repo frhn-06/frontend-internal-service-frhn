@@ -115,7 +115,7 @@ const Message = () => {
         </div>
         
         <BubbleChats 
-          data={dataMessages || []} 
+          data={dataMessages?.data || []} 
           user={user} 
           isLoading={isLoading}
         />
