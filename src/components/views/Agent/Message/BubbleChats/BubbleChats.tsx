@@ -23,6 +23,7 @@ const BubbleChats = (props: TypeProps) => {
   const endRef = React.useRef<HTMLDivElement>(null);
     
   useEffect(() => {
+    if (!data) return;
     if(endRef.current) {
       endRef.current.scrollIntoView({behavior: "smooth"});
     }
