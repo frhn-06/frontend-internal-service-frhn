@@ -99,7 +99,7 @@ const InfoTicket = (props: TypeProps) => {
     <div className="flex flex-col gap-8">
 
       {/* ticket Header */}
-      <Card className="w-full shadow-xl">
+      <Card className="w-full shadow-xl border">
         <Card.Content className="p-2">
           <div className="flex flex-col md:flex-row gap-2 justify-between">
             <div>
@@ -182,7 +182,7 @@ const InfoTicket = (props: TypeProps) => {
 
       {/* ticket Info */}
       <div className="flex flex-col lg:flex-row gap-8">
-        <Card className="shadow-xl flex-3 h-fit">
+        <Card className="shadow-xl flex-3 h-fit border">
           <Card.Header className="p-2">
             <h1 className="text-foreground text-xl font-semibold">
               Ticket Information
@@ -221,7 +221,7 @@ const InfoTicket = (props: TypeProps) => {
         </Card>
 
         {/* Ticket Status */}
-        <Card className="shadow-xl flex-2 h-fit">
+        <Card className="shadow-xl flex-2 h-fit border">
           <Card.Header className="p-2">
             <h1 className="text-foreground text-xl font-semibold">
               Ticket Status

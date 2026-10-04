@@ -4,6 +4,7 @@ import { Breadcrumbs, Skeleton } from "@heroui/react";
 import InfoTicket from "./InfoTicket";
 import Link from "next/link";
 import useDetailTicket from "./useDetailTicket";
+import { Home } from "lucide-react";
 
 const DetailTicket = () => {
   const {
@@ -40,6 +41,11 @@ const DetailTicket = () => {
       ) : (
         <div>
           <Breadcrumbs className="mb-6">
+            <Breadcrumbs.Item>
+              <Link href="/agent/dashboard">
+                <Home />
+              </Link>
+            </Breadcrumbs.Item>
             <Breadcrumbs.Item>
               <Link href="/agent/ticket">
                 Tickets

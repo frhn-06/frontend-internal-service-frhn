@@ -16,6 +16,8 @@ interface TypeProps {
 
   textEmpty: string;
 
+  ariaLabel?: string;
+
   isCreate?: boolean;
   contentCreate?: React.ReactNode;
 
@@ -52,6 +54,8 @@ const TableUi = (props: TypeProps) => {
 
     textEmpty,
 
+    ariaLabel = "table",
+
     isCreate,
     contentCreate,
 
@@ -82,8 +86,8 @@ const TableUi = (props: TypeProps) => {
 
   const renderEmpty = () => {
     return (
-      <EmptyState className="flex h-full w-full flex-col items-center justify-center gap-4 text-center">
-        <span className="text-sm text-muted">
+      <EmptyState className="flex h-20 w-full flex-col items-center justify-center gap-4 text-center">
+        <span className="text-sm text-white">
           {textEmpty}
         </span>
       </EmptyState>
@@ -160,21 +164,22 @@ const TableUi = (props: TypeProps) => {
     <div>
       {topContent}
 
-      <Table className="min-h-10">
+      <Table className="min-h-10 bg-background-element border">
         <Table.ScrollContainer>
-          <Table.Content aria-label="Team members" className="min-w-[600px]">
-            <Table.Header>
+          <Table.Content aria-label={ariaLabel} className="min-w-[600px]">
+            <Table.Header className="bg-background-element">
               {columns.map((column) => (
-                <Table.Column key={column.id} isRowHeader>
+                <Table.Column key={column.id} isRowHeader className="text-white">
                   {column.label}
                 </Table.Column>
               ))}
             </Table.Header>
-            <Table.Body>
-              {data?.length < 1 ? 
-                renderEmpty() : 
+            <Table.Body 
+              renderEmptyState={() => renderEmpty()}
+            >
+              { 
                 data?.map((dat) => (
-                  <Table.Row key={`${dat.id}`}>
+                  <Table.Row key={`${dat.id}`} className="hover:bg-gray-200">
                     {columns.map((column) => (
                       <Table.Cell key={column.id}>
                         {renderCell(dat, column)}
