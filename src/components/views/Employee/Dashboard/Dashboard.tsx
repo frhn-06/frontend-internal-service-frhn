@@ -61,10 +61,10 @@ const Dashboard = () => {
       ) : isSuccessFetch && (
         <div className="min-h-60">
           <div className="mb-8">
-            <h1 className="text-2xl text-foreground font-semibold">
+            <h1 className="text-xl lg:text-2xl text-foreground font-semibold">
               {openingSay()}, {dataUser.name}              
             </h1>
-            <p className="text-foreground">
+            <p className="text-foreground text-sm lg:text-base">
               Here&apos;s an overview of your support tickets.
             </p>
           </div>

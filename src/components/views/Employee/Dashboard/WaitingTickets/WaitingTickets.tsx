@@ -12,7 +12,7 @@ const WaitingTickets = (props: TypeProps) => {
   } = props;
 
   return (
-    <div className="rounded-2xl  border-2 border-text-element min-h-20 p-4 shadow-lg">
+    <div className="bg-white rounded-2xl border min-h-20 p-4 lg:p-6 shadow-lg">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-lg lg:text-xl font-bold text-foreground">
           Waiting for you

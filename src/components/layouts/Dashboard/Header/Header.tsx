@@ -44,15 +44,12 @@ const Header = (props: TypeProps) => {
 
   const header = headerDashboardConfig[route as keyof typeof headerDashboardConfig];
 
-
-  
   useEffect(() => {
     if(isSuccessReadNotification) {
       refetchNotifications();
       refetchCountNotifications();
     }
-  },[isSuccessReadNotification])
-  
+  },[isSuccessReadNotification])  
 
   return (
     <div className="border-b-2 border-b-gray-400/30 relative">
@@ -70,10 +67,10 @@ const Header = (props: TypeProps) => {
             onClick={() => setToggleSidebar(!toggleSidebarActive)}
           />
           <div>
-            <h1 className="text-xl lg:text-2xl text-foreground font-bold">
+            <h1 className="text-lg md:text-xl lg:text-2xl text-foreground font-bold">
               {header?.title ?? "Internal Service"}
             </h1>
-            <p className="text-sm lg:text-base text-text-abu font-medium">
+            <p className="text-xs md:text-sm lg:text-base text-text-abu font-medium">
               {header?.description ?? "Internal service application"}
             </p>
           </div>

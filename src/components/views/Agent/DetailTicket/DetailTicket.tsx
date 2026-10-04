@@ -24,7 +24,7 @@ const DetailTicket = () => {
           </p>
         </div>
       ) : isLoadingDetailTicket ? (
-        <div className="p-4">
+        <div>
           <Skeleton className="h-6 mb-6 w-46 rounded-2xl" />
   
           <div className="flex flex-col gap-8">
@@ -38,7 +38,7 @@ const DetailTicket = () => {
           </div>
         </div>
       ) : (
-        <div className="p-4">
+        <div>
           <Breadcrumbs className="mb-6">
             <Breadcrumbs.Item>
               <Link href="/agent/ticket">

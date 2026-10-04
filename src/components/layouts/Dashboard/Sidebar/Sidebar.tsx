@@ -42,7 +42,7 @@ const Sidebar = (props: TypeProps) => {
 
         <div className="flex flex-col">
           {sidebar.map((nav) => (
-            <div key={`${nav.id}`} className={cn(route.startsWith(`${nav.href}`) && "text-white")}>
+            <div key={`${nav.id}`} className={cn(route.startsWith(`${nav.href}`) ? "text-white" : "text-foreground")}>
               <Link href={`${nav.href}`} className={cn(
                 "flex items-center gap-2 px-2 py-2", 
                 route.startsWith(`${nav.href}`) && "bg-background-element",
@@ -51,7 +51,7 @@ const Sidebar = (props: TypeProps) => {
                 <span className="shrink-0">
                   {nav.icon}
                 </span>
-                <span className={cn("transition-all duration-300 whitespace-nowrap" ,toggleSidebarActive && "-translate-x-4 opacity-0")}>
+                <span className={cn("font-semibold transition-all duration-300 whitespace-nowrap" ,toggleSidebarActive && "-translate-x-4 opacity-0")}>
                   {nav.label}
                 </span>
               </Link>
@@ -59,13 +59,13 @@ const Sidebar = (props: TypeProps) => {
           ))}
           <div>
             <div 
-              className="flex items-center gap-2 px-2 py-2 hover:bg-background-element-flat cursor-pointer"
+              className="flex items-center gap-2 px-2 py-2 hover:bg-background-element-flat cursor-pointer text-foreground"
               onClick={() => signOut()}
             >
               <span className="shrink-0">
                 <LogOut />
               </span>
-              <span className={cn("transition-all duration-300 whitespace-nowrap" ,toggleSidebarActive && "-translate-x-4 opacity-0")}>
+              <span className={cn("font-semibold transition-all duration-300 whitespace-nowrap" ,toggleSidebarActive && "-translate-x-4 opacity-0")}>
                 LogOut
               </span>
             </div>

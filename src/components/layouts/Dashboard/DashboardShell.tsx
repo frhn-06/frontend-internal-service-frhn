@@ -10,6 +10,9 @@ import { getSession } from "next-auth/react";
 import socket from "@/libs/socket";
 import useDashboard from "./useDashboard";
 import { useQueryClient } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 interface TypeProps {
   user: IUser;
@@ -70,7 +73,12 @@ const DashboardShell = (props: TypeProps) => {
   }, [queryClient])
 
 
+  const route = usePathname();
 
+  const linkBack = () => {
+    const arrayRoute = route.split("/");
+    return arrayRoute.filter(route => route !== "message").join("/");
+  }
   
   return (
     <div className="h-screen w-full max-w-[1600px] mx-auto flex ">
@@ -92,22 +100,37 @@ const DashboardShell = (props: TypeProps) => {
       />
 
       <div className="flex-1 min-h-screen flex flex-col">
-        <Header 
-          user={user} 
-          setToggleSidebar={settoggleSidebarActive}
-          toggleSidebarActive={toggleSidebarActive}
+        {!route.split("/").includes("message") ? (
+          <Header 
+            user={user} 
+            setToggleSidebar={settoggleSidebarActive}
+            toggleSidebarActive={toggleSidebarActive}
+  
+            notifications={dataNotifications}
+            refetchNotifications={refetchDataNotifications}
+  
+            countNotifications={dataCountNotifications}
+            refetchCountNotifications={refetchCountNotifications}
+  
+            onReadNotification={onReadNotification}
+            isSuccessReadNotification={isSuccessReadNotification}
+          />
+        ) : (
+          <div className="bg-white border-b-2 border-b-gray-400/30 min-h-20 flex items-center gap-4 p-2">
+            <Link 
+              href={`${linkBack()}`} 
+              className="bg-background-element hover:bg-background-element-hover active:bg-background-element p-1 rounded-xl text-white"
+            >
+              <ArrowLeft className="w-6 h-6" />
+            </Link>
+            
+            <h1 className="text-lg md:text-xl lg:text-2xl text-foreground font-semibold">
+              Messages
+            </h1>
+          </div>
+        )}
 
-          notifications={dataNotifications}
-          refetchNotifications={refetchDataNotifications}
-
-          countNotifications={dataCountNotifications}
-          refetchCountNotifications={refetchCountNotifications}
-
-          onReadNotification={onReadNotification}
-          isSuccessReadNotification={isSuccessReadNotification}
-        />
-
-        <div className="overflow-hidden flex-1 flex flex-col">
+        <div className="overflow-hidden flex-1 flex flex-col bg-gray-100 dark:bg-gray-900">
           <div className="flex-1 overflow-y-auto">
             {children}
           </div>

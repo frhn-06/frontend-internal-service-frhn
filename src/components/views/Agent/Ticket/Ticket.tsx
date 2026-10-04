@@ -112,7 +112,13 @@ const Ticket = () => {
                     data={data}
                     refetch={refetchTickets}
                     Button={(
-                      <ButtonSolid size="sm">
+                      <ButtonSolid 
+                        size="sm" 
+                        isDisabled={
+                          (data as unknown as ITicket).status === "CLOSED" || 
+                          (data as unknown as ITicket).status === "CANCELLED" 
+                        }
+                      >
                         Take
                       </ButtonSolid>
                     )}

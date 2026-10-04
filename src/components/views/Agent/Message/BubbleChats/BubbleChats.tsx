@@ -77,10 +77,10 @@ const BubbleChats = (props: TypeProps) => {
   return (
     <div 
       ref={chatRef}
-      className="flex-1 min-h-0 overflow-y-auto px-2"
+      className="flex-1 min-h-0 overflow-y-auto px-2 "
       onScroll={handleScroll}
     >
-      <div className="w-full max-w-2xl mx-auto p-2 flex flex-col gap-3">
+      <div className="w-full p-2 flex flex-col gap-3">
         {hasNextPage && loadingBubbleChat(2)}
 
         {isLoading ? (

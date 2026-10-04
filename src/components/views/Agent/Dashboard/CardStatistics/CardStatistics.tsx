@@ -13,7 +13,7 @@ const CardStatistics = (props: TypeProps) => {
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
-      <div className="bg-green-50 rounded-2xl border-2 border-text-element p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
+      <div className="bg-white rounded-2xl border p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
         <div className="flex justify-between">
           <Tickets className="h-6 w-6 text-foreground" />
 
@@ -36,7 +36,7 @@ const CardStatistics = (props: TypeProps) => {
 
 
 
-      <div className="bg-green-50 rounded-2xl border-2 border-text-element p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
+      <div className="bg-white rounded-2xl border p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
         <div className="flex justify-between">
           <Inbox className="h-6 w-6 text-foreground" />
 
@@ -59,7 +59,7 @@ const CardStatistics = (props: TypeProps) => {
 
 
 
-      <div className="bg-green-50 rounded-2xl border-2 border-text-element p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
+      <div className="bg-white rounded-2xl border p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
         <div className="flex justify-between">
           <BriefcaseBusiness className="h-6 w-6 text-foreground" />
 
@@ -82,7 +82,7 @@ const CardStatistics = (props: TypeProps) => {
 
 
 
-      <div className="bg-green-50 rounded-2xl border-2 border-text-element p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
+      <div className="bg-white rounded-2xl border p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
         <div className="flex justify-between">
           <Clock3 className="h-6 w-6 text-foreground" />
 
@@ -105,7 +105,7 @@ const CardStatistics = (props: TypeProps) => {
 
 
 
-      <div className="bg-green-50 rounded-2xl border-2 border-text-element p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
+      <div className="bg-white rounded-2xl border p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
         <div className="flex justify-between">
           <RotateCcw  className="h-6 w-6 text-foreground" />
 
@@ -128,7 +128,7 @@ const CardStatistics = (props: TypeProps) => {
 
 
 
-      <div className="bg-green-50 rounded-2xl border-2 border-text-element p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
+      <div className="bg-white rounded-2xl border p-4 shadow transition-all hover:shadow-lg hover:shadow-green-400/30 hover:-translate-y-1 hover:bg-green-50 hover:border-green-400">
         <div className="flex justify-between">
           <CircleCheck  className="h-6 w-6 text-foreground" />
         </div>

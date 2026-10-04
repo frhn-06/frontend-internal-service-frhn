@@ -92,52 +92,37 @@ const Message = () => {
       </div>
     ) : (
       <div className="h-full overflow-hidden flex flex-col">
-        <div className="p-4">
-          <Breadcrumbs>
-            <Breadcrumbs.Item>
-              <Link href={`/employee/my-ticket`}>
-                My Tickets
-              </Link>
-            </Breadcrumbs.Item>
-            <Breadcrumbs.Item>
-              <Link href={`/employee/my-ticket/${dataTicketMessage?.id}`}>
-                {dataTicketMessage?.number}
-              </Link>
-            </Breadcrumbs.Item>
-            <Breadcrumbs.Item>
-              Message
-            </Breadcrumbs.Item>
-          </Breadcrumbs>
-        </div>
+      
+        <div className="shrink-0 w-full max-w-2xl mx-auto flex flex-col h-full bg-white">
+          <BubbleChats 
+            data={messages} 
+            user={user} 
+            isLoading={isLoading}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
 
+
+          <div className="shrink-0 px-4 py-2 w-full  max-w-2xl mx-auto">
+            <Form onSubmit={handleSubmit(onMessage)}>
+              <div className="flex items-end gap-2">   
+                <Controller control={control} name="content" render={({field}) => (
+                  <TextArea 
+                    {...field}
+                    fullWidth 
+                    variant="secondary"
+                    className={cn(`focus:ring-text-element`, {"ring-1 ring-red-400" : !!errors?.content})}
+                  />
+                )} />     
+                <ButtonSolid type="submit">
+                  Send
+                </ButtonSolid>
+              </div>
+            </Form>
+          </div>
+        </div>
         
-        <BubbleChats 
-          data={messages} 
-          user={user} 
-          isLoading={isLoading}
-          fetchNextPage={fetchNextPage}
-          hasNextPage={hasNextPage}
-          isFetchingNextPage={isFetchingNextPage}
-        />
-
-
-        <div className="shrink-0 px-4 py-2 w-full  max-w-2xl mx-auto">
-          <Form onSubmit={handleSubmit(onMessage)}>
-            <div className="flex items-end gap-2">   
-              <Controller control={control} name="content" render={({field}) => (
-                <TextArea 
-                  {...field}
-                  fullWidth 
-                  variant="secondary"
-                  className={cn(`focus:ring-text-element`, {"ring-1 ring-red-400" : !!errors?.content})}
-                />
-              )} />     
-              <ButtonSolid type="submit">
-                Send
-              </ButtonSolid>
-            </div>
-          </Form>
-        </div>
       </div>
     )
   )
