@@ -1,6 +1,6 @@
 import TicketService from "@/services/ticket.service";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { IMessageForm } from "@/types/message";
@@ -19,24 +19,36 @@ const useMessage = () => {
     const queryClient = useQueryClient();
 
 
-    const getMessages = async () => {
-        const {data} = await TicketService.findManyMessage(`${id}`);
+    const getMessages = async (pageParam: number) => {
+        const {data} = await TicketService.findManyMessageWithPagination(`${id}`, `page=${pageParam}&limit=25`);
         return data.data;
     }
     
+
     const {
         data: dataMessages,
         isLoading: isLoadingMessages,
         isError: isErrorMessages,
         error: errorMessages,
         refetch: refetchMessage,
-        isSuccess: isSuccessMessages
-    } = useQuery({
+        isSuccess: isSuccessMessages,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage
+    } = useInfiniteQuery({
         queryKey: ["MessagesAgent", id],
-        queryFn: getMessages,
+        queryFn: ({ pageParam = 1 }) => getMessages(pageParam),
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => {
+            return lastPage.hasNextPage ? lastPage.page + 1 : undefined;
+        },
         enabled: !!id
     });
 
+
+    const duplikateMessage = dataMessages?.pages.slice();
+    const reverseMessage = duplikateMessage?.reverse();
+    const messages = reverseMessage?.flatMap(page => page.data) || [];
 
     
     const getTicket = async () => {
@@ -166,6 +178,12 @@ const useMessage = () => {
         errorMessages,
         refetchMessage,
         isSuccessMessages,
+
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+
+        messages,
 
         dataTicketMessage,
         isLoadingTicketMessage,

@@ -18,11 +18,16 @@ import socket from "@/libs/socket"
 
 const Message = () => {
   const {
-    dataMessages,
     isLoadingMessages,
     isErrorMessages,
     errorMessages,
     isSuccessMessages,
+
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+
+    messages,
 
     dataTicketMessage,
     isLoadingTicketMessage,
@@ -107,9 +112,12 @@ const Message = () => {
 
         
         <BubbleChats 
-          data={dataMessages?.data || []} 
+          data={messages} 
           user={user} 
           isLoading={isLoading}
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
         />
 
 

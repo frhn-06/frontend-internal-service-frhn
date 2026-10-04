@@ -25,6 +25,12 @@ const Message = () => {
     errorMessages,
     isSuccessMessages,
 
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+
+    messages,
+
     dataTicketMessage,
     isLoadingTicketMessage,
     isErrorTicketMessage,
@@ -115,9 +121,12 @@ const Message = () => {
         </div>
         
         <BubbleChats 
-          data={dataMessages?.data || []} 
+          data={messages} 
           user={user} 
           isLoading={isLoading}
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
         />
 
 

@@ -31,7 +31,9 @@ const TicketService = {
 
     sendMessage: (id: string, data: IMessageForm) => instance.post(`${endpoint.TICKET}/${id}/message`, data),
 
-    findManyMessage: (id: string) => instance.get(`${endpoint.TICKET}/${id}/message`)
+    findManyMessage: (id: string) => instance.get(`${endpoint.TICKET}/${id}/message`),
+
+    findManyMessageWithPagination: (id: string, params: string) => instance.get(`${endpoint.TICKET}/${id}/message?${params}`)
 }
 
 

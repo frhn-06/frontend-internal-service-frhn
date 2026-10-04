@@ -10,6 +10,9 @@ interface TypeProps {
   data: IMessage[];
   user: IUser;
   isLoading: boolean;
+  fetchNextPage: () => void;
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
 }
 
 const BubbleChats = (props: TypeProps) => {
@@ -17,21 +20,41 @@ const BubbleChats = (props: TypeProps) => {
     data,
     user,
     isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
   } = props;
 
+  const chatRef = React.useRef<HTMLDivElement>(null);
 
   const endRef = React.useRef<HTMLDivElement>(null);
   
   useEffect(() => {
+    if(isLoading) return;
     if(!data) return;
     if(endRef.current) {
       endRef.current.scrollIntoView({behavior: "smooth"});
     }
-  }, [data]);
+  }, [isLoading]);
 
+  const handleScroll = async (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    if(e.currentTarget.scrollTop === 0 && hasNextPage && !isFetchingNextPage) {
+      const oldScrollHeight = e.currentTarget.scrollHeight;
+      const oldScrollTop = e.currentTarget.scrollTop;
+      await fetchNextPage();
 
-  const loadingUi = () => {
-    return Array.from({length: 6}).map((_,i) => {
+      requestAnimationFrame(() => {
+        if(chatRef.current) {
+          const newScrollHeight = chatRef.current.scrollHeight;
+          const newScrollTop = oldScrollTop + (newScrollHeight - oldScrollHeight);
+          chatRef.current.scrollTop = newScrollTop;
+        }
+      })
+    }
+  };
+
+  const loadingBubbleChat = (jumlahBaris: number) => {
+    return Array.from({length: jumlahBaris}).map((_,i) => {
       const ganjil = (i + 1)%2 === 0;
       return (
         <div key={i}>
@@ -50,10 +73,16 @@ const BubbleChats = (props: TypeProps) => {
   }
 
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto px-2">
+    <div 
+      className="flex-1 min-h-0 overflow-y-auto px-2"
+      ref={chatRef}
+      onScroll={handleScroll}
+    >
       <div className="w-full max-w-2xl mx-auto p-2 flex flex-col gap-3">
+        {hasNextPage && loadingBubbleChat(2)}
+
         {isLoading ? (
-        loadingUi()
+          loadingBubbleChat(6)
         ) : (
           data && user?.id && data.map((message: IMessage, i: number) => {
             const isMine = message.senderId === Number(user.id);
