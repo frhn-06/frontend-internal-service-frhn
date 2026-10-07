@@ -1,4 +1,4 @@
-import Dashboard from "@/components/views/Employee/Dashboard";
+import Profile from "@/components/views/Employee/Profile";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 
 export default function EmployeeProfilePage() {
   return (
-    <div>profile</div>
-
+    <Profile />
   )
 }

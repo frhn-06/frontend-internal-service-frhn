@@ -5,6 +5,9 @@ interface IUser {
     password?: string;
     departmentId?: number;
     role?: string;
+    department?: {
+        name?: string;
+    }
 }
 
 interface IRegisterForm extends Omit<IUser, "departmentId" | "role"> {
@@ -17,4 +20,15 @@ interface ILoginForm {
 }
 
 
-export type { IUser, IRegisterForm, ILoginForm };
+interface IUpdateProfileForm {
+    name?: string
+}
+
+interface IUpdatePasswordForm {
+    oldPassword?: string;
+    newPassword?: string;
+    confirmPassword?: string
+}
+
+
+export type { IUser, IRegisterForm, ILoginForm, IUpdateProfileForm, IUpdatePasswordForm };
