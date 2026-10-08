@@ -162,7 +162,10 @@ const Ticket = () => {
           <TableUi 
             renderCell={renderCell}
             data={dataTickets?.data}
+            totalData={dataTickets?.pagination?.total}
             columns={listColumns}
+
+            isKeterangan
 
             textEmpty="daftar ticket kosong"
 

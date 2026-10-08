@@ -88,7 +88,10 @@ const Department = () => {
           <TableUi 
             renderCell={renderCell}
             data={dataDepartments?.data}
+            totalData={dataDepartments?.data}
             columns={listColumns}
+
+            isKeterangan
 
             textEmpty="kosong"
 

@@ -119,7 +119,10 @@ const Category = () => {
           <TableUi 
             renderCell={renderCell}
             data={dataCategories?.data}
+            totalData={dataCategories?.pagination?.total}
             columns={listColumns}
+
+            isKeterangan
 
             textEmpty="kosong"
 

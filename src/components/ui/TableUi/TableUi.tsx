@@ -13,6 +13,9 @@ interface TypeProps {
   ) => React.ReactNode;
   columns: {id: string; label: string}[];
   data: Record<string, unknown>[];
+  totalData?: number;
+
+  isKeterangan?: boolean;
 
   textEmpty: string;
 
@@ -50,7 +53,10 @@ const TableUi = (props: TypeProps) => {
   const {
     renderCell,
     data,
+    totalData,
     columns,
+
+    isKeterangan,
 
     textEmpty,
 
@@ -137,23 +143,30 @@ const TableUi = (props: TypeProps) => {
 
   
   const bottomContent = useMemo(() => {
-    if(isLimit || isPagination) {
+    if(isLimit || isPagination || isKeterangan) {
       return (
-        <div className="flex flex-col lg:flex-row justify-center items-center mt-4 gap-4">
-          {isLimit && (
-            <Limit 
-              currentLimit={`${currentLimit}`}
-              handleLimit={handleLimit}
-            />
+        <div className="mt-4 ">
+          {totalData && isKeterangan && totalPage && totalPage > 1 && (
+            <p className="text-sm lg:text-base mb-2 font-medium text-text-abu">
+              menampilkan {currentLimit} data dari total {totalData}
+            </p>
           )}
+          <div className="flex flex-col lg:flex-row justify-center items-center gap-4">
+            {isLimit && (
+              <Limit 
+                currentLimit={`${currentLimit}`}
+                handleLimit={handleLimit}
+              />
+            )}
 
-          {isPagination && totalPage && (
-            <PaginationUi
-              handlePagination={handlePagination}
-              currentPage={currentPage}
-              totalPage={totalPage}
-            />
-          )}
+            {isPagination && totalPage && totalPage > 1 && (
+              <PaginationUi
+                handlePagination={handlePagination}
+                currentPage={currentPage}
+                totalPage={totalPage}
+              />
+            )}
+          </div>
         </div>
       )
     }

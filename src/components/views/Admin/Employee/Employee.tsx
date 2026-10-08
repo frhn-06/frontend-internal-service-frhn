@@ -87,7 +87,10 @@ const Employee = () => {
           <TableUi 
             renderCell={renderCell}
             data={dataEmployees?.data}
+            totalData={dataEmployees?.pagination?.total}
             columns={listColumns}
+
+            isKeterangan
 
             textEmpty="kosong"
 

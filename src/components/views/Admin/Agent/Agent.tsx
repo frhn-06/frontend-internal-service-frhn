@@ -117,7 +117,10 @@ const Agent = () => {
           <TableUi 
             renderCell={renderCell}
             data={dataAgents?.data}
+            totalData={dataAgents?.pagination?.total}
             columns={listColumns}
+
+            isKeterangan
 
             textEmpty="kosong"
 
