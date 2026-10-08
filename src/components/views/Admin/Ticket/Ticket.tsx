@@ -8,7 +8,6 @@ import { listPriorityTickets, listStatusTickets } from "@/configs/tableConfig";
 import useTicket from "./useTicket";
 import { useSession } from "next-auth/react";
 import { IUser } from "@/types/user";
-import { useParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import socket from "@/libs/socket";
 import listColumns from "./listColumns";
@@ -43,31 +42,18 @@ const Ticket = () => {
   const session = useSession();
   const user = session?.data?.user as IUser;
 
-  const params = useParams();
-  const id = params.id;
-
   const queryClient = useQueryClient();
 
   useEffect(() => {
     const connectSocket = () => {
-      socket.on("all-messages:new", () => {
-        queryClient.invalidateQueries({
-          queryKey: ["count-notification-messages-by-ticket"]
-        })
-      })
       socket.on("notification:new", () => {
         queryClient.invalidateQueries({
           queryKey: ["TicketsAgent"]
         })
       })
     }
-
     connectSocket();
-
-    return () => {
-      socket.off("all-messages:new");
-    }
-  },[queryClient, id])
+  },[queryClient])
 
 
   const renderCell = useCallback((
