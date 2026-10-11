@@ -6,9 +6,12 @@ import { signIn } from "next-auth/react";
 import { useMutation } from "@tanstack/react-query";
 import { useToaster } from "@/contexts/toasterContext";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const useLogin = () => {
     const {setToaster} = useToaster();
+
+    const router = useRouter();
 
     const [disabled, setDisabled] = useState(true);
 
@@ -38,6 +41,7 @@ const useLogin = () => {
             throw new Error("Nama atau email atau password tidak sesuai");
         }
 
+        router.refresh();
         return result;
     }
 

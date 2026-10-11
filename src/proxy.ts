@@ -110,6 +110,23 @@ export const proxy = auth((req) => {
         }
     }
 
+    if(pathName === "/dashboard") {
+        if(accessToken) {
+            if(role && role === "ADMIN") {
+                const url = new URL("/admin/dashboard", req.url);
+                return NextResponse.redirect(url);
+            }
+            if(role && role === "AGENT") {
+                const url = new URL("/agent/dashboard", req.url);
+                return NextResponse.redirect(url);
+            }
+            if(role && role === "EMPLOYEE") {
+                const url = new URL("/employee/dashboard", req.url);
+                return NextResponse.redirect(url);
+            }
+        }
+    }
+
 
     return NextResponse.next();
 })
