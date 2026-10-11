@@ -1,3 +1,4 @@
+import Dashboard from "@/components/views/Admin/Dashboard";
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -10,8 +11,6 @@ export const metadata: Metadata = {
 
 export default function AdminDashboardPage() {
   return (
-    <div className=" h-1000">
-      
-    </div>
+    <Dashboard />
   )
 } 

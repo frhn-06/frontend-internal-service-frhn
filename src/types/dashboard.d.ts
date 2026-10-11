@@ -17,6 +17,27 @@ interface IStatisticsAgent {
     ticketsResolved: number;
 }
 
+interface IStatisticsAdmin {
+    totalTickets: number;
+    ticketsOpen: number;
+    ticketsWaiting: number;
+    ticketsInProgress: number;
+    ticketsResolved: number;
+}
+
+
+interface IAgentInfo {
+    totalAgents: number;
+    activeAgents: number;
+}
+
+interface IDepartmentsChart {
+    id: number;
+    name: string;
+    count: number;
+}
+
+
 
 interface IDashboardEmployee {
     statistics: IStatisticsEmployee;
@@ -33,4 +54,20 @@ interface IDashboardAgent {
 }
 
 
-export type {IDashboardAgent, IDashboardEmployee, IStatisticsAgent, IStatisticsEmployee}
+interface IDashboardAdmin {
+    statistics: IStatisticsAdmin,
+    recentTickets: ITicket[];
+    agentInfo: IAgentInfo,
+    departmentsChart: IDepartmentsChart 
+}
+
+export type {
+    IDashboardAgent, 
+    IDashboardEmployee, 
+    IDashboardAdmin,
+    IStatisticsAgent, 
+    IStatisticsEmployee, 
+    IStatisticsAdmin,
+    IAgentInfo,
+    IDepartmentsChart
+}

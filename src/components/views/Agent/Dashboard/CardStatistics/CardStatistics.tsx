@@ -29,7 +29,7 @@ const CardStatistics = (props: TypeProps) => {
           />
         </p>
 
-        <p className="text-sm lg:text-base font-semibold text-foreground">
+        <p className="text-sm font-semibold text-foreground">
           Semua ticket aktif di department
         </p>
       </div>
@@ -52,7 +52,7 @@ const CardStatistics = (props: TypeProps) => {
           />
         </p>
 
-        <p className="text-sm lg:text-base font-semibold text-foreground">
+        <p className="text-sm font-semibold text-foreground">
           Belum diambil agent
         </p>
       </div>
@@ -75,7 +75,7 @@ const CardStatistics = (props: TypeProps) => {
           />
         </p>
 
-        <p className="text-sm lg:text-base font-semibold text-foreground">
+        <p className="text-sm font-semibold text-foreground">
           Ticket aktif kamu
         </p>
       </div>
@@ -98,7 +98,7 @@ const CardStatistics = (props: TypeProps) => {
           />
         </p>
 
-        <p className="text-sm lg:text-base font-semibold text-foreground">
+        <p className="text-sm font-semibold text-foreground">
           Menunggu respons employee
         </p>
       </div>
@@ -121,7 +121,7 @@ const CardStatistics = (props: TypeProps) => {
           />
         </p>
 
-        <p className="text-sm lg:text-base font-semibold text-foreground">
+        <p className="text-sm font-semibold text-foreground">
           Perlu ditangani lagi
         </p>
       </div>
@@ -140,7 +140,7 @@ const CardStatistics = (props: TypeProps) => {
           />
         </p>
 
-        <p className="text-sm lg:text-base font-semibold text-foreground">
+        <p className="text-sm font-semibold text-foreground">
           Ticket selesai
         </p>
       </div>
