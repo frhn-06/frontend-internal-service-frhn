@@ -33,12 +33,12 @@ body {
   --background: #ffffff;
   --foreground: #333333;
 
-  --background-element: #16A34A;
+  --background-element: #0b993f;
   --background-element-hover: #66BB6A;
 
   --background-element-flat: #C8E6C9;
 
-  --text-element: #16A34A;
+  --text-element: #0b993f;
 
   --abu: #9CA3AF;
 }
@@ -47,12 +47,12 @@ body {
   --background: #0a0a0a;
   --foreground: #ededed;
 
-  --background-element: #16A34A;
+  --background-element: #0b993f;
   --background-element-hover: #66BB6A;
 
   --background-element-flat: #C8E6C9;
 
-  --text-element: #16A34A;
+  --text-element: #0b993f;
 
   --abu: #9CA3AF;
 }

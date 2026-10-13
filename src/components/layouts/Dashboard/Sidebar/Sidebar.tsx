@@ -27,7 +27,7 @@ const Sidebar = (props: TypeProps) => {
 
   return (
     <div>
-      <div className={cn("hidden lg:flex bg-green-50 w-65 h-screen overflow-y-auto border-r-2 border-r-gray-400/30 flex-col transition-all duration-300", toggleSidebarActive && "w-12")}>
+      <div className={cn("hidden lg:flex bg-white w-65 h-screen overflow-y-auto border-r-2 border-r-gray-400/30 flex-col transition-all duration-300", toggleSidebarActive && "w-12")}>
         <div className="min-h-20 p-1">
           <div className="h-full w-full">
             
@@ -82,7 +82,7 @@ const Sidebar = (props: TypeProps) => {
 
 
       <div className={cn(
-        "fixed flex -translate-x-full bg-green-50 w-65 h-screen overflow-y-auto border-r-2 border-r-gray-400/30 flex-col transition-all duration-300 gap-4 z-2",
+        "fixed flex -translate-x-full bg-white w-65 h-screen overflow-y-auto border-r-2 border-r-gray-400/30 flex-col transition-all duration-300 gap-4 z-2",
         toggleSidebarActive && "translate-x-0"
       )}>
         <div className="flex justify-between p-2">

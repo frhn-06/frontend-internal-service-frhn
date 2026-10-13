@@ -130,7 +130,7 @@ const DashboardShell = (props: TypeProps) => {
           </div>
         )}
 
-        <div className="overflow-hidden flex-1 flex flex-col bg-gray-100 dark:bg-gray-900">
+        <div className="overflow-hidden flex-1 flex flex-col bg-blue-50 dark:bg-gray-900">
           <div className="flex-1 overflow-y-auto">
             {children}
           </div>

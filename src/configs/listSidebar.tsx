@@ -1,4 +1,4 @@
-import { Building2, LayoutDashboard, Ticket, Tickets, User, UserRound, Users } from "lucide-react";
+import { Building2, ChartBarStacked, LayoutDashboard, Ticket, Tickets, User, UserRound, UserRoundPen, Users } from "lucide-react";
 
 const listSidebar = {
     admin: [
@@ -35,13 +35,13 @@ const listSidebar = {
         {
             id: "category",
             label: "Categories",
-            icon: <UserRound />,
+            icon: <ChartBarStacked />,
             href: "/admin/category"
         },
         {
             id: "profile",
             label: "Profile",
-            icon: <User />,
+            icon: <UserRoundPen />,
             href: "/admin/profile"
         },
     ],
@@ -62,7 +62,7 @@ const listSidebar = {
         {
             id: "profile",
             label: "Profile",
-            icon: <User />,
+            icon: <UserRoundPen />,
             href: "/agent/profile"
         },
     ],
@@ -83,7 +83,7 @@ const listSidebar = {
         {
             id: "profile",
             label: "Profile",
-            icon: <User />,
+            icon: <UserRoundPen />,
             href: "/employee/profile"
         },
     ]
