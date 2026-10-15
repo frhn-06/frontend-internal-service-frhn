@@ -40,7 +40,7 @@ body {
 
   --text-element: #0b993f;
 
-  --abu: #9CA3AF;
+  --abu: #6B7280;
 }
 
 .dark {
@@ -54,7 +54,7 @@ body {
 
   --text-element: #0b993f;
 
-  --abu: #9CA3AF;
+  --abu: #6B7280;
 }
 
 @theme inline {
@@ -72,6 +72,10 @@ body {
   --color-text-element: var(--text-element);
 
   --color-text-abu: var(--abu)
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
