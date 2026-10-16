@@ -63,15 +63,15 @@ const Header = (props: TypeProps) => {
 
         <div className="flex gap-2 items-center">
           <SquareMenu 
-            className="lg:hidden w-10 h-10 text-text-element" 
+            className="shrink-0 lg:hidden w-10 h-10 text-text-element" 
             onClick={() => setToggleSidebar(!toggleSidebarActive)}
           />
           <div>
             <h1 className="text-lg md:text-xl lg:text-2xl text-foreground font-bold">
-              {header?.title ?? "Internal Service"}
+              {header?.title ?? "HelpDesk"}
             </h1>
             <p className="text-xs md:text-sm lg:text-base text-text-abu font-medium">
-              {header?.description ?? "Internal service application"}
+              {header?.description ?? "Internal service portal detail."}
             </p>
           </div>
         </div>

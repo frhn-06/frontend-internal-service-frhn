@@ -21,8 +21,14 @@ const listSidebar = {
             href: "/admin/department"
         },
         {
+            id: "category",
+            label: "Categories",
+            icon: <ChartBarStacked />,
+            href: "/admin/category"
+        },
+        {
             id: "agents",
-            label: "Agent Management",
+            label: "Agents",
             icon: <Users />,
             href: "/admin/agent"
         },
@@ -31,12 +37,6 @@ const listSidebar = {
             label: "Employees",
             icon: <UserRound />,
             href: "/admin/employee"
-        },
-        {
-            id: "category",
-            label: "Categories",
-            icon: <ChartBarStacked />,
-            href: "/admin/category"
         },
         {
             id: "profile",

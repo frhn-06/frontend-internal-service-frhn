@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { LogOut, X } from "lucide-react";
 import { SetStateAction } from "react";
 import { signOut } from "next-auth/react";
+import Image from "next/image"
 
 interface TypeProps {
   sidebar: Record<string, string | React.ReactNode>[];
@@ -28,10 +29,8 @@ const Sidebar = (props: TypeProps) => {
   return (
     <div>
       <div className={cn("hidden lg:flex bg-white w-65 h-screen overflow-y-auto border-r-2 border-r-gray-400/30 flex-col transition-all duration-300", toggleSidebarActive && "w-12")}>
-        <div className="min-h-20 p-1">
-          <div className="h-full w-full">
-            
-          </div>
+        <div className="h-20 p-2 flex items-center">
+          <Image src={'/images/logo/logo-app-2.png'} alt="logo" height={240} width={240} className="h-full w-auto"/>
         </div>
 
         <div className={cn("hidden lg:block p-2 transition-all duration-300", toggleSidebarActive && "lg:hidden")}>
@@ -86,8 +85,8 @@ const Sidebar = (props: TypeProps) => {
         toggleSidebarActive && "translate-x-0"
       )}>
         <div className="flex justify-between p-2">
-          <div className="w-1/2">
-            
+          <div className="w-1/2 h-10">
+            <Image src={'/images/logo/logo-app-2.png'} alt="logo" height={240} width={240} className="h-full w-auto"/>
           </div>
           <X 
             className="h-10 w-10 text-text-element rounded-full active:bg-black" 
