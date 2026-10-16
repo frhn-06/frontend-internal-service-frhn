@@ -61,11 +61,11 @@ const AddCategory = (props: TypeProps) => {
             <Modal.CloseTrigger />
             <Modal.Header>
               <Modal.Heading>
-                Buat Category
+                Tambah Kategori Layanan
               </Modal.Heading>
 
               <p className="mt-1.5 text-sm leading-5 text-muted">
-                description
+                Buat kategori layanan dan hubungkan dengan departemen yang sesuai agar tiket dapat dikelompokkan dengan tepat.
               </p>
             </Modal.Header>
             <Form className="mt-2" onSubmit={handleSubmit(onAddCategory)}>
@@ -80,12 +80,12 @@ const AddCategory = (props: TypeProps) => {
 
                     <TextField className="w-full" name="name" type="text" variant="secondary">
                       <Label>
-                        Name
+                        Nama Kategori
                       </Label>
                       <Controller control={control} name="name" render={({field}) => (
                         <Input 
                           {...field}
-                          placeholder="Contoh: Internate & Networking"
+                          placeholder="Contoh: Perbaikan Perangkat"
                           className={errors?.name ? "ring-1 ring-red-500" : ""} 
                         />
                       )} />
@@ -98,14 +98,14 @@ const AddCategory = (props: TypeProps) => {
 
                     <TextField className="w-full" name="departmentId" type="text" variant="secondary">
                       <Label>
-                        Department
+                        Departemen
                       </Label>
                       <Controller control={control} name="departmentId" render={({field}) => (
                         <Select
                         aria-label="Department"
                         name={field.name}
                         className={`w-[256px] ${errors?.departmentId && "ring-1 ring-red-500 rounded-xl"}`}
-                        placeholder="Pilih department"
+                        placeholder="Pilih departemen"
                         value={field.value}
                         onChange={(value) => {
                           field.onChange(value);
@@ -142,12 +142,12 @@ const AddCategory = (props: TypeProps) => {
 
                     <TextField className="w-full" name="description" type="text" variant="secondary">
                       <Label>
-                        Description
+                        Deskripsi
                       </Label>
                       <Controller control={control} name="description" render={({field}) => (
                         <TextArea 
                           {...field}
-                          placeholder="Isi deskripsi disini"
+                          placeholder="Jelaskan kegunaan kategori ini"
                           className={errors?.description ? "ring-1 ring-red-500" : ""} 
                         />
                       )} />

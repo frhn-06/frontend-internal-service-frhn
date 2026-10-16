@@ -53,7 +53,7 @@ const DeleteAgent = (props: TypeProps) => {
             </Modal.Header>
             <Modal.Body>
               <p>
-                Anda yakin akan menghapus {`${data.name}`}
+                Apakah Anda yakin ingin menghapus akun agent ini? Tindakan ini tidak dapat dibatalkan.
               </p>
             </Modal.Body>
             <Modal.Footer>

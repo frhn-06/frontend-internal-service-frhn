@@ -185,14 +185,14 @@ const InfoTicket = (props: TypeProps) => {
         <Card className="shadow-xl flex-3 h-fit border">
           <Card.Header className="p-2">
             <h1 className="text-foreground text-xl font-semibold">
-              Ticket Information
+              Informasi Tiket
             </h1>
           </Card.Header>
           <Card.Content className="p-2">
             <div className="flex flex-col gap-2 justify-between">
               <div>
                 <h1 className="text-text-abu font-semibold">
-                  Description
+                  Deskripsi
                 </h1>
                 <p>
                   {data?.description}
@@ -201,7 +201,7 @@ const InfoTicket = (props: TypeProps) => {
 
               <div>
                 <h1 className="text-text-abu font-semibold">
-                  Department
+                  Departemen
                 </h1>
                 <p>
                   {data?.department?.name}
@@ -210,7 +210,7 @@ const InfoTicket = (props: TypeProps) => {
 
               <div>
                 <h1 className="text-text-abu font-semibold">
-                  Category
+                  Kategori Layanan
                 </h1>
                 <p>
                   {data?.category?.name}

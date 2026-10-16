@@ -49,11 +49,11 @@ const DeleteCategory = (props: TypeProps) => {
           <Modal.Dialog className="sm:max-w-[360px]">
             <Modal.CloseTrigger />
             <Modal.Header>
-              <Modal.Heading>Hapus Category</Modal.Heading>
+              <Modal.Heading>Hapus Kategori</Modal.Heading>
             </Modal.Header>
             <Modal.Body>
               <p>
-                Anda yakin akan menghapus kategori {`${data.name}`}
+                Apakah Anda yakin ingin menghapus kategori ini &quot;{`${data.name}`}&quot;? Tindakan ini tidak dapat dibatalkan.
               </p>
             </Modal.Body>
             <Modal.Footer>

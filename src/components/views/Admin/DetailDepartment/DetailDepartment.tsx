@@ -86,10 +86,10 @@ const DetailDepartment = () => {
         <Card className="w-full max-w-xl">
           <Card.Header>
             <h1 className="text-2xl font-bold text-foreground">
-              Edit Department
+              Detail Departemen
             </h1>
             <p className="text-text-abu ">
-              description
+              Lihat dan perbarui informasi departemen.
             </p>
           </Card.Header>
 
@@ -103,11 +103,13 @@ const DetailDepartment = () => {
                 )}
 
                 <TextField name="name" type="text">
-                  <Label>Nama</Label>
+                  <Label>
+                    Nama Departemen
+                  </Label>
                   <Controller control={control} name="name" render={({field}) => (
                     <Input 
                       {...field}
-                      placeholder="Contoh: Department Finance" 
+                      placeholder="Contoh: IT Support" 
                       variant="secondary"
                       className={errors?.name ? "ring-1 ring-red-500" : ""} 
                     />

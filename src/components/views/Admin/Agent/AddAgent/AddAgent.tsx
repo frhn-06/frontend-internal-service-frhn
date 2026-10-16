@@ -65,11 +65,11 @@ const AddAgent = (props: TypeProps) => {
             <Modal.CloseTrigger />
             <Modal.Header>
               <Modal.Heading>
-                Buat Agent
+                Tambah Agent
               </Modal.Heading>
 
               <p className="mt-1.5 text-sm leading-5 text-muted">
-                description
+                Buat akun agent baru dan tentukan departemen tempat agent bertugas menangani tiket.
               </p>
             </Modal.Header>
             <Form className="mt-2" onSubmit={handleSubmit(onAddAgent)}>
@@ -84,12 +84,12 @@ const AddAgent = (props: TypeProps) => {
 
                     <TextField className="w-full" name="name" type="text" variant="secondary">
                       <Label>
-                        Name
+                        Nama Lengkap
                       </Label>
                       <Controller control={control} name="name" render={({field}) => (
                         <Input 
                           {...field}
-                          placeholder="Contoh: Agus Setiawan"
+                          placeholder="Masukkan nama lengkap agent"
                           className={errors?.name ? "ring-1 ring-red-500" : ""} 
                         />
                       )} />
@@ -107,7 +107,7 @@ const AddAgent = (props: TypeProps) => {
                       <Controller control={control} name="email" render={({field}) => (
                         <Input 
                           {...field}
-                          placeholder="Contoh: agussetiawan@gmail.com"
+                          placeholder="Masukkan email aktif agent"
                           className={errors?.email ? "ring-1 ring-red-500" : ""} 
                         />
                       )} />
@@ -120,14 +120,14 @@ const AddAgent = (props: TypeProps) => {
                     
                     <TextField className="w-full" name="departmentId" type="text" variant="secondary">
                       <Label>
-                        Department
+                        Departemen
                       </Label>
                       <Controller control={control} name="departmentId" render={({field}) => (
                         <Select
                           aria-label="Department"
                           name={field.name}
                           className={`w-[256px] ${errors?.departmentId && "ring-1 ring-red-500 rounded-xl"}`}
-                          placeholder="Select a department"
+                          placeholder="Pilih departemen agent"
                           value={field.value}
                           onChange={(value) => {
                             field.onChange(value);
@@ -166,14 +166,16 @@ const AddAgent = (props: TypeProps) => {
                       name="password" 
                       type={disabled ? "password" : "text"} 
                     >
-                      <Label>Password</Label>
+                      <Label>
+                        Password
+                      </Label>
                       <div className="relative">
                       <Controller 
                         name="password" 
                         control={control} 
                           render={({field}) => (
                             <Input {...field} 
-                              placeholder="****" 
+                              placeholder="Buat password untuk akun agent" 
                               variant="secondary"
                               fullWidth
                               className={errors?.password ? "ring-1 ring-red-500" : ""}

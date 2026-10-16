@@ -22,23 +22,23 @@ const TakeTicket = (props: TypeProps) => {
   return (
     <Modal>
       <ButtonSolid isDisabled={isPendingTakeTicket}>
-        {isPendingTakeTicket ? "Loading..." : "Take"}
+        {isPendingTakeTicket ? "Mengambil Tiket..." : "Ambil Tiket"}
       </ButtonSolid>
       <Modal.Backdrop>
         <Modal.Container>
           <Modal.Dialog className="sm:max-w-[360px]">
             <Modal.CloseTrigger />
             <Modal.Header>
-              <Modal.Heading>Take Ticket</Modal.Heading>
+              <Modal.Heading>Ambil Tiket</Modal.Heading>
             </Modal.Header>
             <Modal.Body>
               <p>
-                Anda yakin akan mangambil ticket ini ({data?.title})
+                Apakah Anda yakin ingin mengambil tiket ini &quot;{data?.title}&quot; untuk ditangani?
               </p>
             </Modal.Body>
             <Modal.Footer>
               <ButtonSolid fullWidth isDisabled={isPendingTakeTicket} onPress={onTake}>
-                {isPendingTakeTicket ? "Loading..." : "Take"}
+                {isPendingTakeTicket ? "Mengambil Tiket..." : "Ambil Tiket"}
               </ButtonSolid>
             </Modal.Footer>
           </Modal.Dialog>

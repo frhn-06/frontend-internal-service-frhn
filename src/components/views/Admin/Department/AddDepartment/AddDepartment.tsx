@@ -56,11 +56,11 @@ const AddDepartment = (props: TypeProps) => {
             <Modal.CloseTrigger />
             <Modal.Header>
               <Modal.Heading>
-                Buat Department
+                Tambah Departemen
               </Modal.Heading>
 
               <p className="mt-1.5 text-sm leading-5 text-muted">
-                description
+                Tambahkan departemen baru untuk mengelompokkan layanan dan penugasan agent di perusahaan.
               </p>
             </Modal.Header>
             <Form className="mt-2" onSubmit={handleSubmit(onAddDepartment)}>
@@ -75,12 +75,12 @@ const AddDepartment = (props: TypeProps) => {
 
                     <TextField className="w-full" name="name" type="text" variant="secondary">
                       <Label>
-                        Name
+                        Nama Departemen
                       </Label>
                       <Controller control={control} name="name" render={({field}) => (
                         <Input 
                           {...field}
-                          placeholder="Contoh: Department Finance"
+                          placeholder="Contoh: IT Support"
                           className={errors?.name ? "ring-1 ring-red-500" : ""} 
                         />
                       )} />

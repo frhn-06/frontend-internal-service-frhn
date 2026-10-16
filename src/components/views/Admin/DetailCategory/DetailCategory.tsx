@@ -101,10 +101,10 @@ const DetailCategory = () => {
         <Card className="w-full max-w-xl">
           <Card.Header>
             <h1 className="text-2xl font-bold text-foreground">
-              Edit Category
+              Detail Kategori Layanan
             </h1>
             <p className="text-text-abu ">
-              description
+              Lihat dan perbarui informasi kategori serta departemen terkait.
             </p>
           </Card.Header>
 
@@ -118,11 +118,13 @@ const DetailCategory = () => {
                 )}
 
                 <TextField name="name" type="text">
-                  <Label>Nama</Label>
+                  <Label>
+                    Nama Kategori
+                  </Label>
                   <Controller control={control} name="name" render={({field}) => (
                     <Input 
                       {...field}
-                      placeholder="Contoh: Recruitment" 
+                      placeholder="Contoh: Perbaikan Perangkat" 
                       variant="secondary"
                       className={errors?.name ? "ring-1 ring-red-500" : ""} 
                     />
@@ -137,14 +139,14 @@ const DetailCategory = () => {
 
                 <TextField className="w-full" name="departmentId" type="text" variant="secondary">
                   <Label>
-                    Department
+                    Departemen
                   </Label>
                   <Controller control={control} name="departmentId" render={({field}) => (
                     <Select
                       aria-label="Department"
                       name={field.name}
                       className={`w-[256px] ${errors?.departmentId && "ring-1 ring-red-500 rounded-xl"}`}
-                      placeholder="Select a department"
+                      placeholder="Pilih departemen"
                       value={field.value}
                       onChange={(value) => {
                         field.onChange(value);
@@ -181,12 +183,14 @@ const DetailCategory = () => {
 
 
                 <TextField name="descrption" type="text">
-                  <Label>Description</Label>
+                  <Label>
+                    Deskripsi
+                  </Label>
                   <Controller control={control} name="description" render={({field}) => (
                     <TextArea 
                       {...field}
                       value={field.value ?? ""}
-                      placeholder="Isi Deskripsi disini" 
+                      placeholder="Jelaskan kegunaan kategori ini" 
                       variant="secondary"
                       className={errors?.description ? "ring-1 ring-red-500" : ""} 
                     />

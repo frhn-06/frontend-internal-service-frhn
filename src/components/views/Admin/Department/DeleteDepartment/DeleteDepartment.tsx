@@ -49,11 +49,11 @@ const DeleteDepartment = (props: TypeProps) => {
           <Modal.Dialog className="sm:max-w-[360px]">
             <Modal.CloseTrigger />
             <Modal.Header>
-              <Modal.Heading>Hapus Depertment</Modal.Heading>
+              <Modal.Heading>Hapus Departemen</Modal.Heading>
             </Modal.Header>
             <Modal.Body>
               <p>
-                Anda yakin akan menghapus {`${data.name}`}
+                Apakah Anda yakin ingin menghapus departemen ini &quot;{`${data.name}`}&quot;? Pastikan tidak ada data terkait yang menghalangi penghapusan.
               </p>
             </Modal.Body>
             <Modal.Footer>

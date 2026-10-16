@@ -101,10 +101,10 @@ const DetailAgent = () => {
         <Card className="w-full max-w-xl">
           <Card.Header>
             <h1 className="text-2xl font-bold text-foreground">
-              Edit Agent
+              Detail Agent
             </h1>
             <p className="text-text-abu ">
-              description
+              Lihat dan perbarui informasi akun serta penempatan departemen agent.
             </p>
           </Card.Header>
 
@@ -118,11 +118,13 @@ const DetailAgent = () => {
                 )}
 
                 <TextField name="name" type="text">
-                  <Label>Nama</Label>
+                  <Label>
+                    Nama Lengkap
+                  </Label>
                   <Controller control={control} name="name" render={({field}) => (
                     <Input 
                       {...field}
-                      placeholder="Contoh: Agus Saputra" 
+                      placeholder="Masukkan nama lengkap agent" 
                       variant="secondary"
                       className={errors?.name ? "ring-1 ring-red-500" : ""} 
                     />
@@ -135,11 +137,13 @@ const DetailAgent = () => {
                 </TextField>
 
                 <TextField name="email" type="email">
-                  <Label>Email</Label>
+                  <Label>
+                    Email
+                  </Label>
                   <Controller control={control} name="email" render={({field}) => (
                     <Input 
                       {...field}
-                      placeholder="Contoh: agus@gmail.com" 
+                      placeholder="Masukkan email aktif agent" 
                       variant="secondary"
                       className={errors?.email ? "ring-1 ring-red-500" : ""} 
                     />
@@ -154,14 +158,14 @@ const DetailAgent = () => {
 
                 <TextField className="w-full" name="departmentId" type="text" variant="secondary">
                   <Label>
-                    Department
+                    Departemen
                   </Label>
                   <Controller control={control} name="departmentId" render={({field}) => (
                     <Select
                       aria-label="Department"
                       name={field.name}
                       className={`w-[256px] ${errors?.departmentId && "ring-1 ring-red-500 rounded-xl"}`}
-                      placeholder="Select a department"
+                      placeholder="Pilih departemen agent"
                       value={field.value}
                       onChange={(value) => {
                         field.onChange(value);
