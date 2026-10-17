@@ -3,7 +3,7 @@ import { IUser } from "@/types/user"
 import Header from "./Header"
 import Sidebar from "./Sidebar"
 import listSidebar from "@/configs/listSidebar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import cn from "@/utils/cn";
 import { CustomSession } from "@/libs/axios";
 import { getSession } from "next-auth/react";
@@ -39,6 +39,8 @@ const DashboardShell = (props: TypeProps) => {
   const [toggleSidebarActive, settoggleSidebarActive] = useState(false);
 
   const queryClient = useQueryClient();
+
+  const notificationSound = useRef<HTMLAudioElement | null>(null)
   
   useEffect(() => {
     const connectSocket = async () => {
@@ -49,15 +51,22 @@ const DashboardShell = (props: TypeProps) => {
         token: session.accessToken
       }
 
+      notificationSound.current = new Audio("/sounds/notification.mp3");
+      notificationSound.current.volume = 0.5;
+
       socket.on("connect", () => console.log("socket connect on:", socket.id));
 
       socket.on("notification:new", () => {
+        // perbarui query
         queryClient.invalidateQueries({
           queryKey: ["list-notifications"]
         })
         queryClient.invalidateQueries({
           queryKey: ["count-notifications"]
-        })
+        });
+
+        // notifikasi
+        notificationSound.current?.play().catch((error) => console.log("error notification : ", error))
       });
 
       socket.connect();

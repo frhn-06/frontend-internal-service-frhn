@@ -1,7 +1,7 @@
 "use client"
 
 import ButtonSolid from "@/components/ui/Button/ButtonSolid"
-import { Breadcrumbs, Form, TextArea } from "@heroui/react"
+import { Form, TextArea } from "@heroui/react"
 import useMessage from "./useMessage"
 import { useEffect } from "react"
 import { useSession } from "next-auth/react"
@@ -10,17 +10,14 @@ import { Controller } from "react-hook-form"
 import cn from "@/utils/cn"
 import BubbleChats from "./BubbleChats"
 import ModalGenerateAi from "./ModalGenerateAi"
-import Link from "next/link"
 import { useQueryClient } from "@tanstack/react-query"
 import socket from "@/libs/socket"
 import { useParams } from "next/navigation"
-import { ArrowLeft } from "lucide-react"
 
 
 
 const Message = () => {
   const {
-    dataMessages,
     isLoadingMessages,
     isErrorMessages,
     errorMessages,

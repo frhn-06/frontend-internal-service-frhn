@@ -1,14 +1,11 @@
 "use client"
 
-import openingSay from "@/utils/openingsay";
 import useDashboard from "./useDashboard";
-import { useEffect } from "react";
-import socket from "@/libs/socket";
-import { useQueryClient } from "@tanstack/react-query";
 import CardStatistics from "./CardStatistics";
 import Recharts from "./Recharts";
 import AgentInfo from "./AgentInfo";
 import RecentTickets from "./RecentTickets";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   const {
@@ -18,7 +15,6 @@ const Dashboard = () => {
     isErrorDashboard,
     errorDashboard,
 
-    dataUser,
     isLoadingUser,
     isSuccessUser,
     isErrorUser,
@@ -28,20 +24,6 @@ const Dashboard = () => {
 
   const isLoadingFetch = isLoadingUser || isLoadingDashboard;
   const isSuccessFetch = isSuccessUser || isSuccessDashboard;
-
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    const connectSocket = () => {
-      socket.on("notification:new", () => {
-        queryClient.invalidateQueries({
-          queryKey: ["Dashboard-Agent"]
-        })
-      })
-    }
-
-    connectSocket();
-  },[queryClient])
 
 
   return (
