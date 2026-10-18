@@ -69,13 +69,12 @@ const DashboardShell = (props: TypeProps) => {
         });
 
         // notifikasi bunyi
-        notificationSound.current?.play().catch((error) => console.log("error notification : ", error))
-
-        // toaster
-        setToasterNotification({
-          type: "notification",
-          message: "notifikasi muncul"
-        })
+        notificationSound.current?.play().then(() => {
+          setToasterNotification({
+            type: "notification",
+            message: "notifikasi muncul"
+          })
+        }).catch((error) => console.log("error notification : ", error))
       });
 
       socket.connect();
