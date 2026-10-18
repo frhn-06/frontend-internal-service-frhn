@@ -15,7 +15,7 @@ const NotificationToaster = (props: TypeProps) => {
   
 
   return (
-    <div className={cn("fixed top-0 right-1/2 translate-x-1/2 w-full max-w-sm  z-50 min-h-24 p-4 transition-all duration-200", {
+    <div className={cn("fixed top-0 right-1/2 translate-x-1/2 w-full max-w-sm  z-50 min-h-24 p-2 transition-all duration-200", {
       "-translate-y-full" : !active,
       "translate-y-0" : active
     })}>
