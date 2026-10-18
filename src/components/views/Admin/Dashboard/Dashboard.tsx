@@ -5,7 +5,6 @@ import CardStatistics from "./CardStatistics";
 import Recharts from "./Recharts";
 import AgentInfo from "./AgentInfo";
 import RecentTickets from "./RecentTickets";
-import { useEffect } from "react";
 
 const Dashboard = () => {
   const {
@@ -24,7 +23,6 @@ const Dashboard = () => {
 
   const isLoadingFetch = isLoadingUser || isLoadingDashboard;
   const isSuccessFetch = isSuccessUser || isSuccessDashboard;
-
 
   return (
     <div className="px-2 py-6 lg:px-6 lg:py-12">

@@ -13,6 +13,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useToasterNotification } from "@/contexts/toasterNotification";
 
 interface TypeProps {
   user: IUser;
@@ -35,6 +36,8 @@ const DashboardShell = (props: TypeProps) => {
     onReadNotification,
     isSuccessReadNotification
   } = useDashboard();
+
+  const {setToasterNotification} = useToasterNotification();
 
   const [toggleSidebarActive, settoggleSidebarActive] = useState(false);
 
@@ -65,8 +68,14 @@ const DashboardShell = (props: TypeProps) => {
           queryKey: ["count-notifications"]
         });
 
-        // notifikasi
+        // notifikasi bunyi
         notificationSound.current?.play().catch((error) => console.log("error notification : ", error))
+
+        // toaster
+        setToasterNotification({
+          type: "notification",
+          message: "notifikasi muncul"
+        })
       });
 
       socket.connect();

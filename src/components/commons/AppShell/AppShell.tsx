@@ -1,12 +1,16 @@
 "use client";
 
+import NotificationToaster from "@/components/ui/Toaster/NotificationToaster";
 import SmallToaster from "@/components/ui/Toaster/SmallToaster/SmallToaster";
 import { useToaster } from "@/contexts/toasterContext";
+import { useToasterNotification } from "@/contexts/toasterNotification";
 import { useEffect } from "react";
 
 const AppShell = ({ children }: { children: React.ReactNode }) => {
 
   const {toaster, setToaster} = useToaster();
+
+  const {toasterNotification, setToasterNotification} = useToasterNotification();
 
 
   useEffect(() => {
@@ -23,6 +27,20 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
 
   }, [toaster])
 
+
+  useEffect(() => {
+    if(!toasterNotification?.type) return;
+
+    const timeOut = setTimeout(() => {
+      setToasterNotification({
+        type: "",
+        message: ""
+      })
+    }, 1400)
+
+    return () => clearTimeout(timeOut)
+  }, [toasterNotification])
+
   return (
     <div className="relative">
       {children}
@@ -30,6 +48,12 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
       {toaster?.type && typeof toaster?.type === "string" && (
         <SmallToaster type={toaster.type} message={toaster.message} />
       )}
+
+      <NotificationToaster 
+        type={toasterNotification?.type || ""} 
+        message={toasterNotification?.message || ""}
+        active={Boolean(toasterNotification?.type)}
+      />
     </div>
   )
 }

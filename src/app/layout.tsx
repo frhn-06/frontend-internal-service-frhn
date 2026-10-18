@@ -5,6 +5,7 @@ import QueryProvider from "@/providers/QueryProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import { ToasterProvider } from "@/contexts/toasterContext";
 import AppShell from "@/components/commons/AppShell/AppShell";
+import { ToasterNotificationProvider } from "@/contexts/toasterNotification";
 
 
 const inter = Inter({
@@ -34,11 +35,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className={`min-h-full flex flex-col `}>
         <AuthProvider>
           <QueryProvider>
-            <ToasterProvider>
-              <AppShell>
-                {children}
-              </AppShell>
-            </ToasterProvider>
+            <ToasterNotificationProvider>
+              <ToasterProvider>
+                <AppShell>
+                  {children}
+                </AppShell>
+              </ToasterProvider>
+            </ToasterNotificationProvider>
           </QueryProvider>
         </AuthProvider>
       </body>
