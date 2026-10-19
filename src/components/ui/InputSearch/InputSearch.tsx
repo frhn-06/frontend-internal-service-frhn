@@ -37,7 +37,7 @@ const InputSearch = (props: TypeProps) => {
   }
 
   return (
-    <div className={"relative w-full max-w-80 rounded-2xl border-3 border-gray-500" +  className}>
+    <div className={"relative w-full max-w-80 mt-auto rounded-2xl border-3 border-gray-500" +  className}>
       <Input 
         aria-label="Search" 
         fullWidth
