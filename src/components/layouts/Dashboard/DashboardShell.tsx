@@ -67,15 +67,18 @@ const DashboardShell = (props: TypeProps) => {
         queryClient.invalidateQueries({
           queryKey: ["count-notifications"]
         });
-
-        // notifikasi bunyi
-        notificationSound.current?.play().then(() => {
-          setToasterNotification({
-            type: "notification",
-            message: "notifikasi muncul"
-          })
-        }).catch((error) => console.log("error notification : ", error))
       });
+
+      socket.on("toast:new", (data) => {
+        // notifikasi bunyi
+        notificationSound.current?.play().then().catch((error) => console.log("error notification : ", error));
+
+        setToasterNotification({
+          type: data.type,
+          title: data.title,
+          description: data.description
+        })
+      })
 
       socket.connect();
     }
@@ -85,6 +88,7 @@ const DashboardShell = (props: TypeProps) => {
     return () => {
       socket.off("connect");
       socket.off("notification:new");
+      socket.off("toast:new")
       socket.disconnect();
     }
   }, [queryClient])

@@ -4,7 +4,8 @@ import { createContext, useContext, useState } from "react";
 
 interface IToasterNotification {
     type: string;
-    message: string
+    title: string;
+    description: string
 }
 
 interface ToasterContextType {
@@ -14,7 +15,8 @@ interface ToasterContextType {
 const toasterNotificationContext = createContext<ToasterContextType>({
     toasterNotification: {
         type: "",
-        message: ""
+        title: "",
+        description: ""
     },
     setToasterNotification: () => {}
 })

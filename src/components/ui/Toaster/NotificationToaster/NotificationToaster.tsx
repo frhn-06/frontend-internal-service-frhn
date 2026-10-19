@@ -2,14 +2,16 @@ import cn from "@/utils/cn";
 import { BellRing, MessageCircle } from "lucide-react";
 
 interface TypeProps {
-  type?: string;
-  message?: string;
-  active?: boolean; 
+  type: string;
+  description: string;
+  active?: boolean;
+  title: string; 
 }
 const NotificationToaster = (props: TypeProps) => {
   const {
     type = "notification",
-    message = "ada notifikasi terbaru masuk",
+    title,
+    description = "ada notifikasi terbaru masuk",
     active
   } = props
   
@@ -29,10 +31,10 @@ const NotificationToaster = (props: TypeProps) => {
         </div>
         <div>
           <p className="text-sm lg:text-base font-medium text-text-abu line-clamp-1">
-            {type === "notification" ? "Notifikasi Masuk" : "Pesan Masuk"}
+            {title}
           </p>
           <p className="text-sm lg:text-base font-medium text-foreground line-clamp-1">
-            {message}
+            {description}
           </p>
         </div>
       </div>

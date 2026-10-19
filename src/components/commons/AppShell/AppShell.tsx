@@ -34,7 +34,8 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
     const timeOut = setTimeout(() => {
       setToasterNotification({
         type: "",
-        message: ""
+        title: "",
+        description: ""
       })
     }, 1400)
 
@@ -50,8 +51,9 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
       )}
 
       <NotificationToaster 
-        type={toasterNotification?.type || ""} 
-        message={toasterNotification?.message || ""}
+        type={toasterNotification?.type || ""}
+        title={toasterNotification?.title || ""}
+        description={toasterNotification?.description || ""}
         active={Boolean(toasterNotification?.type)}
       />
     </div>
