@@ -100,6 +100,7 @@ const Message = () => {
             fetchNextPage={fetchNextPage}
             hasNextPage={hasNextPage}
             isFetchingNextPage={isFetchingNextPage}
+            assignedAt={dataTicketMessage?.assignedAt}
           />
 
 

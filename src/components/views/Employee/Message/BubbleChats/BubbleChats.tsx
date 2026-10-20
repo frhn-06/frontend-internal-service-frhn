@@ -1,6 +1,7 @@
 import { IMessage } from "@/types/message";
 import { IUser } from "@/types/user";
 import cn from "@/utils/cn";
+import convert from "@/utils/convert.";
 import setTimeMessage from "@/utils/timemessage";
 import { Avatar, Skeleton } from "@heroui/react";
 import { User } from "lucide-react";
@@ -13,6 +14,7 @@ interface TypeProps {
   fetchNextPage: () => void;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
+  assignedAt: string | undefined;
 }
 
 const BubbleChats = (props: TypeProps) => {
@@ -23,6 +25,7 @@ const BubbleChats = (props: TypeProps) => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    assignedAt
   } = props;
 
   const chatRef = React.useRef<HTMLDivElement>(null);
@@ -78,7 +81,19 @@ const BubbleChats = (props: TypeProps) => {
       ref={chatRef}
       onScroll={handleScroll}
     >
+      {/* pembuka chat */}
+      {!isLoading && data && !hasNextPage && assignedAt && (
+        <div className="p-4 flex justify-center items-center">
+          <div className="p-4 rounded-2xl bg-gray-100">
+            <p className="text-center text-text-abu text-xs lg:text-sm italic">
+              Tiket diambil pada {convert.dateToLocal(`${assignedAt}`)}
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="w-full p-2 flex flex-col gap-3">
+        {/* loding pagination scroll */}
         {hasNextPage && loadingBubbleChat(2)}
 
         {isLoading ? (

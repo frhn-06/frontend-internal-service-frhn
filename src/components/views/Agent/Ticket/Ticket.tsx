@@ -29,7 +29,6 @@ const Ticket = () => {
 
     dataTickets,
     isLoadingTickets,
-    isRefetchingTickets,
     refetchTickets,
     isErrorTickets,
     errorTickets,
