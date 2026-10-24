@@ -32,7 +32,7 @@ const Navbar = (props: TypeProps) => {
   return (
     <div className="z-99">
       {/* when not scrolling */}
-      <div className="z-99 w-full min-h-18 max-h-24 py-4 px-4 bg-blue-50/50">
+      <div className="z-99 w-full min-h-18 max-h-24 py-4 px-4 absolute top-0">
         <div className={cn("w-full h-full max-w-6xl mx-auto justify-between", {"flex" : !isScrollActive, "hidden" : isScrollActive})}>
           <div className="flex gap-4">
             <div className="w-16 p-1">
@@ -40,10 +40,10 @@ const Navbar = (props: TypeProps) => {
             </div>
 
             <div className="h-full flex flex-col justify-center">
-              <h1 className="font-bold text-xl text-text-element">
+              <h1 className="font-bold text-xl text-green-400">
                 {nameApp}
               </h1>
-              <p className="text-text-abu">
+              <p className="text-gray-300">
                 internal service
               </p>
             </div>

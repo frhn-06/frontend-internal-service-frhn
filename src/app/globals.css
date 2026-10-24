@@ -83,3 +83,19 @@ body {
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
 }
+
+@keyframes asu {
+  0%, 100%{
+    transform: translateY(4%);
+    animation-timing-function: cubic-bezier(.62,.23,.42,.78);
+  }
+
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(.62,.23,.42,.78);
+  }
+}
+
+.Animasi-logo-hero {
+  animation: asu 3s infinite;
+}
