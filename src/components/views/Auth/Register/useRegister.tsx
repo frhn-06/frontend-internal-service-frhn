@@ -69,7 +69,7 @@ const useRegister = () => {
         })
         reset();
         console.log("ok")
-        router.push("/")
+        router.push("/auth/login")
     }
 
     const { mutate, isPending, isSuccess} = useMutation({

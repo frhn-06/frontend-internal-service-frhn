@@ -14,6 +14,12 @@ export const proxy = auth((req) => {
     
     const pathName = req.nextUrl.pathname;
 
+    
+    if(pathName === "/" && accessToken) {
+        const url = new URL("/dashboard", req.url);
+        return NextResponse.redirect(url)
+    }
+
 
     if(pathName.startsWith("/admin") || pathName.startsWith("/agent") || pathName.startsWith("/employee")) {
         if(!accessToken) {
@@ -135,6 +141,7 @@ export const proxy = auth((req) => {
 
 export const config = {
   matcher: [
+    "/",
     "/admin/:path*",
     "/agent/:path*",
     "/employee/:path*",
