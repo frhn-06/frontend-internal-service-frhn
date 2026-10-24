@@ -13,7 +13,6 @@ import ModalGenerateAi from "./ModalGenerateAi"
 import { useQueryClient } from "@tanstack/react-query"
 import socket from "@/libs/socket"
 import { useParams } from "next/navigation"
-import { data } from "motion/react-client"
 
 
 
@@ -110,7 +109,7 @@ const Message = () => {
             fetchNextPage={fetchNextPage}
             hasNextPage={hasNextPage}
             isFetchingNextPage={isFetchingNextPage}
-            assignedAt={dataTicketMessage.assignedAt}
+            assignedAt={dataTicketMessage?.assignedAt}
           />
 
           <div className="px-4 py-2">

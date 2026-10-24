@@ -41,8 +41,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const result = await response.json();
 
-        console.log("LOGIN BACKEND:", result);
-
         if (!response.ok) return null;
 
         const accessToken = result.data;
