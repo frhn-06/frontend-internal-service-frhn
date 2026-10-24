@@ -5,6 +5,7 @@ import useRegister from "./useRegister";
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image"
+import cn from "@/utils/cn";
 
 const Register = () => { 
   const {
@@ -55,7 +56,7 @@ const Register = () => {
       <div className="w-full lg:w-1/2 flex items-center justify-center px-4 py-10">
         <Card className="w-full max-w-md shadow-lg shadow-text-element/40">
           <Card.Header>
-            <Card.Title className="text-2xl font-bold mb-2 text-text-element">
+            <Card.Title className="text-xl lg:text-2xl font-bold mb-2 text-text-element">
               Create Account
             </Card.Title>
             <Card.Description className="text-sm text-gray-500">
@@ -75,7 +76,7 @@ const Register = () => {
                 )}
 
                 <TextField name="name" type="text">
-                  <Label>Nama Lengkap</Label>
+                  <Label className="text-sm lg:text-base">Nama Lengkap</Label>
                   <Controller 
                     name="name" 
                     control={control} 
@@ -83,7 +84,7 @@ const Register = () => {
                       <Input {...field} 
                         placeholder="Masukkan nama lengkap" 
                         variant="secondary"
-                        className={errors?.name ? "ring-1 ring-red-500" : ""}
+                        className={cn("text-sm lg:text-base", errors?.name ? "ring-1 ring-red-500" : "")}
                       />
                     )}
                   />
@@ -95,7 +96,7 @@ const Register = () => {
                 </TextField>
 
                 <TextField name="email" type="text">
-                  <Label>Email</Label>
+                  <Label className="text-sm lg:text-base">Email</Label>
                   <Controller 
                     name="email" 
                     control={control} 
@@ -103,7 +104,7 @@ const Register = () => {
                       <Input {...field} 
                         placeholder="Masukkan email aktif" 
                         variant="secondary"
-                        className={errors?.email ? "ring-1 ring-red-500" : ""}
+                        className={cn("text-sm lg:text-base", errors?.email ? "ring-1 ring-red-500" : "")}
                       />
                     )}
                   />
@@ -115,7 +116,7 @@ const Register = () => {
                 </TextField>
 
                 <TextField name="password" type={disabled.password ? "password" : "text"} >
-                  <Label>Password</Label>
+                  <Label className="text-sm lg:text-base">Password</Label>
                   <div className="relative">
                   <Controller 
                     name="password" 
@@ -125,7 +126,7 @@ const Register = () => {
                           placeholder="Buat password"
                           variant="secondary"
                           fullWidth
-                          className={errors?.password ? "ring-1 ring-red-500" : ""}
+                          className={cn("text-sm lg:text-base", errors?.password ? "ring-1 ring-red-500" : "")}
                         />
                       )} 
                   />
@@ -146,7 +147,7 @@ const Register = () => {
 
 
                 <TextField name="confirmPassword" type={disabled.confirmPassword ? "password" : "text"} >
-                  <Label>Konfirmasi Password</Label>
+                  <Label className="text-sm lg:text-base">Konfirmasi Password</Label>
                   <div className="relative">
                   <Controller 
                     name="confirmPassword" 
@@ -156,7 +157,7 @@ const Register = () => {
                           placeholder="Konfirmasi password"
                           variant="secondary"
                           fullWidth
-                          className={errors?.confirmPassword ? "ring-1 ring-red-500" : ""}
+                          className={cn("text-sm lg:text-base", errors?.confirmPassword ? "ring-1 ring-red-500" : "")}
                         />
                       )} 
                   />

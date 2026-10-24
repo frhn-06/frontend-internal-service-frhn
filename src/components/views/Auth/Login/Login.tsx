@@ -7,6 +7,7 @@ import { Eye, EyeOff } from "lucide-react";
 import ButtonSolid from "@/components/ui/Button/ButtonSolid";
 import Link from "next/link";
 import Image from "next/image"
+import cn from "@/utils/cn";
 
 const Login = () => {
   const {
@@ -54,7 +55,7 @@ const Login = () => {
       <div className="w-full lg:w-1/2 flex items-center justify-center px-4 py-10">
         <Card className="w-full max-w-md shadow-lg shadow-text-element/40">
           <Card.Header>
-            <Card.Title className="text-2xl font-bold mb-2 text-text-element">
+            <Card.Title className="text-xl lg:text-2xl font-bold mb-2 text-text-element">
               Sign In
             </Card.Title>
             <Card.Description className="text-sm text-gray-500">
@@ -74,7 +75,7 @@ const Login = () => {
                 )}
                       
                 <TextField name="email" type="text">
-                  <Label>Email / Name</Label>
+                  <Label className="text-sm lg:text-base">Email / Name</Label>
                   <Controller 
                     name="identifier" 
                     control={control} 
@@ -82,7 +83,7 @@ const Login = () => {
                       <Input {...field} 
                         placeholder="Agus@gmail.com / Agus" 
                         variant="secondary"
-                        className={errors?.identifier ? "ring-1 ring-red-500" : ""}
+                        className={cn("text-sm lg:text-base", errors?.identifier ? "ring-1 ring-red-500" : "")}
                       />
                     )}
                   />
@@ -94,7 +95,7 @@ const Login = () => {
                 </TextField>
                           
                 <TextField name="password" type={disabled ? "password" : "text"}>
-                  <Label>Password</Label>
+                  <Label className="text-sm lg:text-base">Password</Label>
                   <div className="relative">
                   <Controller 
                     name="password" 
@@ -104,8 +105,8 @@ const Login = () => {
                           placeholder="****" 
                           variant="secondary"
                           fullWidth
-                          className={errors?.password ? "ring-1 ring-red-500" : ""}
-                        />
+                          className={cn("text-sm lg:text-base", errors?.identifier ? "ring-1 ring-red-500" : "")}
+                          />
                       )} 
                   />
                     <button
@@ -132,7 +133,7 @@ const Login = () => {
                 {isPending ? "Memuat..." : "Sign In"}
               </ButtonSolid>
                       
-              <p className="text-center text-sm">
+              <p className="text-center text-sm ">
                 Belum punya akun? <Link href="/auth/register" className="text-text-element font-semibold">
                   Register
                 </Link>
