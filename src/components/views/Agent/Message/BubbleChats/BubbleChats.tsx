@@ -46,8 +46,10 @@ const BubbleChats = (props: TypeProps) => {
     if(e.currentTarget.scrollTop === 0 && hasNextPage && !isFetchingNextPage) {
       const oldScrollHeight = e.currentTarget.scrollHeight;
       const oldScrollTop = e.currentTarget.scrollTop;
+      // request next page
       await fetchNextPage();
 
+      // atur posisi pasca request
       requestAnimationFrame(() => {
         if(chatRef.current) {
           const newScrollHeight = chatRef.current.scrollHeight;
